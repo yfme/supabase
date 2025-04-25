@@ -1,24 +1,24 @@
 ---
 id: 'functions-debugging-tools'
-title: 'Local Debugging with DevTools'
-description: 'How to use Chrome DevTools to debug Edge Functions.'
-subtitle: 'How to use Chrome DevTools to debug Edge Functions.'
+title: '使用 DevTools 进行本地调试'
+description: '如何使用 Chrome DevTools 调试边缘函数。'
+subtitle: '如何使用 Chrome DevTools 调试边缘函数。'
 tocVideo: 'sOrtcoKg5zQ'
 ---
 
-Since [v1.171.0](https://github.com/supabase/cli/releases/tag/v1.171.0) the Supabase CLI supports debugging Edge Functions via the v8 inspector protocol, allowing for debugging via [Chrome DevTools](https://developer.chrome.com/docs/devtools/) and other Chromium-based browsers.
+自 [v1.171.0](https://github.com/supabase/cli/releases/tag/v1.171.0) 版本起，Supabase CLI 支持通过 v8 检查器协议调试边缘函数，允许通过 [Chrome DevTools](https://developer.chrome.com/docs/devtools/) 和其他基于 Chromium 的浏览器进行调试。
 
-### Inspect with Chrome Developer Tools
+### 使用 Chrome 开发者工具进行检查
 
-You can use the [Chrome DevTools](https://developer.chrome.com/docs/devtools/) to set breakpoints and inspect the execution of your Edge Functions.
+您可以使用 [Chrome DevTools](https://developer.chrome.com/docs/devtools/) 设置断点并检查边缘函数的执行情况。
 
-1. Serve your functions in [inspect mode](/docs/reference/cli/supabase-functions-serve): `supabase functions serve --inspect-mode brk`. This will set a breakpoint at the first line to pause script execution before any code runs.
-1. In your Chrome browser navigate to `chrome://inspect`.
-1. Click the "Configure..."" button to the right of the Discover network targets checkbox.
-1. In the Target discovery settings dialog box that opens, enter `127.0.0.1:8083` in the blank space and click the "Done" button to exit the dialog box.
-1. Click "Open dedicated DevTools for Node" to complete the preparation for debugging. The opened DevTools window will now listen to any incoming requests to edge-runtime.
-1. Send a request to your function running locally, e.g. via curl or Postman. The DevTools window will now pause script execution at first line.
-1. In the "Sources" tab navigate to `file://` > `home/deno/functions/<your-function-name>/index.ts`.
-1. Use the DevTools to set breakpoints and inspect the execution of your Edge Function.
+1. 在 [检查模式](/docs/reference/cli/supabase-functions-serve) 下运行您的函数：`supabase functions serve --inspect-mode brk`。这将在第一行设置断点，在任何代码运行之前暂停脚本执行。
+1. 在您的 Chrome 浏览器中导航到 `chrome://inspect`。
+1. 点击"发现网络目标"复选框右侧的"配置..."按钮。
+1. 在打开的目标发现设置对话框中，在空白处输入 `127.0.0.1:8083`，然后点击"完成"按钮退出对话框。
+1. 点击"为 Node 打开专用 DevTools"以完成调试准备。打开的 DevTools 窗口现在将监听 edge-runtime 的任何传入请求。
+1. 向您本地运行的函数发送请求，例如通过 curl 或 Postman。DevTools 窗口现在将在第一行暂停脚本执行。
+1. 在"Sources"选项卡中导航到 `file://` > `home/deno/functions/<您的函数名称>/index.ts`。
+1. 使用 DevTools 设置断点并检查边缘函数的执行情况。
 
-![Debugging in Chrome DevTools.](/docs/img/guides/functions/debug-chrome-devtools.png)
+![在 Chrome DevTools 中调试。](/docs/img/guides/functions/debug-chrome-devtools.png)

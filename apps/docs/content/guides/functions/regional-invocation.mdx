@@ -1,22 +1,22 @@
 ---
 id: 'function-regional-invocation'
-title: 'Regional Invocations'
-description: 'How to execute an Edge Functions in a particular region.'
-subtitle: 'How to execute an Edge Function in a particular region.'
+title: '区域性调用'
+description: '如何在特定区域执行 Edge Functions。'
+subtitle: '如何在特定区域执行 Edge Function。'
 ---
 
-Edge Functions are executed in the region closest to the user making the request. This helps to reduce network latency and provide faster responses to the user.
+Edge Functions 会在离发出请求的用户最近的区域执行。这有助于减少网络延迟并向用户提供更快的响应。
 
-However, if your Function performs lots of database or storage operations, invoking the Function in the same region as your database may provide better performance. Some situations where this might be helpful include:
+但是，如果您的函数执行大量数据库或存储操作，在与数据库相同的区域调用函数可能会提供更好的性能。以下是一些可能有帮助的情况：
 
-- Bulk adding and editing records in your database
-- Uploading files
+- 批量添加和编辑数据库中的记录
+- 上传文件
 
-Supabase provides an option to specify the region when invoking the Function.
+Supabase 提供了在调用函数时指定区域的选项。
 
-## Using the `x-region` header
+## 使用 `x-region` 标头
 
-Use the `x-region` HTTP header when calling an Edge Function to determine where the Function should be executed:
+调用 Edge Function 时使用 `x-region` HTTP 标头来确定函数应该在哪里执行：
 
 <$CodeTabs>
 
@@ -33,7 +33,7 @@ curl --request POST 'https://<project_ref>.supabase.co/functions/v1/hello-world'
 // https://supabase.com/docs/reference/javascript/installing
 import { createClient } from '@supabase/supabase-js'
 
-// Create a single supabase client for interacting with your database
+// 创建一个 supabase 客户端用于与数据库交互
 const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key')
 
 // https://supabase.com/docs/reference/javascript/functions-invoke
@@ -45,11 +45,11 @@ const { data, error } = await supabase.functions.invoke('hello-world', {
 
 </$CodeTabs>
 
-You can verify the execution region by looking at the `x-sb-edge-region` HTTP header in the response. You can also find it as metadata in [Edge Function Logs](/docs/guides/functions/logging).
+您可以通过查看响应中的 `x-sb-edge-region` HTTP 标头来验证执行区域。您还可以在 [Edge Function 日志](/docs/guides/functions/logging) 中找到它作为元数据。
 
-## Available regions
+## 可用区域
 
-These are the currently supported region values you can provide for `x-region` header.
+以下是您可以为 `x-region` 标头提供的当前支持的区域值。
 
 - `ap-northeast-1`
 - `ap-northeast-2`
@@ -66,9 +66,9 @@ These are the currently supported region values you can provide for `x-region` h
 - `us-west-1`
 - `us-west-2`
 
-## Using the client library
+## 使用客户端库
 
-You can also specify the region when invoking a Function using the Supabase client library:
+您还可以在使用 Supabase 客户端库调用函数时指定区域：
 
 ```js
 import { createClient, FunctionRegion } from '@supabase/supabase-js'
@@ -82,6 +82,6 @@ const { data: ret, error } = await supabase.functions.invoke('my-function-name',
 })
 ```
 
-## Handling regional outages
+## 处理区域中断
 
-If you explicitly specify the region via `x-region` header, requests **will NOT** be automatically re-routed to another region and you should consider temporarily changing regions during the outage.
+如果您通过 `x-region` 标头明确指定了区域，请求**将不会**自动路由到另一个区域，您应考虑在中断期间临时更改区域。

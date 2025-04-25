@@ -1,134 +1,134 @@
 ---
 id: 'ai-tools-mcp'
-title: 'Model context protocol (MCP)'
-subtitle: 'Connect your AI tools to Supabase using MCP'
-description: 'Connect your AI tools to Supabase using MCP'
-sidebar_label: 'Model context protocol (MCP)'
+title: '模型上下文协议 (MCP)'
+subtitle: '使用 MCP 将您的 AI 工具连接到 Supabase'
+description: '使用 MCP 将您的 AI 工具连接到 Supabase'
+sidebar_label: '模型上下文协议 (MCP)'
 ---
 
-The [Model Context Protocol](https://modelcontextprotocol.io/introduction) (MCP) is a standard for connecting Large Language Models (LLMs) to platforms like Supabase. This guide covers how to connect Supabase to the following AI tools using MCP:
+[模型上下文协议](https://modelcontextprotocol.io/introduction)（Model Context Protocol，MCP）是一种将大型语言模型（LLM）连接到 Supabase 等平台的标准。本指南介绍如何使用 MCP 将 Supabase 连接到以下 AI 工具：
 
 - [Cursor](#cursor)
-- [Windsurf](#windsurf) (Codium)
-- [Visual Studio Code](#visual-studio-code-copilot) (Copilot)
-- [Cline](#cline) (VS Code extension)
-- [Claude desktop](#claude-desktop)
-- [Claude code](#claude-code)
+- [Windsurf](#windsurf)（Codium）
+- [Visual Studio Code](#visual-studio-code-copilot)（Copilot）
+- [Cline](#cline)（VS Code 扩展）
+- [Claude 桌面版](#claude-desktop)
+- [Claude 代码](#claude-code)
 
-Once connected, your AI assistants can interact with and query your Supabase projects on your behalf.
+连接后，您的 AI 助手可以代表您与 Supabase 项目交互并查询它们。
 
-## Step 1: Create a personal access token (PAT)
+## 步骤 1：创建个人访问令牌 (PAT)
 
-First, go to your [Supabase settings](https://supabase.com/dashboard/account/tokens) and create a personal access token. Give it a name that describes its purpose, like "Cursor MCP Server". This will be used to authenticate the MCP server with your Supabase account.
+首先，前往您的 [Supabase 设置](https://supabase.com/dashboard/account/tokens) 并创建一个个人访问令牌。为其指定一个描述其用途的名称，如"Cursor MCP 服务器"。这将用于向您的 Supabase 账户验证 MCP 服务器的身份。
 
-## Step 2: Configure in your AI tool
+## 步骤 2：在您的 AI 工具中配置
 
-MCP compatible tools can connect to Supabase using the [Supabase MCP server](https://github.com/supabase-community/supabase-mcp). Below are instructions for connecting to this server using popular AI tools:
+兼容 MCP 的工具可以使用 [Supabase MCP 服务器](https://github.com/supabase-community/supabase-mcp) 连接到 Supabase。以下是使用流行 AI 工具连接到此服务器的说明：
 
 ### Cursor
 
-1.  Open [Cursor](https://www.cursor.com/) and create a `.cursor` directory in your project root if it doesn't exist.
-1.  Create a `.cursor/mcp.json` file if it doesn't exist and open it.
-1.  Add the following configuration:
+1.  打开 [Cursor](https://www.cursor.com/) 并在项目根目录创建一个 `.cursor` 目录（如果不存在）。
+1.  创建一个 `.cursor/mcp.json` 文件（如果不存在）并打开它。
+1.  添加以下配置：
 
     <$Partial path="mcp_supabase_config.mdx" variables={{ "app": "Cursor" }} />
 
-1.  Save the configuration file.
+1.  保存配置文件。
 
-1.  Open Cursor and navigate to **Settings/MCP**. You should see a green active status after the server is successfully connected.
+1.  打开 Cursor 并导航至 **Settings/MCP**。服务器成功连接后，您应该看到绿色的活动状态。
 
 ### Windsurf
 
-1. Open [Windsurf](https://docs.codeium.com/windsurf) and navigate to the Cascade assistant.
-1. Tap on the hammer (MCP) icon, then **Configure** to open the configuration file.
-1. Add the following configuration:
+1. 打开 [Windsurf](https://docs.codeium.com/windsurf) 并导航至 Cascade 助手。
+1. 点击锤子（MCP）图标，然后点击 **Configure** 打开配置文件。
+1. 添加以下配置：
 
    <$Partial path="mcp_supabase_config.mdx" variables={{ "app": "Windsurf" }} />
 
-1. Save the configuration file and reload by tapping **Refresh** in the Cascade assistant.
+1. 保存配置文件，并通过在 Cascade 助手中点击 **Refresh** 重新加载。
 
-1. You should see a green active status after the server is successfully connected.
+1. 服务器成功连接后，您应该看到绿色的活动状态。
 
 ### Visual Studio Code (Copilot)
 
-1.  Open [VS Code](https://code.visualstudio.com/) and create a `.vscode` directory in your project root if it doesn't exist.
-1.  Create a `.vscode/mcp.json` file if it doesn't exist and open it.
-1.  Add the following configuration:
+1.  打开 [VS Code](https://code.visualstudio.com/) 并在项目根目录创建一个 `.vscode` 目录（如果不存在）。
+1.  创建一个 `.vscode/mcp.json` 文件（如果不存在）并打开它。
+1.  添加以下配置：
 
     <$Partial path="mcp_supabase_vscode_config.mdx" />
 
-1.  Save the configuration file.
-1.  Open Copilot chat and switch to "Agent" mode. You should see a tool icon that you can tap to confirm the MCP tools are available. Once you begin using the server, you will be prompted to enter your personal access token. Enter the token that you created earlier.
+1.  保存配置文件。
+1.  打开 Copilot 聊天并切换到"Agent"模式。您应该看到一个工具图标，可以点击它确认 MCP 工具可用。开始使用服务器后，系统将提示您输入个人访问令牌。输入您之前创建的令牌。
 
-For more info on using MCP in VS Code, see the [Copilot documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers).
+有关在 VS Code 中使用 MCP 的更多信息，请参阅 [Copilot 文档](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)。
 
 ### Cline
 
-1. Open the [Cline](https://github.com/cline/cline) extension in VS Code and tap the **MCP Servers** icon.
-1. Tap **Configure MCP Servers** to open the configuration file.
-1. Add the following configuration:
+1. 在 VS Code 中打开 [Cline](https://github.com/cline/cline) 扩展并点击 **MCP Servers** 图标。
+1. 点击 **Configure MCP Servers** 打开配置文件。
+1. 添加以下配置：
 
    <$Partial path="mcp_supabase_config.mdx" variables={{ "app": "VS Code" }} />
 
-1. Save the configuration file. Cline should automatically reload the configuration.
+1. 保存配置文件。Cline 应该会自动重新加载配置。
 
-1. You should see a green active status after the server is successfully connected.
+1. 服务器成功连接后，您应该看到绿色的活动状态。
 
-### Claude desktop
+### Claude 桌面版
 
-1. Open [Claude desktop](https://claude.ai/download) and navigate to **Settings**.
-1. Under the **Developer** tab, tap **Edit Config** to open the configuration file.
-1. Add the following configuration:
+1. 打开 [Claude 桌面版](https://claude.ai/download) 并导航至 **Settings**。
+1. 在 **Developer** 标签下，点击 **Edit Config** 打开配置文件。
+1. 添加以下配置：
 
    <$Partial path="mcp_supabase_config.mdx" variables={{ "app": "Claude desktop" }} />
 
-1. Save the configuration file and restart Claude desktop.
+1. 保存配置文件并重启 Claude 桌面版。
 
-1. From the new chat screen, you should see a hammer (MCP) icon appear with the new MCP server available.
+1. 在新聊天屏幕上，您应该看到出现锤子（MCP）图标，表示新的 MCP 服务器可用。
 
-### Claude code
+### Claude 代码
 
-1. Create a `.mcp.json` file in your project root if it doesn't exist.
-1. Add the following configuration:
+1. 在项目根目录创建一个 `.mcp.json` 文件（如果不存在）。
+1. 添加以下配置：
 
    <$Partial path="mcp_supabase_config.mdx" variables={{ "app": "Claude code" }} />
 
-1. Save the configuration file.
+1. 保存配置文件。
 
-1. Restart [Claude code](https://claude.ai/code) to apply the new configuration.
+1. 重启 [Claude 代码](https://claude.ai/code) 以应用新配置。
 
-### Next steps
+### 后续步骤
 
-Your AI tool is now connected to Supabase using MCP. Try asking your AI assistant to create a new project, create a table, or fetch project config.
+您的 AI 工具现在已通过 MCP 连接到 Supabase。尝试让您的 AI 助手创建新项目、创建表或获取项目配置。
 
-For a full list of tools available, see the [GitHub README](https://github.com/supabase-community/supabase-mcp#tools). If you experience any issues, [submit an bug report](https://github.com/supabase-community/supabase-mcp/issues/new?template=1.Bug_report.md).
+有关可用工具的完整列表，请参阅 [GitHub README](https://github.com/supabase-community/supabase-mcp#tools)。如果遇到任何问题，请[提交错误报告](https://github.com/supabase-community/supabase-mcp/issues/new?template=1.Bug_report.md)。
 
-## MCP for local Supabase instances
+## 用于本地 Supabase 实例的 MCP
 
-The Supabase MCP server connects directly to the cloud platform to access your database. If you are running a local instance of Supabase, you can instead use the [Postgres MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/postgres) to connect to your local database. This MCP server runs all queries as read-only transactions.
+Supabase MCP 服务器直接连接到云平台以访问您的数据库。如果您正在运行 Supabase 的本地实例，可以使用 [Postgres MCP 服务器](https://github.com/modelcontextprotocol/servers/tree/main/src/postgres) 连接到您的本地数据库。此 MCP 服务器将所有查询作为只读事务运行。
 
-### Step 1: Find your database connection string
+### 步骤 1：查找您的数据库连接字符串
 
-To connect to your local Supabase instance, you need to get the connection string for your local database. You can find your connection string by running:
+要连接到您的本地 Supabase 实例，您需要获取本地数据库的连接字符串。您可以通过运行以下命令找到连接字符串：
 
 ```shell
 supabase status
 ```
 
-or if you are using `npx`:
+或者如果您使用 `npx`：
 
 ```shell
 npx supabase status
 ```
 
-This will output a list of details about your local Supabase instance. Copy the `DB URL` field in the output.
+这将输出有关您的本地 Supabase 实例的详细信息列表。复制输出中的 `DB URL` 字段。
 
-### Step 2: Configure the MCP server
+### 步骤 2：配置 MCP 服务器
 
-Configure your client with the following:
+使用以下内容配置您的客户端：
 
 <$Partial path="mcp_postgres_config.mdx" variables={{ "app": "your MCP client" }} />
 
-### Next steps
+### 后续步骤
 
-Your AI tool is now connected to your local Supabase instance using MCP. Try asking the AI tool to query your database using natural language commands.
+您的 AI 工具现在已通过 MCP 连接到您的本地 Supabase 实例。尝试使用自然语言命令让 AI 工具查询您的数据库。

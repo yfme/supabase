@@ -1,17 +1,17 @@
 ---
 id: 'examples-postgres-on-the-edge'
-title: 'Connecting directly to Postgres'
-description: 'Connecting to Postgres from Edge Functions.'
-subtitle: 'Connecting to Postgres from Edge Functions.'
+title: '直接连接到 Postgres'
+description: '从边缘函数连接到 Postgres。'
+subtitle: '从边缘函数连接到 Postgres。'
 tocVideo: 'cl7EuF1-RsY'
 ---
 
-Connect to your Postgres database from an Edge Function by using the `supabase-js` client.
-You can also use other Postgres clients like [Deno Postgres](https://deno.land/x/postgres)
+通过使用 `supabase-js` 客户端，从边缘函数连接到您的 Postgres 数据库。
+您也可以使用其他 Postgres 客户端，如 [Deno Postgres](https://deno.land/x/postgres)
 
-## Using supabase-js
+## 使用 supabase-js
 
-The `supabase-js` client is a great option for connecting to your Supabase database since it handles authorization with Row Level Security, and it automatically formats your response as JSON.
+`supabase-js` 客户端是连接到 Supabase 数据库的绝佳选择，因为它处理行级安全性的授权，并自动将响应格式化为 JSON。
 
 ```ts index.ts
 import { createClient } from 'jsr:@supabase/supabase-js@2'
@@ -40,47 +40,47 @@ Deno.serve(async (req) => {
 })
 ```
 
-## Using a Postgres client
+## 使用 Postgres 客户端
 
-Because Edge Functions are a server-side technology, it's safe to connect directly to your database using any popular Postgres client. This means you can run raw SQL from your Edge Functions.
+由于边缘函数是服务器端技术，使用任何流行的 Postgres 客户端直接连接到数据库是安全的。这意味着您可以从边缘函数运行原始 SQL。
 
-Here is how you can connect to the database using Deno Postgres driver and run raw SQL.
+以下是如何使用 Deno Postgres 驱动程序连接到数据库并运行原始 SQL 的方法。
 
-Check out the [full example](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/postgres-on-the-edge).
+查看[完整示例](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/postgres-on-the-edge)。
 
 ```ts index.ts
 import * as postgres from 'https://deno.land/x/postgres@v0.17.0/mod.ts'
 
-// Get the connection string from the environment variable "SUPABASE_DB_URL"
+// 从环境变量 "SUPABASE_DB_URL" 获取连接字符串
 const databaseUrl = Deno.env.get('SUPABASE_DB_URL')!
 
-// Create a database pool with three connections that are lazily established
+// 创建一个具有三个懒加载连接的数据库池
 const pool = new postgres.Pool(databaseUrl, 3, true)
 
 Deno.serve(async (_req) => {
   try {
-    // Grab a connection from the pool
+    // 从池中获取一个连接
     const connection = await pool.connect()
 
     try {
-      // Run a query
+      // 运行查询
       const result = await connection.queryObject`SELECT * FROM animals`
       const animals = result.rows // [{ id: 1, name: "Lion" }, ...]
 
-      // Encode the result as pretty printed JSON
+      // 将结果编码为格式化的 JSON
       const body = JSON.stringify(
         animals,
         (key, value) => (typeof value === 'bigint' ? value.toString() : value),
         2
       )
 
-      // Return the response with the correct content type header
+      // 返回带有正确内容类型头的响应
       return new Response(body, {
         status: 200,
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
       })
     } finally {
-      // Release the connection back into the pool
+      // 将连接释放回池中
       connection.release()
     }
   } catch (err) {
@@ -90,9 +90,9 @@ Deno.serve(async (_req) => {
 })
 ```
 
-## Using Drizzle
+## 使用 Drizzle
 
-You can use Drizzle together with [Postgres.js](https://github.com/porsager/postgres). Both can be loaded directly from npm:
+您可以将 Drizzle 与 [Postgres.js](https://github.com/porsager/postgres) 一起使用。两者都可以直接从 npm 加载：
 
 ```json supabase/functions/import_map.json
 {
@@ -112,7 +112,7 @@ import { countries } from '../_shared/schema.ts'
 const connectionString = Deno.env.get('SUPABASE_DB_URL')!
 
 Deno.serve(async (_req) => {
-  // Disable prefetch as it is not supported for "Transaction" pool mode
+  // 禁用预取，因为 "Transaction" 池模式不支持它
   const client = postgres(connectionString, { prepare: false })
   const db = drizzle(client)
   const allCountries = await db.select().from(countries)
@@ -121,20 +121,20 @@ Deno.serve(async (_req) => {
 })
 ```
 
-You can find the full example on [GitHub](https://github.com/thorwebdev/edgy-drizzle).
+您可以在 [GitHub](https://github.com/thorwebdev/edgy-drizzle) 上找到完整示例。
 
-## SSL connections
+## SSL 连接
 
-Deployed edge functions are pre-configured to use SSL for connections to the Supabase database. You don't need to add any extra configurations.
+已部署的边缘函数已预先配置为使用 SSL 连接到 Supabase 数据库。您无需添加任何额外配置。
 
-If you want to use SSL connections during local development, follow these steps:
+如果您希望在本地开发期间使用 SSL 连接，请按照以下步骤操作：
 
-- Download the SSL certificate from [Database settings](https://supabase.com/dashboard/project/_/settings/database)
+- 从 [数据库设置](https://supabase.com/dashboard/project/_/settings/database) 下载 SSL 证书
 
-- In your [local .env file](https://supabase.com/docs/guides/functions/secrets), add these two variables:
+- 在您的 [本地 .env 文件](https://supabase.com/docs/guides/functions/secrets) 中，添加这两个变量：
 
 ```bash
-SSL_CERT_FILE=/path/to/cert.crt # set the path to the downloaded cert
+SSL_CERT_FILE=/path/to/cert.crt # 设置下载证书的路径
 DENO_TLS_CA_STORE=mozilla,system
 ```
 

@@ -1,18 +1,18 @@
 ---
 id: 'cicd-workflow'
-title: 'Deploying with CI / CD pipelines'
-description: 'Use GitHub Actions, Bitbucket, and GitLab CI to deploy your Edge Functions.'
-subtitle: 'Use GitHub Actions, Bitbucket, and GitLab CI to deploy your Edge Functions.'
+title: '使用 CI / CD 流水线部署'
+description: '使用 GitHub Actions、Bitbucket 和 GitLab CI 部署您的边缘函数。'
+subtitle: '使用 GitHub Actions、Bitbucket 和 GitLab CI 部署您的边缘函数。'
 tocVideo: '6OMVWiiycLs'
 ---
 
-You can use popular CI / CD tools like GitHub Actions, Bitbucket, and GitLab CI to automate Edge Function deployments.
+您可以使用流行的 CI / CD 工具，如 GitHub Actions、Bitbucket 和 GitLab CI 来自动化边缘函数部署。
 
 ## GitHub Actions
 
-You can use the official [`setup-cli` GitHub Action](https://github.com/marketplace/actions/supabase-cli-action) to run Supabase CLI commands in your GitHub Actions.
+您可以使用官方的 [`setup-cli` GitHub Action](https://github.com/marketplace/actions/supabase-cli-action) 在 GitHub Actions 中运行 Supabase CLI 命令。
 
-The following GitHub Action deploys all Edge Functions any time code is merged into the `main` branch:
+以下 GitHub Action 会在代码合并到 `main` 分支时部署所有边缘函数：
 
 ```yaml
 name: Deploy Function
@@ -43,17 +43,17 @@ jobs:
 
 ## GitLab CI
 
-Here is the sample pipeline configuration to deploy via GitLab CI.
+以下是通过 GitLab CI 部署的示例流水线配置。
 
 ```yaml
 image: node:20
 
-# List of stages for jobs, and their order of execution
+# 作业阶段列表及其执行顺序
 stages:
   - setup
   - deploy
 
-# This job runs in the setup stage, which runs first.
+# 此作业在 setup 阶段运行，该阶段首先运行。
 setup-npm:
   stage: setup
   script:
@@ -65,7 +65,7 @@ setup-npm:
     paths:
       - node_modules/
 
-# This job runs in the deploy stage, which only starts when the job in the build stage completes successfully.
+# 此作业在 deploy 阶段运行，仅在构建阶段的作业成功完成后才开始。
 deploy-function:
   stage: deploy
   script:
@@ -79,7 +79,7 @@ deploy-function:
 
 ## Bitbucket Pipelines
 
-Here is the sample pipeline configuration to deploy via Bitbucket.
+以下是通过 Bitbucket 部署的示例流水线配置。
 
 ```yaml
 image: node:20
@@ -102,15 +102,15 @@ pipelines:
               - docker
 ```
 
-## Declarative configuration
+## 声明式配置
 
-Individual function configuration like [JWT verification](/docs/guides/cli/config#functions.function_name.verify_jwt) and [import map location](/docs/guides/cli/config#functions.function_name.import_map) can be set via the `config.toml` file.
+单个函数配置，如 [JWT 验证](/docs/guides/cli/config#functions.function_name.verify_jwt) 和 [import map 位置](/docs/guides/cli/config#functions.function_name.import_map) 可以通过 `config.toml` 文件设置。
 
 ```toml
 [functions.hello-world]
 verify_jwt = false
 ```
 
-## Resources
+## 资源
 
-- See the [example on GitHub](https://github.com/supabase/supabase/blob/master/examples/edge-functions/.github/workflows/deploy.yaml).
+- 查看 [GitHub 上的示例](https://github.com/supabase/supabase/blob/master/examples/edge-functions/.github/workflows/deploy.yaml)。

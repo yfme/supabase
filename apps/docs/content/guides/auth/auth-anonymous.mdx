@@ -1,48 +1,48 @@
 ---
 id: 'auth-anonymous'
-title: 'Anonymous Sign-Ins'
-subtitle: 'Create and use anonymous users to authenticate with Supabase'
+title: '匿名登录'
+subtitle: '创建和使用匿名用户在 Supabase 中进行身份验证'
 ---
 
-[Enable Anonymous Sign-Ins](/dashboard/project/_/settings/auth) to build apps which provide users an authenticated experience without requiring users to enter an email address, password, use an OAuth provider or provide any other PII (Personally Identifiable Information). Later, when ready, the user can link an authentication method to their account.
+[启用匿名登录](/dashboard/project/_/settings/auth)可以构建为用户提供认证体验的应用程序，而无需用户输入电子邮件地址、密码、使用 OAuth 提供商或提供任何其他 PII（个人身份信息）。之后，当用户准备好时，可以将身份验证方法链接到其账户。
 
-<Admonition type="note" label="Anonymous user vs the anon key">
+<Admonition type="note" label="匿名用户 vs anon 密钥">
 
-Calling `signInAnonymously()` creates an anonymous user. It's just like a permanent user, except the user can't access their account if they sign out, clear browsing data, or use another device.
+调用 `signInAnonymously()` 会创建一个匿名用户。它就像一个永久用户，只是如果用户退出登录、清除浏览数据或使用另一台设备，他们将无法访问自己的账户。
 
-Like permanent users, the `authenticated` Postgres role will be used when using the Data APIs to access your project. JWTs for these users will have an `is_anonymous` claim which you can use to distinguish in RLS policies.
+与永久用户一样，在使用数据 API 访问您的项目时，将使用 `authenticated` Postgres 角色。这些用户的 JWT 将具有 `is_anonymous` 声明，您可以在 RLS 策略中使用它来进行区分。
 
-This is different from the `anon` API key which does not create a user and can be used to implement public access to your database as it uses the `anonymous` Postgres role.
+这与 `anon` API 密钥不同，后者不会创建用户，可用于实现对数据库的公共访问，因为它使用的是 `anonymous` Postgres 角色。
 
 </Admonition>
 
-Anonymous sign-ins can be used to build:
+匿名登录可用于构建：
 
-- E-commerce applications, such as shopping carts before check-out
-- Full-feature demos without collecting personal information
-- Temporary or throw-away accounts
+- 电子商务应用程序，例如结账前的购物车
+- 无需收集个人信息的完整功能演示
+- 临时或一次性账户
 
 <Admonition type="caution">
 
-Review your existing RLS policies before enabling anonymous sign-ins. Anonymous users use the `authenticated` role. To distinguish between anonymous users and permanent users, your policies need to check the `is_anonymous` field of the user's JWT.
+在启用匿名登录之前，请检查您现有的 RLS 策略。匿名用户使用 `authenticated` 角色。要区分匿名用户和永久用户，您的策略需要检查用户 JWT 的 `is_anonymous` 字段。
 
-See the [Access control section](#access-control) for more details.
-
-</Admonition>
-
-<Admonition type="caution" label="Use Dynamic Rendering with Next.js">
-
-The Supabase team has received reports of user metadata being cached across unique anonymous users as a result of Next.js static page rendering. For the best user experience, utilize dynamic page rendering.
+有关更多详情，请参阅[访问控制部分](#access-control)。
 
 </Admonition>
 
-<Admonition type="note" label="Self hosting and local development">
+<Admonition type="caution" label="在 Next.js 中使用动态渲染">
 
-For self-hosting, you can update your project configuration using the files and environment variables provided. See the [local development docs](/docs/guides/cli/config) for more details.
+Supabase 团队收到报告，由于 Next.js 静态页面渲染，用户元数据在不同的匿名用户之间被缓存。为了获得最佳的用户体验，请使用动态页面渲染。
 
 </Admonition>
 
-## Sign in anonymously
+<Admonition type="note" label="自托管和本地开发">
+
+对于自托管，您可以使用提供的文件和环境变量更新项目配置。有关更多详情，请参阅[本地开发文档](/docs/guides/cli/config)。
+
+</Admonition>
+
+## 匿名登录
 
 <Tabs
   scrollable
@@ -53,7 +53,7 @@ For self-hosting, you can update your project configuration using the files and 
 >
 <TabPanel id="js" label="JavaScript">
 
-Call the [`signInAnonymously()`](/docs/reference/javascript/auth-signinanonymously) method:
+调用 [`signInAnonymously()`](/docs/reference/javascript/auth-signinanonymously) 方法：
 
 ```js
 import { createClient } from '@supabase/supabase-js'
@@ -66,7 +66,7 @@ const { data, error } = await supabase.auth.signInAnonymously()
 </TabPanel>
 <TabPanel id="dart" label="Flutter">
 
-Call the [`signInAnonymously()`](/docs/reference/dart/auth-signinanonymously) method:
+调用 [`signInAnonymously()`](/docs/reference/dart/auth-signinanonymously) 方法：
 
 ```dart
 await supabase.auth.signInAnonymously();
@@ -75,7 +75,7 @@ await supabase.auth.signInAnonymously();
 </TabPanel>
 <TabPanel id="swift" label="Swift">
 
-Call the [`signInAnonymously()`](/docs/reference/swift/auth-signinanonymously) method:
+调用 [`signInAnonymously()`](/docs/reference/swift/auth-signinanonymously) 方法：
 
 ```swift
 let session = try await supabase.auth.signInAnonymously()
@@ -84,7 +84,7 @@ let session = try await supabase.auth.signInAnonymously()
 </TabPanel>
 <TabPanel id="kotlin" label="Kotlin">
 
-Call the [`signInAnonymously()`](/docs/reference/kotlin/auth-signinanonymously) method:
+调用 [`signInAnonymously()`](/docs/reference/kotlin/auth-signinanonymously) 方法：
 
 ```kotlin
 supabase.auth.signInAnonymously()
@@ -93,7 +93,7 @@ supabase.auth.signInAnonymously()
 </TabPanel>
 <TabPanel id="python" label="Python">
 
-Call the [`sign_in_anonymously()`](/docs/reference/python/auth-signinanonymously) method:
+调用 [`sign_in_anonymously()`](/docs/reference/python/auth-signinanonymously) 方法：
 
 ```python
 response = supabase.auth.sign_in_anonymously()
@@ -102,11 +102,11 @@ response = supabase.auth.sign_in_anonymously()
 </TabPanel>
 </Tabs>
 
-## Convert an anonymous user to a permanent user
+## 将匿名用户转换为永久用户
 
-Converting an anonymous user to a permanent user requires [linking an identity](/docs/guides/auth/auth-identity-linking#manual-linking-beta) to the user. This requires you to [enable manual linking](/dashboard/project/_/settings/auth) in your Supabase project.
+将匿名用户转换为永久用户需要[链接身份](/docs/guides/auth/auth-identity-linking#manual-linking-beta)到该用户。这要求您在 Supabase 项目中[启用手动链接](/dashboard/project/_/settings/auth)。
 
-### Link an email / phone identity
+### 链接电子邮件/电话身份
 
 <Tabs
   scrollable
@@ -117,7 +117,7 @@ Converting an anonymous user to a permanent user requires [linking an identity](
 >
 <TabPanel id="js" label="JavaScript">
 
-You can use the [`updateUser()`](/docs/reference/javascript/auth-updateuser) method to link an email or phone identity to the anonymous user. To add a password for the anonymous user, the user's email or phone number needs to be verified first.
+您可以使用 [`updateUser()`](/docs/reference/javascript/auth-updateuser) 方法将电子邮件或电话身份链接到匿名用户。要为匿名用户添加密码，需要先验证用户的电子邮件或电话号码。
 
 ```js
 import { createClient } from '@supabase/supabase-js'
@@ -128,10 +128,9 @@ const { data: updateEmailData, error: updateEmailError } = await supabase.auth.u
   email: 'valid.email@supabase.io',
 })
 
-// verify the user's email by clicking on the email change link
-// or entering the 6-digit OTP sent to the email address
+// 通过点击电子邮件更改链接或输入发送到电子邮件地址的 6 位数 OTP 来验证用户的电子邮件
 
-// once the user has been verified, update the password
+// 一旦用户通过验证，更新密码
 const { data: updatePasswordData, error: updatePasswordError } = await supabase.auth.updateUser({
   password: 'password',
 })
@@ -140,7 +139,7 @@ const { data: updatePasswordData, error: updatePasswordError } = await supabase.
 </TabPanel>
 <TabPanel id="dart" label="Flutter">
 
-You can use the [`updateUser()`](/docs/reference/dart/auth-updateuser) method to link an email or phone identity to the anonymous user.
+您可以使用 [`updateUser()`](/docs/reference/dart/auth-updateuser) 方法将电子邮件或电话身份链接到匿名用户。
 
 ```dart
 await supabase.auth.updateUser(UserAttributes(email: 'valid.email@supabase.io'));
@@ -149,7 +148,7 @@ await supabase.auth.updateUser(UserAttributes(email: 'valid.email@supabase.io'))
 </TabPanel>
 <TabPanel id="swift" label="Swift">
 
-You can use the [`updateUser()`](/docs/reference/swift/auth-updateuser) method to link an email or phone identity to the anonymous user.
+您可以使用 [`updateUser()`](/docs/reference/swift/auth-updateuser) 方法将电子邮件或电话身份链接到匿名用户。
 
 ```swift
 try await supabase.auth.updateUser(
@@ -160,7 +159,7 @@ try await supabase.auth.updateUser(
 </TabPanel>
 <TabPanel id="kotlin" label="Kotlin">
 
-You can use the [`updateUser()`](/docs/reference/kotlin/auth-updateuser) method to link an email or phone identity to the anonymous user.
+您可以使用 [`updateUser()`](/docs/reference/kotlin/auth-updateuser) 方法将电子邮件或电话身份链接到匿名用户。
 
 ```kotlin
 supabase.auth.updateUser {
@@ -171,17 +170,16 @@ supabase.auth.updateUser {
 </TabPanel>
 <TabPanel id="python" label="Python">
 
-You can use the [`update_user()`](/docs/reference/python/auth-updateuser) method to link an email or phone identity to the anonymous user. To add a password for the anonymous user, the user's email or phone number needs to be verified first.
+您可以使用 [`update_user()`](/docs/reference/python/auth-updateuser) 方法将电子邮件或电话身份链接到匿名用户。要为匿名用户添加密码，需要先验证用户的电子邮件或电话号码。
 
 ```python
 response = supabase.auth.update_user({
   'email': 'valid.email@supabase.io',
 })
 
-# verify the user's email by clicking on the email change link
-# or entering the 6-digit OTP sent to the email address
+# 通过点击电子邮件更改链接或输入发送到电子邮件地址的 6 位数 OTP 来验证用户的电子邮件
 
-# once the user has been verified, update the password
+# 一旦用户通过验证，更新密码
 response = supabase.auth.update_user({
   'password': 'password',
 })
@@ -190,7 +188,7 @@ response = supabase.auth.update_user({
 </TabPanel>
 </Tabs>
 
-### Link an OAuth identity
+### 链接 OAuth 身份
 
 <Tabs
   scrollable
@@ -201,7 +199,7 @@ response = supabase.auth.update_user({
 >
 <TabPanel id="js" label="JavaScript">
 
-You can use the [`linkIdentity()`](/docs/reference/javascript/auth-linkidentity) method to link an OAuth identity to the anonymous user.
+您可以使用 [`linkIdentity()`](/docs/reference/javascript/auth-linkidentity) 方法将 OAuth 身份链接到匿名用户。
 
 ```js
 import { createClient } from '@supabase/supabase-js'
@@ -214,7 +212,7 @@ const { data, error } = await supabase.auth.linkIdentity({ provider: 'google' })
 </TabPanel>
 <TabPanel id="dart" label="Flutter">
 
-You can use the [`linkIdentity()`](/docs/reference/dart/auth-linkidentity) method to link an OAuth identity to the anonymous user.
+您可以使用 [`linkIdentity()`](/docs/reference/dart/auth-linkidentity) 方法将 OAuth 身份链接到匿名用户。
 
 ```dart
 await supabase.auth.linkIdentity(OAuthProvider.google);
@@ -223,7 +221,7 @@ await supabase.auth.linkIdentity(OAuthProvider.google);
 </TabPanel>
 <TabPanel id="swift" label="Swift">
 
-You can use the [`linkIdentity()`](/docs/reference/swift/auth-linkidentity) method to link an OAuth identity to the anonymous user.
+您可以使用 [`linkIdentity()`](/docs/reference/swift/auth-linkidentity) 方法将 OAuth 身份链接到匿名用户。
 
 ```swift
 try await supabase.auth.linkIdentity(provider: .google)
@@ -232,7 +230,7 @@ try await supabase.auth.linkIdentity(provider: .google)
 </TabPanel>
 <TabPanel id="kotlin" label="Kotlin">
 
-You can use the [`linkIdentity()`](/docs/reference/kotlin/auth-linkidentity) method to link an OAuth identity to the anonymous user.
+您可以使用 [`linkIdentity()`](/docs/reference/kotlin/auth-linkidentity) 方法将 OAuth 身份链接到匿名用户。
 
 ```kotlin
 supabase.auth.linkIdentity(Google)
@@ -241,7 +239,7 @@ supabase.auth.linkIdentity(Google)
 </TabPanel>
 <TabPanel id="python" label="Python">
 
-You can use the [`link_identity()`](/docs/reference/python/auth-linkidentity) method to link an OAuth identity to the anonymous user.
+您可以使用 [`link_identity()`](/docs/reference/python/auth-linkidentity) 方法将 OAuth 身份链接到匿名用户。
 
 ```python
 response = supabase.auth.link_identity({'provider': 'google'})
@@ -250,9 +248,9 @@ response = supabase.auth.link_identity({'provider': 'google'})
 </TabPanel>
 </Tabs>
 
-## Access control
+## 访问控制
 
-An anonymous user assumes the `authenticated` role just like a permanent user. You can use row-level security (RLS) policies to differentiate between an anonymous user and a permanent user by checking for the `is_anonymous` claim in the JWT returned by `auth.jwt()`:
+匿名用户与永久用户一样使用 `authenticated` 角色。您可以使用行级安全性 (RLS) 策略，通过检查 `auth.jwt()` 返回的 JWT 中的 `is_anonymous` 声明来区分匿名用户和永久用户：
 
 ```sql
 create policy "Only permanent users can post to the news feed"
@@ -266,38 +264,38 @@ to authenticated
 using ( true );
 ```
 
-<Admonition type="note" label="Use restrictive policies">
+<Admonition type="note" label="使用限制性策略">
 
-RLS policies are permissive by default, which means that they are combined using an "OR" operator when multiple policies are applied. It is important to construct restrictive policies to ensure that the checks for an anonymous user are always enforced when combined with other policies.
+RLS 策略默认是宽容的，这意味着当应用多个策略时，它们使用"OR"运算符组合。构建限制性策略很重要，以确保在与其他策略组合时，始终强制执行匿名用户的检查。
 
 </Admonition>
 
-## Resolving identity conflicts
+## 解决身份冲突
 
-Depending on your application requirements, data conflicts can arise when an anonymous user is converted to a permanent user. For example, in the context of an e-commerce application, an anonymous user would be allowed to add items to the shopping cart without signing up / signing in. When they decide to sign-in to an existing account, you will need to decide how you want to resolve data conflicts in the shopping cart:
+根据您的应用程序需求，当匿名用户转换为永久用户时，可能会出现数据冲突。例如，在电子商务应用程序的上下文中，匿名用户可以在不注册/登录的情况下将商品添加到购物车。当他们决定登录到现有账户时，您需要决定如何解决购物车中的数据冲突：
 
-1. Overwrite the items in the cart with those in the existing account
-2. Overwrite the items in the cart with those from the anonymous user
-3. Merge the items in the cart together
+1. 用现有账户中的商品覆盖购物车中的商品
+2. 用匿名用户的商品覆盖购物车中的商品
+3. 将购物车中的商品合并在一起
 
-### Linking an anonymous user to an existing account
+### 将匿名用户链接到现有账户
 
-In some cases, you may need to link an anonymous user to an existing account rather than creating a new permanent account. This process requires manual handling of potential conflicts. Here's a general approach:
+在某些情况下，您可能需要将匿名用户链接到现有账户，而不是创建新的永久账户。此过程需要手动处理潜在的冲突。以下是一般方法：
 
 ```javascript
-// 1. Sign in anonymously (assuming the user is already signed in anonymously)
+// 1. 匿名登录（假设用户已经匿名登录）
 const { data: anonData, error: anonError } = await supabase.auth.getSession()
 
-// 2. Attempt to update the user with the existing email
+// 2. 尝试使用现有电子邮件更新用户
 const { data: updateData, error: updateError } = await supabase.auth.updateUser({
   email: 'valid.email@supabase.io',
 })
 
-// 3. Handle the error (since the email belongs to an existing user)
+// 3. 处理错误（因为电子邮件属于现有用户）
 if (updateError) {
-  console.log('This email belongs to an existing user. Please sign in to that account.')
+  console.log('该电子邮件属于现有用户。请登录该账户。')
 
-  // 4. Sign in to the existing account
+  // 4. 登录到现有账户
   const {
     data: { user: existingUser },
     error: signInError,
@@ -307,43 +305,43 @@ if (updateError) {
   })
 
   if (existingUser) {
-    // 5. Reassign entities tied to the anonymous user
-    // This step will vary based on your specific use case and data model
+    // 5. 重新分配与匿名用户关联的实体
+    // 此步骤将根据您的特定用例和数据模型而有所不同
     const { data: reassignData, error: reassignError } = await supabase
       .from('your_table')
       .update({ user_id: existingUser.id })
       .eq('user_id', anonData.session.user.id)
 
-    // 6. Implement your chosen conflict resolution strategy
-    // This could involve merging data, overwriting, or other custom logic
+    // 6. 实施您选择的冲突解决策略
+    // 这可能涉及合并数据、覆盖或其他自定义逻辑
     await resolveDataConflicts(anonData.session.user.id, existingUser.id)
   }
 }
 
-// Helper function to resolve data conflicts (implement based on your strategy)
+// 解决数据冲突的辅助函数（根据您的策略实施）
 async function resolveDataConflicts(anonymousUserId, existingUserId) {
-  // Implement your conflict resolution logic here
-  // This could involve ignoring the anonymous user's metadata, overwriting the existing user's metadata, or merging the data of both the anonymous and existing user.
+  // 在此实施您的冲突解决逻辑
+  // 这可能涉及忽略匿名用户的元数据，覆盖现有用户的元数据，或合并匿名用户和现有用户的数据。
 }
 ```
 
-## Abuse prevention and rate limits
+## 滥用防范和速率限制
 
-Since anonymous users are stored in your database, bad actors can abuse the endpoint to increase your database size drastically. It is strongly recommended to [enable invisible CAPTCHA or Cloudflare Turnstile](/docs/guides/auth/auth-captcha) to prevent abuse for anonymous sign-ins. An IP-based rate limit is enforced at 30 requests per hour which can be modified in your [dashboard](/dashboard/project/_/auth/rate-limits). You can refer to the full list of rate limits [here](/docs/guides/platform/going-into-prod#rate-limiting-resource-allocation--abuse-prevention).
+由于匿名用户存储在您的数据库中，恶意行为者可能会滥用该端点，导致您的数据库大小急剧增加。强烈建议[启用隐形 CAPTCHA 或 Cloudflare Turnstile](/docs/guides/auth/auth-captcha)，以防止匿名登录被滥用。基于 IP 的速率限制强制执行为每小时 30 个请求，可以在您的[仪表板](/dashboard/project/_/auth/rate-limits)中修改。您可以在[此处](/docs/guides/platform/going-into-prod#rate-limiting-resource-allocation--abuse-prevention)参考完整的速率限制列表。
 
-## Automatic cleanup
+## 自动清理
 
-Automatic cleanup of anonymous users is currently not available. Instead, you can delete anonymous users from your project by running the following SQL:
+目前不提供匿名用户的自动清理。相反，您可以通过运行以下 SQL 从项目中删除匿名用户：
 
 ```sql
--- deletes anonymous users created more than 30 days ago
+-- 删除 30 天前创建的匿名用户
 delete from auth.users
 where is_anonymous is true and created_at < now() - interval '30 days';
 ```
 
-## Resources
+## 资源
 
-- [Supabase - Get started for free](https://supabase.com)
-- [Supabase JS Client](https://github.com/supabase/supabase-js)
-- [Supabase Flutter Client](https://github.com/supabase/supabase-flutter)
-- [Supabase Kotlin Client](https://github.com/supabase-community/supabase-kt)
+- [Supabase - 免费开始使用](https://supabase.com)
+- [Supabase JS 客户端](https://github.com/supabase/supabase-js)
+- [Supabase Flutter 客户端](https://github.com/supabase/supabase-flutter)
+- [Supabase Kotlin 客户端](https://github.com/supabase-community/supabase-kt)

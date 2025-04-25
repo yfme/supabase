@@ -1,69 +1,69 @@
 ---
 id: 'functions-import-maps'
-title: 'Managing dependencies'
-description: 'Managing packages and dependencies.'
-subtitle: 'Managing packages and dependencies.'
+title: '管理依赖'
+description: '管理包和依赖。'
+subtitle: '管理包和依赖。'
 tocVideo: 'ILr3cneZuFk'
 ---
 
-## Importing dependencies
+## 导入依赖
 
-Supabase Edge Functions support several ways to import dependencies:
+Supabase 边缘函数支持多种导入依赖的方式：
 
-- JavaScript modules from npm (https://docs.deno.com/examples/npm/)
-- Built-in [Node APIs](https://docs.deno.com/runtime/manual/node/compatibility)
-- Modules published to [JSR](https://jsr.io/) or [deno.land/x](https://deno.land/x)
+- 来自 npm 的 JavaScript 模块 (https://docs.deno.com/examples/npm/)
+- 内置的 [Node API](https://docs.deno.com/runtime/manual/node/compatibility)
+- 发布到 [JSR](https://jsr.io/) 或 [deno.land/x](https://deno.land/x) 的模块
 
-### NPM modules
+### NPM 模块
 
-You can import npm modules using the `npm:` specifier:
+您可以使用 `npm:` 说明符导入 npm 模块：
 
 ```ts
 import { createClient } from 'npm:@supabase/supabase-js@2'
 ```
 
-### Node.js built-ins
+### Node.js 内置模块
 
-For Node.js built-in APIs, use the `node:` specifier:
+对于 Node.js 内置 API，请使用 `node:` 说明符：
 
 ```ts
 import process from 'node:process'
 ```
 
-Learn more about npm specifiers and Node built-in APIs in [Deno's documentation](https://docs.deno.com/runtime/manual/node/npm_specifiers).
+在 [Deno 文档](https://docs.deno.com/runtime/manual/node/npm_specifiers) 中了解更多关于 npm 说明符和 Node 内置 API 的信息。
 
 ### JSR
 
-You can import JS modules published to [JSR](https://jsr.io/) (e.g.: Deno's standard library), using the `jsr:` specifier:
+您可以使用 `jsr:` 说明符从 [JSR](https://jsr.io/)（例如：Deno 的标准库）导入 JS 模块：
 
 ```ts
 import path from 'jsr:@std/path@1.0.8'
 ```
 
-## Managing dependencies
+## 管理依赖
 
-Developing with Edge Functions is similar to developing with Node.js, but with a few key differences.
+使用边缘函数进行开发与使用 Node.js 开发类似，但有几个关键区别。
 
-In the Deno ecosystem, each function should be treated as an independent project with its own set of dependencies and configurations. This "isolation by design" approach:
+在 Deno 生态系统中，每个函数都应被视为一个独立项目，拥有自己的依赖集和配置。这种"设计隔离"方法：
 
-- Ensures each function has explicit control over its dependencies
-- Prevents unintended side effects between functions
-- Makes deployments more predictable and maintainable
-- Allows for different versions of the same dependency across functions
+- 确保每个函数对其依赖有明确的控制
+- 防止函数之间的意外副作用
+- 使部署更加可预测和可维护
+- 允许在不同函数中使用同一依赖的不同版本
 
-For these reasons, we recommend maintaining separate configuration files (`deno.json`, `.npmrc`, or `import_map.json`) within each function's directory, even if it means duplicating some configurations.
+出于这些原因，我们建议在每个函数的目录中维护单独的配置文件（`deno.json`、`.npmrc` 或 `import_map.json`），即使这意味着重复一些配置。
 
-There are two ways to manage your dependencies in Supabase Edge Functions:
+在 Supabase 边缘函数中管理依赖有两种方式：
 
-### Using deno.json (recommended)
+### 使用 deno.json（推荐）
 
 <Admonition type="note">
 
-This feature requires Supabase CLI version 1.215.0 or higher.
+此功能需要 Supabase CLI 版本 1.215.0 或更高版本。
 
 </Admonition>
 
-Each function should have its own `deno.json` file to manage dependencies and configure Deno-specific settings. This ensures proper isolation between functions and is the recommended approach for deployment. For a complete list of supported options, see the [official Deno configuration documentation](https://docs.deno.com/runtime/manual/getting_started/configuration_file).
+每个函数应该有自己的 `deno.json` 文件来管理依赖并配置 Deno 特定设置。这确保了函数之间的适当隔离，是部署的推荐方法。有关支持选项的完整列表，请参阅 [官方 Deno 配置文档](https://docs.deno.com/runtime/manual/getting_started/configuration_file)。
 
 ```json supabase/functions/my-function/deno.json
 {
@@ -73,33 +73,31 @@ Each function should have its own `deno.json` file to manage dependencies and co
 }
 ```
 
-The recommended file structure for deployment:
+部署推荐的文件结构：
 
 ```bash
 └── supabase
     ├── functions
     │   ├── function-one
     │   │   ├── index.ts
-    │   │   ├─- deno.json    # Function-specific Deno configuration
-    │   │   └── .npmrc       # Function-specific npm configuration (if needed)
+    │   │   ├─- deno.json    # 函数特定的 Deno 配置
+    │   │   └── .npmrc       # 函数特定的 npm 配置（如需要）
     │   └── function-two
     │       ├── index.ts
-    │       ├─- deno.json    # Function-specific Deno configuration
-    │       └── .npmrc       # Function-specific npm configuration (if needed)
+    │       ├─- deno.json    # 函数特定的 Deno 配置
+    │       └── .npmrc       # 函数特定的 npm 配置（如需要）
     └── config.toml
 ```
 
 <Admonition type="caution">
-  While it's possible to use a global `deno.json` in the `/supabase/functions` directory for local
-  development, this approach is not recommended for deployment. Each function should maintain its
-  own configuration to ensure proper isolation and dependency management.
+  虽然可以在 `/supabase/functions` 目录中使用全局 `deno.json` 进行本地开发，但不建议在部署时使用此方法。每个函数应该维护自己的配置，以确保适当的隔离和依赖管理。
 </Admonition>
 
-### Using import maps (legacy)
+### 使用导入映射（传统方式）
 
-Import Maps are a legacy way to manage dependencies, similar to a `package.json` file. While still supported, we recommend using `deno.json`. If both exist, `deno.json` takes precedence.
+导入映射是管理依赖的传统方式，类似于 `package.json` 文件。虽然仍然支持，但我们建议使用 `deno.json`。如果两者都存在，`deno.json` 优先。
 
-Each function should have its own `import_map.json` file for proper isolation:
+每个函数应该有自己的 `import_map.json` 文件以实现适当的隔离：
 
 ```json supabase/functions/my-function/import_map.json
 {
@@ -109,27 +107,25 @@ Each function should have its own `import_map.json` file for proper isolation:
 }
 ```
 
-The recommended file structure:
+推荐的文件结构：
 
 ```bash
 └── supabase
     ├── functions
     │   ├── function-one
     │   │   ├── index.ts
-    │   │   └── import_map.json    # Function-specific import map
+    │   │   └── import_map.json    # 函数特定的导入映射
     │   └── function-two
     │       ├── index.ts
-    │       └── import_map.json    # Function-specific import map
+    │       └── import_map.json    # 函数特定的导入映射
     └── config.toml
 ```
 
 <Admonition type="caution">
-  While it's possible to use a global `import_map.json` in the `/supabase/functions` directory for
-  local development, this approach is not recommended for deployment. Each function should maintain
-  its own import map to ensure proper isolation.
+  虽然可以在 `/supabase/functions` 目录中使用全局 `import_map.json` 进行本地开发，但不建议在部署时使用此方法。每个函数应该维护自己的导入映射，以确保适当的隔离。
 </Admonition>
 
-If using import maps with VSCode, update your `.vscode/settings.json` to point to your function-specific import map:
+如果使用 VSCode 的导入映射，请更新您的 `.vscode/settings.json` 以指向您的函数特定导入映射：
 
 ```json settings.json
 {
@@ -137,24 +133,24 @@ If using import maps with VSCode, update your `.vscode/settings.json` to point t
   "deno.unstable": [
     "bare-node-builtins",
     "byonm"
-    // ... other flags ...
+    // ... 其他标志 ...
   ],
   "deno.importMap": "./supabase/functions/my-function/import_map.json"
 }
 ```
 
-You can override the default import map location using the `--import-map <string>` flag with `serve` and `deploy` commands, or by setting the `import_map` property in your `config.toml` file:
+您可以使用 `serve` 和 `deploy` 命令的 `--import-map <string>` 标志覆盖默认的导入映射位置，或者通过在 `config.toml` 文件中设置 `import_map` 属性：
 
 ```toml supabase/config.toml
 [functions.my-function]
 import_map = "./supabase/functions/my-function/import_map.json"
 ```
 
-### Importing from private registries
+### 从私有注册表导入
 
-<Admonition type="info">This feature requires Supabase CLI version 1.207.9 or higher.</Admonition>
+<Admonition type="info">此功能需要 Supabase CLI 版本 1.207.9 或更高版本。</Admonition>
 
-To use private npm packages, create a `.npmrc` file within your function directory. This ensures proper isolation and dependency management for each function.
+要使用私有 npm 包，请在函数目录中创建 `.npmrc` 文件。这确保了每个函数的适当隔离和依赖管理。
 
 ```bash
 └── supabase
@@ -162,10 +158,10 @@ To use private npm packages, create a `.npmrc` file within your function directo
         └── my-function
             ├── index.ts
             ├── deno.json
-            └── .npmrc       # Function-specific npm configuration
+            └── .npmrc       # 函数特定的 npm 配置
 ```
 
-Add your registry details in the `.npmrc` file. Follow [this guide](https://docs.npmjs.com/cli/v10/configuring-npm/npmrc) to learn more about the syntax of npmrc files.
+在 `.npmrc` 文件中添加您的注册表详细信息。遵循 [此指南](https://docs.npmjs.com/cli/v10/configuring-npm/npmrc) 了解更多关于 npmrc 文件语法的信息。
 
 ```plaintext
 @myorg:registry=https://npm.registryhost.com
@@ -173,43 +169,41 @@ Add your registry details in the `.npmrc` file. Follow [this guide](https://docs
 ```
 
 <Admonition type="caution">
-  While it's possible to use a global `.npmrc` in the `/supabase/functions` directory for local
-  development, we recommend using function-specific `.npmrc` files for deployment to maintain proper
-  isolation.
+  虽然可以在 `/supabase/functions` 目录中使用全局 `.npmrc` 进行本地开发，但我们建议在部署时使用函数特定的 `.npmrc` 文件以维持适当的隔离。
 </Admonition>
 
-After configuring your `.npmrc`, you can import the private package in your function code:
+配置 `.npmrc` 后，您可以在函数代码中导入私有包：
 
 ```ts
 import MyPackage from 'npm:@myorg/private-package@v1.0.1'
 
-// use MyPackage
+// 使用 MyPackage
 ```
 
-### Using a custom NPM registry
+### 使用自定义 NPM 注册表
 
-<Admonition type="info">This feature requires Supabase CLI version 2.2.8 or higher.</Admonition>
+<Admonition type="info">此功能需要 Supabase CLI 版本 2.2.8 或更高版本。</Admonition>
 
-Some organizations require a custom NPM registry for security and compliance purposes. In such instances, you can specify the custom NPM registry to use via `NPM_CONFIG_REGISTRY` environment variable.
+一些组织出于安全和合规目的需要自定义 NPM 注册表。在这种情况下，您可以通过 `NPM_CONFIG_REGISTRY` 环境变量指定要使用的自定义 NPM 注册表。
 
-You can define it in the project's `.env` file or directly specify it when running the deploy command:
+您可以在项目的 `.env` 文件中定义它，或者在运行部署命令时直接指定：
 
 ```bash
 NPM_CONFIG_REGISTRY=https://custom-registry/ supabase functions deploy my-function
 ```
 
-## Importing types
+## 导入类型
 
-If your [environment is set up properly](/docs/guides/functions/local-development) and the module you're importing is exporting types, the import will have types and autocompletion support.
+如果您的 [环境设置正确](/docs/guides/functions/local-development) 并且您导入的模块导出类型，导入将具有类型和自动完成支持。
 
-Some npm packages may not ship out of the box types and you may need to import them from a separate package. You can specify their types with a `@deno-types` directive:
+某些 npm 包可能不会开箱即用地提供类型，您可能需要从单独的包导入它们。您可以使用 `@deno-types` 指令指定它们的类型：
 
 ```ts
 // @deno-types="npm:@types/express@^4.17"
 import express from 'npm:express@^4.17'
 ```
 
-To include types for built-in Node APIs, add the following line to the top of your imports:
+要包含内置 Node API 的类型，请在导入顶部添加以下行：
 
 ```ts
 /// <reference types="npm:@types/node" />

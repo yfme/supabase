@@ -1,18 +1,18 @@
 ---
 id: 'functions-quickstart'
-title: 'Developing Edge Functions with Supabase'
-description: 'Get started with Edge Functions on the Supabase dashboard.'
-subtitle: 'Get started with Edge Functions on the Supabase dashboard.'
+title: '使用 Supabase 开发 Edge Functions'
+description: '在 Supabase 仪表板上开始使用 Edge Functions。'
+subtitle: '在 Supabase 仪表板上开始使用 Edge Functions。'
 ---
 
-In this guide we'll cover how to create a basic Edge Function on the Supabase dashboard, and access it using the Supabase CLI.
+在本指南中，我们将介绍如何在 Supabase 仪表板上创建基本的 Edge Function，并使用 Supabase CLI 访问它。
 
-## Deploy from Dashboard
+## 从仪表板部署
 
-Go to your project > Edge Functions > Deploy a new function > Via Editor
+转到您的项目 > Edge Functions > Deploy a new function > Via Editor
 
 <Image
-  alt="Deploy functions from the dashboard"
+  alt="从仪表板部署函数"
   src={{
     light: '/docs/img/guides/functions/dashboard/deploy-function--light.png',
     dark: '/docs/img/guides/functions/dashboard/deploy-function--light.png',
@@ -20,10 +20,10 @@ Go to your project > Edge Functions > Deploy a new function > Via Editor
   zoomable
 />
 
-This will scaffold a new function for you. You can choose from Templates some of the pre-defined functions for common use cases.
+这将为您搭建一个新函数。您可以从模板中选择一些针对常见用例的预定义函数。
 
 <Image
-  alt="Scaffold functions through the dashboard editor"
+  alt="通过仪表板编辑器搭建函数"
   src={{
     light: '/docs/img/guides/functions/dashboard/scaffold-function--light.png',
     dark: '/docs/img/guides/functions/dashboard/scaffold-function--light.png',
@@ -31,15 +31,15 @@ This will scaffold a new function for you. You can choose from Templates some of
   zoomable
 />
 
-Modify the function as needed, name it, and click `Deploy function`.
+根据需要修改函数，命名它，然后点击 `Deploy function`。
 
-Your function is now active. Navigate to the function's details page, and click on the test button.
+您的函数现在已激活。导航到函数的详细信息页面，然后点击测试按钮。
 
-You can test your function by providing the expected HTTP method, headers, query parameters, and request body. You can also change the authorization token passed (e.g., anon key or a user key).
+您可以通过提供预期的 HTTP 方法、标头、查询参数和请求正文来测试您的函数。您还可以更改传递的授权令牌（例如，匿名密钥或用户密钥）。
 
 <div style={{ width: '60%', position: 'relative', aspectRatio: 'auto' }}>
   <Image
-    alt="Provide a request body to test your function"
+    alt="提供请求正文来测试您的函数"
     src={{
       light: '/docs/img/guides/functions/dashboard/test-request-body--light.png',
       dark: '/docs/img/guides/functions/dashboard/test-request-body--light.png',
@@ -48,46 +48,46 @@ You can test your function by providing the expected HTTP method, headers, query
   />
 </div>
 
-## Access deployed functions via Supabase CLI
+## 通过 Supabase CLI 访问已部署函数
 
-<Admonition type="tip" label="CLI not installed?">
+<Admonition type="tip" label="未安装 CLI？">
 
-Check out the [CLI Docs](/docs/guides/cli) to learn how to install the Supabase CLI on your local machine.
+查看 [CLI 文档](/docs/guides/cli) 了解如何在本地机器上安装 Supabase CLI。
 
 </Admonition>
 
-Now that your function is deployed, you can access it from your local development environment.
-Here's how:
+现在您的函数已部署，您可以从本地开发环境访问它。
+方法如下：
 
-1. **Link your project** to your local environment.
+1. **将您的项目**链接到本地环境。
 
-   You can find your project reference ID in the URL of your Supabase dashboard or in the project settings.
+   您可以在 Supabase 仪表板的 URL 或项目设置中找到项目参考 ID。
 
    ```bash
    supabase link --project-ref your-project-ref
    ```
 
-2. **List all Functions** in the linked Supabase project.
+2. **列出链接的 Supabase 项目中的所有函数**。
 
    ```bash
    supabase functions list
    ```
 
-3. **Access the specific function** you want to work on.
+3. **访问**您想要处理的特定函数。
 
    ```bash
    supabase functions download function-name
    ```
 
-4. **Make local edits** to the function code as needed.
+4. **根据需要对函数代码进行本地编辑**。
 
-5. **Run your function locally** before redeploying.
+5. **在重新部署之前在本地运行您的函数**。
 
    ```bash
    supabase functions serve function-name
    ```
 
-6. **Redeploy** when you're ready with your changes.
+6. **准备好更改后重新部署**。
 
    ```bash
    supabase functions deploy function-name
@@ -95,14 +95,14 @@ Here's how:
 
 {/* supa-mdx-lint-disable-next-line Rule001HeadingCase */}
 
-## Deploy via Assistant
+## 通过助手部署
 
-You can also leverage the Supabase Assistant to help you write and deploy edge functions.
+您还可以利用 Supabase 助手来帮助您编写和部署 edge functions。
 
-Go to your project > Edge Functions > Click on the Assistant icon to Create with Supabase Assistant
+转到您的项目 > Edge Functions > 点击助手图标以使用 Supabase 助手创建
 
 <Image
-  alt="Open Supabase Assistant"
+  alt="打开 Supabase 助手"
   src={{
     light: '/docs/img/guides/functions/dashboard/create-with-assistant--light.png',
     dark: '/docs/img/guides/functions/dashboard/create-with-assistant--light.png',
@@ -110,12 +110,12 @@ Go to your project > Edge Functions > Click on the Assistant icon to Create with
   zoomable
 />
 
-This brings up an assistant window with a pre-filled prompt for generating edge functions.
-Write up your Edge Function requirement, and let Supabase Assistant do the rest.
+这会打开一个助手窗口，其中预填了用于生成 edge functions 的提示。
+写下您的 Edge Function 需求，让 Supabase 助手完成其余工作。
 
 <div style={{ width: '75%', position: 'relative', aspectRatio: 'auto' }}>
   <Image
-    alt="Generate a function with the assistant"
+    alt="使用助手生成函数"
     src={{
       light: '/docs/img/guides/functions/dashboard/assistant-function-gen--light.png',
       dark: '/docs/img/guides/functions/dashboard/assistant-function-gen--light.png',
@@ -124,21 +124,21 @@ Write up your Edge Function requirement, and let Supabase Assistant do the rest.
   />
 </div>
 
-Click Deploy and the Assistant will automatically deploy your function.
+点击 Deploy，助手将自动部署您的函数。
 
-This function requires an OpenAI API key. You can add the key in your Edge Functions secrets page, or ask Assistant for help.
+此函数需要 OpenAI API 密钥。您可以在 Edge Functions 密钥页面添加密钥，或向助手寻求帮助。
 
-1. Navigate to your Edge Functions > Secrets page.
-2. Look for the option to add environment variables.
-3. Add a new environment variable with the key `OPENAI_API_KEY` and set its value to your actual OpenAI API key.
+1. 导航到您的 Edge Functions > Secrets 页面。
+2. 查找添加环境变量的选项。
+3. 添加一个新的环境变量，键为 `OPENAI_API_KEY`，值设置为您实际的 OpenAI API 密钥。
 
-Once you've set this environment variable, your edge functions will be able to access the OPENAI_API_KEY securely without hardcoding it into the function code. This is a best practice for keeping sensitive information safe.
+设置此环境变量后，您的 edge functions 将能够安全地访问 OPENAI_API_KEY，而无需将其硬编码到函数代码中。这是保持敏感信息安全的最佳实践。
 
-With your variable set, you can test by sending a request via the dashboard. Navigate to the function's details page, and click on the test button. Then provide a Request Body your function expects.
+设置好变量后，您可以通过仪表板发送请求进行测试。导航到函数的详细信息页面，然后点击测试按钮。然后提供您的函数期望的请求正文。
 
 <div style={{ width: '60%', position: 'relative', aspectRatio: 'auto' }}>
   <Image
-    alt="Provide a request body to test your function"
+    alt="提供请求正文来测试您的函数"
     src={{
       light: '/docs/img/guides/functions/dashboard/test-request-body--light.png',
       dark: '/docs/img/guides/functions/dashboard/test-request-body--light.png',
@@ -147,22 +147,22 @@ With your variable set, you can test by sending a request via the dashboard. Nav
   />
 </div>
 
-## Editing functions from the Dashboard
+## 从仪表板编辑函数
 
-<Admonition type="caution" label="Be careful: there is currently no version control for edits">
+<Admonition type="caution" label="请注意：目前编辑没有版本控制">
 
-The Dashboard's Edge Function editor currently does not support versioning or rollbacks. We recommend using it only for quick testing and prototypes. When you’re ready to go to production, store Edge Functions code in a source code repository (e.g., git) and deploy it using one of the [CI integrations](https://supabase.com/docs/guides/functions/cicd-workflow).
+仪表板的 Edge Function 编辑器目前不支持版本控制或回滚。我们建议仅将其用于快速测试和原型设计。当您准备进入生产环境时，请将 Edge Functions 代码存储在源代码存储库（例如 git）中，并使用 [CI 集成](https://supabase.com/docs/guides/functions/cicd-workflow) 之一进行部署。
 
 </Admonition>
 
-1. From the functions page, click on the function you want to edit. From the function page, click on the Code tab.
+1. 从函数页面，点击您要编辑的函数。从函数页面，点击代码选项卡。
 
-2. This opens up a code editor in the dashboard where you can see your deployed function's code.
+2. 这将在仪表板中打开一个代码编辑器，您可以在其中查看已部署函数的代码。
 
-3. Modify the code as needed, then click Deploy updates. This will overwrite the existing deployment with the newly edited function code.
+3. 根据需要修改代码，然后点击 Deploy updates。这将用新编辑的函数代码覆盖现有部署。
 
-## Next steps
+## 下一步
 
-Check out the [Local development](/docs/guides/functions/local-quickstart) guide for more details on working with Edge Functions.
+查看[本地开发](/docs/guides/functions/local-quickstart)指南，了解有关使用 Edge Functions 的更多详情。
 
-Read on for some [common development tips](/docs/guides/functions/development-tips).
+继续阅读一些[常见开发技巧](/docs/guides/functions/development-tips)。

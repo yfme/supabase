@@ -1,23 +1,23 @@
 ---
 id: 'database'
-title: 'Database'
-description: 'Use Supabase to manage your data.'
-sidebar_label: 'Overview'
+title: '数据库'
+description: '使用 Supabase 管理您的数据。'
+sidebar_label: '概述'
 ---
 
-Every Supabase project comes with a full [Postgres](https://www.postgresql.org/) database, a free and open source database which is considered one of the world's most stable and advanced databases.
+每个 Supabase 项目都配备完整的 [Postgres](https://www.postgresql.org/) 数据库，这是一个免费开源的数据库，被认为是世界上最稳定和最先进的数据库之一。
 
-## Features
+## 功能特性
 
-### Table view
+### 表格视图
 
-You don't have to be a database expert to start using Supabase. Our table view makes Postgres as easy to use as a spreadsheet.
+您不必成为数据库专家就能开始使用 Supabase。我们的表格视图让 Postgres 的使用像电子表格一样简单。
 
-![Table View.](/docs/img/table-view.png)
+![表格视图。](/docs/img/table-view.png)
 
-### Relationships
+### 关系查询
 
-Dig into the relationships within your data.
+深入了解数据之间的关系。
 
 <video width="99%" loop muted playsInline controls={true}>
   <source
@@ -26,9 +26,9 @@ Dig into the relationships within your data.
   />
 </video>
 
-### Clone tables
+### 克隆表格
 
-You can duplicate your tables, just like you would inside a spreadsheet.
+您可以复制表格，就像在电子表格中操作一样。
 
 <video width="99%" muted playsInline controls={true}>
   <source
@@ -37,9 +37,9 @@ You can duplicate your tables, just like you would inside a spreadsheet.
   />
 </video>
 
-### The SQL editor
+### SQL 编辑器
 
-Supabase comes with a SQL Editor. You can also save your favorite queries to run later!
+Supabase 配备了 SQL 编辑器。您还可以保存常用查询以便日后运行！
 
 <video width="99%" muted playsInline controls={true}>
   <source
@@ -48,23 +48,23 @@ Supabase comes with a SQL Editor. You can also save your favorite queries to run
   />
 </video>
 
-### Additional features
+### 其他功能
 
-- Supabase extends Postgres with realtime functionality using our [Realtime Server](https://github.com/supabase/realtime).
-- Every project is a full Postgres database, with `postgres` level access.
-- Supabase manages your database backups.
-- Import data directly from a CSV or excel spreadsheet.
+- Supabase 通过我们的 [Realtime Server](https://github.com/supabase/realtime) 为 Postgres 扩展了实时功能。
+- 每个项目都是一个完整的 Postgres 数据库，具有 `postgres` 级别的访问权限。
+- Supabase 管理您的数据库备份。
+- 直接从 CSV 或 Excel 电子表格导入数据。
 
 <Admonition type="note">
 
-Database backups **do not** include objects stored via the Storage API, as the database only includes metadata about these objects. Restoring an old backup does not restore objects that have been deleted since then.
+数据库备份**不包括**通过存储 API 存储的对象，因为数据库仅包含这些对象的元数据。恢复旧备份不会恢复自备份以来已删除的对象。
 
 </Admonition>
 
-### Extensions
+### 扩展
 
-To expand the functionality of your Postgres database, you can use extensions.
-You can enable Postgres extensions with the click of a button within the Supabase dashboard.
+为了扩展 Postgres 数据库的功能，您可以使用扩展。
+您可以在 Supabase 仪表板中只需点击一下按钮即可启用 Postgres 扩展。
 
 <video width="99%" muted playsInline controls={true}>
   <source
@@ -73,29 +73,29 @@ You can enable Postgres extensions with the click of a button within the Supabas
   />
 </video>
 
-[Learn more](/docs/guides/database/extensions) about all the extensions provided on Supabase.
+[了解更多](/docs/guides/database/extensions)关于 Supabase 提供的所有扩展。
 
-## Terminology
-
-{/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
-
-### Postgres or PostgreSQL?
+## 术语
 
 {/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
 
-PostgreSQL the database was derived from the POSTGRES Project, a package written at the University of California at Berkeley in 1986. This package included a query language called "PostQUEL".
+### Postgres 还是 PostgreSQL？
 
-In 1994, Postgres95 was built on top of POSTGRES code, adding an SQL language interpreter as a replacement for PostQUEL.
 {/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
 
-Eventually, Postgres95 was renamed to PostgreSQL to reflect the SQL query capability.
-After this, many people referred to it as Postgres since it's less prone to confusion. Supabase is all about simplicity, so we also refer to it as Postgres.
+PostgreSQL 数据库源自 POSTGRES 项目，这是 1986 年在加州大学伯克利分校编写的一个软件包。该软件包包含一种名为"PostQUEL"的查询语言。
 
-## Tips
+1994 年，Postgres95 基于 POSTGRES 代码构建，添加了 SQL 语言解释器来替代 PostQUEL。
+{/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
 
-Read about resetting your database password [here](/docs/guides/database/managing-passwords) and changing the timezone of your server [here](/docs/guides/database/managing-timezones).
+最终，Postgres95 更名为 PostgreSQL，以反映其 SQL 查询功能。
+此后，许多人称其为 Postgres，因为这样不容易混淆。Supabase 注重简洁，所以我们也称其为 Postgres。
 
-## Next steps
+## 小技巧
 
-- Read more about [Postgres](https://www.postgresql.org/about/)
-- Sign in: [supabase.com/dashboard](https://supabase.com/dashboard)
+阅读[此处](/docs/guides/database/managing-passwords)了解如何重置数据库密码，以及[此处](/docs/guides/database/managing-timezones)了解如何更改服务器的时区。
+
+## 下一步
+
+- 了解更多关于 [Postgres](https://www.postgresql.org/about/)
+- 登录：[supabase.com/dashboard](https://supabase.com/dashboard)

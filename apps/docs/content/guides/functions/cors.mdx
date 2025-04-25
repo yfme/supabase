@@ -1,16 +1,16 @@
 ---
 id: 'functions-cors'
-title: 'CORS (Cross-Origin Resource Sharing) support for Invoking from the browser'
-description: 'Add CORS headers to invoke Edge Functions from the browser.'
+title: '从浏览器调用的 CORS（跨源资源共享）支持'
+description: '添加 CORS 头以从浏览器调用边缘函数。'
 ---
 
-To invoke edge functions from the browser, you need to handle [CORS Preflight](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request) requests.
+要从浏览器调用边缘函数，您需要处理 [CORS 预检请求](https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request)。
 
-See the [example on GitHub](https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/browser-with-cors/index.ts).
+查看 [GitHub 上的示例](https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/browser-with-cors/index.ts)。
 
-### Recommended setup
+### 推荐设置
 
-We recommend adding a `cors.ts` file within a [`_shared` folder](/docs/guides/functions/quickstart#organizing-your-edge-functions) which makes it easy to reuse the CORS headers across functions:
+我们建议在 [`_shared` 文件夹](/docs/guides/functions/quickstart#organizing-your-edge-functions) 中添加一个 `cors.ts` 文件，这样可以轻松地在多个函数中重用 CORS 头：
 
 ```ts cors.ts
 export const corsHeaders = {
@@ -19,15 +19,15 @@ export const corsHeaders = {
 }
 ```
 
-You can then import and use the CORS headers within your functions:
+然后您可以在函数中导入并使用这些 CORS 头：
 
 ```ts index.ts
 import { corsHeaders } from '../_shared/cors.ts'
 
-console.log(`Function "browser-with-cors" up and running!`)
+console.log(`函数 "browser-with-cors" 已启动并运行！`)
 
 Deno.serve(async (req) => {
-  // This is needed if you're planning to invoke your function from a browser.
+  // 如果您计划从浏览器调用函数，则需要这个
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
   try {
     const { name } = await req.json()
     const data = {
-      message: `Hello ${name}!`,
+      message: `你好 ${name}！`,
     }
 
     return new Response(JSON.stringify(data), {

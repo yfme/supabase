@@ -1,7 +1,7 @@
 ---
 id: 'schedule-functions'
-title: 'Scheduling Edge Functions'
-description: 'Schedule Edge Functions with pg_cron.'
+title: '调度 Edge Functions'
+description: '使用 pg_cron 调度 Edge Functions。'
 ---
 
 <div class="video-container">
@@ -13,34 +13,34 @@ description: 'Schedule Edge Functions with pg_cron.'
   ></iframe>
 </div>
 
-The hosted Supabase Platform supports the [`pg_cron` extension](/docs/guides/database/extensions/pgcron), a recurring job scheduler in Postgres.
+Supabase 托管平台支持 [`pg_cron` 扩展](/docs/guides/database/extensions/pgcron)，这是一个 Postgres 中的定期作业调度器。
 
-In combination with the [`pg_net` extension](/docs/guides/database/extensions/pgnet), this allows us to invoke Edge Functions periodically on a set schedule.
+结合 [`pg_net` 扩展](/docs/guides/database/extensions/pgnet)，这允许我们按照设定的计划定期调用 Edge Functions。
 
 <Admonition type="caution">
 
-To access the auth token securely for your Edge Function call, we recommend storing them in [Supabase Vault](/docs/guides/database/vault).
+为了安全地访问 Edge Function 调用的身份验证令牌，我们建议将它们存储在 [Supabase Vault](/docs/guides/database/vault) 中。
 
 </Admonition>
 
-## Examples
+## 示例
 
-### Invoke an Edge Function every minute
+### 每分钟调用一次 Edge Function
 
-Store `project_url` and `anon_key` in Supabase Vault:
+在 Supabase Vault 中存储 `project_url` 和 `anon_key`：
 
 ```sql
 select vault.create_secret('https://project-ref.supabase.co', 'project_url');
 select vault.create_secret('YOUR_SUPABASE_ANON_KEY', 'anon_key');
 ```
 
-Make a POST request to a Supabase Edge Function every minute:
+每分钟向 Supabase Edge Function 发送一个 POST 请求：
 
 ```sql
 select
   cron.schedule(
     'invoke-function-every-minute',
-    '* * * * *', -- every minute
+    '* * * * *', -- 每分钟
     $$
     select
       net.http_post(
@@ -55,7 +55,7 @@ select
   );
 ```
 
-## Resources
+## 资源
 
-- [`pg_net` extension](/docs/guides/database/extensions/pgnet)
-- [`pg_cron` extension](/docs/guides/database/extensions/pgcron)
+- [`pg_net` 扩展](/docs/guides/database/extensions/pgnet)
+- [`pg_cron` 扩展](/docs/guides/database/extensions/pgcron)

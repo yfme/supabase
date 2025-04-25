@@ -1,23 +1,23 @@
 ---
 id: 'ai-vecs-python-client'
-title: 'Creating and managing collections'
-subtitle: 'Connecting to your database with Colab.'
-breadcrumb: 'AI Quickstarts'
+title: '创建和管理集合'
+subtitle: '使用 Colab 连接到您的数据库。'
+breadcrumb: 'AI 快速入门'
 ---
 
-This guide will walk you through a basic ["Hello World"](https://github.com/supabase/supabase/blob/master/examples/ai/vector_hello_world.ipynb) example using Colab and Supabase Vecs. You'll learn how to:
+本指南将带您完成一个基本的["Hello World"](https://github.com/supabase/supabase/blob/master/examples/ai/vector_hello_world.ipynb)示例，使用 Colab 和 Supabase Vecs。您将学习如何：
 
-1. Launch a Postgres database that uses pgvector to store embeddings
-1. Launch a notebook that connects to your database
-1. Create a vector collection
-1. Add data to the collection
-1. Query the collection
+1. 启动一个使用 pgvector 存储嵌入的 Postgres 数据库
+1. 启动一个连接到您数据库的笔记本
+1. 创建一个向量集合
+1. 向集合添加数据
+1. 查询集合
 
 <$Partial path="database_setup.mdx" />
 
-## Launching a notebook
+## 启动笔记本
 
-Launch our [`vector_hello_world`](https://github.com/supabase/supabase/blob/master/examples/ai/vector_hello_world.ipynb) notebook in Colab:
+在 Colab 中启动我们的 [`vector_hello_world`](https://github.com/supabase/supabase/blob/master/examples/ai/vector_hello_world.ipynb) 笔记本：
 
 <a
   className="w-64"
@@ -26,43 +26,43 @@ Launch our [`vector_hello_world`](https://github.com/supabase/supabase/blob/mast
   <img src="/docs/img/ai/colab-badge.svg" />
 </a>
 
-At the top of the notebook, you'll see a button `Copy to Drive`. Click this button to copy the notebook to your Google Drive.
+在笔记本顶部，您会看到一个 `复制到云端硬盘` 按钮。点击此按钮将笔记本复制到您的 Google 云端硬盘。
 
-## Connecting to your database
+## 连接到您的数据库
 
-Inside the Notebook, find the cell which specifies the `DB_CONNECTION`. It will contain some code like this:
+在笔记本内，找到指定 `DB_CONNECTION` 的单元格。它将包含类似以下的代码：
 
 ```python
 import vecs
 
 DB_CONNECTION = "postgresql://<user>:<password>@<host>:<port>/<db_name>"
 
-# create vector store client
+# 创建向量存储客户端
 vx = vecs.create_client(DB_CONNECTION)
 ```
 
-Replace the `DB_CONNECTION` with your Session pooler connection string. You can find the connection string on your project dashboard by clicking [Connect](https://supabase.com/dashboard/project/_?showConnect=true).
+用您的会话池连接字符串替换 `DB_CONNECTION`。您可以通过点击[连接](https://supabase.com/dashboard/project/_?showConnect=true)在项目仪表板上找到连接字符串。
 
 <Admonition type='note'>
 
-SQLAlchemy requires the connection string to start with `postgresql://` (instead of `postgres://`). Don't forget to rename this after copying the string from the dashboard.
+SQLAlchemy 要求连接字符串以 `postgresql://`（而不是 `postgres://`）开头。从仪表板复制字符串后，不要忘记重命名此部分。
 
 </Admonition>
 
 <Admonition type='note'>
 
-You must use the Session pooler connection string with Google Colab since Colab does not support IPv6.
+您必须使用会话池连接字符串与 Google Colab 一起使用，因为 Colab 不支持 IPv6。
 
 </Admonition>
 
-## Stepping through the notebook
+## 逐步执行笔记本
 
-Now all that's left is to step through the notebook. You can do this by clicking the "execute" button (`ctrl+enter`) at the top left of each code cell. The notebook guides you through the process of creating a collection, adding data to it, and querying it.
+现在剩下的就是逐步执行笔记本。您可以通过点击每个代码单元格左上角的"执行"按钮（`ctrl+enter`）来完成此操作。该笔记本指导您完成创建集合、向其添加数据和查询它的过程。
 
-You can view the inserted items in the [Table Editor](https://supabase.com/dashboard/project/_/editor/), by selecting the `vecs` schema from the schema dropdown.
+您可以在[表格编辑器](https://supabase.com/dashboard/project/_/editor/)中查看插入的项目，方法是从架构下拉列表中选择 `vecs` 架构。
 
-![Colab documents](/docs/img/ai/google-colab/colab-documents.png)
+![Colab 文档](/docs/img/ai/google-colab/colab-documents.png)
 
-## Next steps
+## 下一步
 
-You can now start building your own applications with Vecs. Check our [examples](/docs/guides/ai#examples) for ideas.
+您现在可以开始使用 Vecs 构建自己的应用程序。查看我们的[示例](/docs/guides/ai#examples)获取灵感。

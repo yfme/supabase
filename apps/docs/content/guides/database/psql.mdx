@@ -1,23 +1,23 @@
 ---
 id: 'psql'
-title: 'Connecting with PSQL'
-breadcrumb: 'GUI Quickstarts'
+title: '使用 PSQL 连接'
+breadcrumb: 'GUI 快速入门'
 hideToc: true
 ---
 
-[`psql`](https://www.postgresql.org/docs/current/app-psql.html) is a command-line tool that comes with Postgres.
+[`psql`](https://www.postgresql.org/docs/current/app-psql.html) 是 Postgres 自带的命令行工具。
 
-## Connecting with SSL
+## 使用 SSL 连接
 
-You should connect to your database using SSL wherever possible, to prevent snooping and man-in-the-middle attacks.
+您应该尽可能使用 SSL 连接到数据库，以防止窃听和中间人攻击。
 
-You can obtain your connection info and Server root certificate from your application's dashboard:
+您可以从应用程序的仪表板获取连接信息和服务器根证书：
 
-![Connection Info and Certificate.](/docs/img/database/database-settings-ssl.png)
+![连接信息和证书。](/docs/img/database/database-settings-ssl.png)
 
-Download your [SSL certificate](#connecting-with-ssl) to `/path/to/prod-supabase.cer`.
+下载您的 [SSL 证书](#使用-ssl-连接) 到 `/path/to/prod-supabase.cer`。
 
-Find your connection settings. Go to your [`Database Settings`](https://supabase.com/dashboard/project/_/settings/database) and make sure `Use connection pooling` is checked. Change the connection mode to `Session`, and copy the parameters into the connection string:
+查找您的连接设置。前往 [`数据库设置`](https://supabase.com/dashboard/project/_/settings/database)，确保勾选了 `使用连接池`。将连接模式更改为 `Session`，然后将参数复制到连接字符串中：
 
 ```shell
 psql "sslmode=verify-full sslrootcert=/path/to/prod-supabase.cer host=[CLOUD_PROVIDER]-0-[REGION].pooler.supabase.com dbname=postgres user=postgres.[PROJECT_REF]"

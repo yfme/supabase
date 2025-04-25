@@ -1,7 +1,7 @@
 ---
-title: 'Use Supabase with iOS and SwiftUI'
-subtitle: 'Learn how to create a Supabase project, add some sample data to your database, and query the data from an iOS app.'
-breadcrumb: 'Framework Quickstarts'
+title: '在 iOS 和 SwiftUI 中使用 Supabase'
+subtitle: '学习如何创建 Supabase 项目，在数据库中添加示例数据，并从 iOS 应用程序查询数据。'
+breadcrumb: '框架快速入门'
 hideToc: true
 ---
 
@@ -15,9 +15,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={2}>
 
-    <StepHikeCompact.Details title="Create an iOS SwiftUI app with Xcode">
+    <StepHikeCompact.Details title="使用 Xcode 创建 iOS SwiftUI 应用程序">
 
-    Open Xcode > New Project > iOS > App. You can skip this step if you already have a working app.
+    打开 Xcode > 新项目 > iOS > App。如果您已经有一个正在运行的应用程序，可以跳过此步骤。
 
     </StepHikeCompact.Details>
 
@@ -25,11 +25,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={3}>
 
-    <StepHikeCompact.Details title="Install the Supabase client library">
+    <StepHikeCompact.Details title="安装 Supabase 客户端库">
 
-      Install Supabase package dependency using Xcode by following Apple's [tutorial](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app).
+      按照 Apple 的[教程](https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)使用 Xcode 安装 Supabase 包依赖。
 
-      Make sure to add `Supabase` product package as dependency to the application.
+      确保将 `Supabase` 产品包添加为应用程序的依赖项。
 
     </StepHikeCompact.Details>
 
@@ -37,9 +37,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={4}>
 
-    <StepHikeCompact.Details title="Initialize the Supabase client">
+    <StepHikeCompact.Details title="初始化 Supabase 客户端">
 
-      Create a new `Supabase.swift` file add a new Supabase instance using your project URL and public API (anon) key:
+      创建一个新的 `Supabase.swift` 文件，使用您的项目 URL 和公共 API（匿名）密钥添加一个新的 Supabase 实例：
 
       <ProjectConfigVariables variable="url" />
       <ProjectConfigVariables variable="anonKey" />
@@ -63,11 +63,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={5}>
 
-    <StepHikeCompact.Details title="Create a data model for instruments">
+    <StepHikeCompact.Details title="为乐器创建数据模型">
 
-    Create a decodable struct to deserialize the data from the database.
+    创建一个可解码的结构体来反序列化数据库中的数据。
 
-    Add the following code to a new file named `Instrument.swift`.
+    将以下代码添加到名为 `Instrument.swift` 的新文件中。
 
     </StepHikeCompact.Details>
 
@@ -86,11 +86,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={6}>
 
-    <StepHikeCompact.Details title="Query data from the app">
+    <StepHikeCompact.Details title="从应用程序查询数据">
 
-      Use a `task` to fetch the data from the database and display it using a `List`.
+      使用 `task` 从数据库获取数据并使用 `List` 显示它。
 
-      Replace the default `ContentView` with the following code.
+      用以下代码替换默认的 `ContentView`。
 
     </StepHikeCompact.Details>
 
@@ -126,9 +126,9 @@ hideToc: true
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={7}>
-    <StepHikeCompact.Details title="Start the app">
+    <StepHikeCompact.Details title="启动应用程序">
 
-    Run the app on a simulator or a physical device by hitting `Cmd + R` on Xcode.
+    通过在 Xcode 中按 `Cmd + R` 在模拟器或物理设备上运行应用程序。
 
     </StepHikeCompact.Details>
 

@@ -1,19 +1,19 @@
 ---
 id: 'unit-test'
-title: 'Testing your Edge Functions'
-description: 'Writing Unit Tests for Edge Functions using Deno Test'
-subtitle: 'Writing Unit Tests for Edge Functions using Deno Test'
+title: '测试您的 Edge Functions'
+description: '使用 Deno Test 为 Edge Functions 编写单元测试'
+subtitle: '使用 Deno Test 为 Edge Functions 编写单元测试'
 ---
 
-Testing is an essential step in the development process to ensure the correctness and performance of your Edge Functions.
+测试是开发过程中的重要步骤，可确保 Edge Functions 的正确性和性能。
 
-## Testing in Deno
+## 在 Deno 中测试
 
-Deno has a built-in test runner that you can use for testing JavaScript or TypeScript code. You can read the [official documentation](https://docs.deno.com/runtime/manual/basics/testing/) for more information and details about the available testing functions.
+Deno 有一个内置的测试运行器，您可以用它来测试 JavaScript 或 TypeScript 代码。您可以阅读[官方文档](https://docs.deno.com/runtime/manual/basics/testing/)获取更多信息和关于可用测试函数的详细信息。
 
-## Folder structure
+## 文件夹结构
 
-We recommend creating your testing in a `supabase/functions/tests` directory, using the same name as the Function followed by `-test.ts`:
+我们建议在 `supabase/functions/tests` 目录中创建测试，使用与函数相同的名称后跟 `-test.ts`：
 
 ```bash
 └── supabase
@@ -23,24 +23,24 @@ We recommend creating your testing in a `supabase/functions/tests` directory, us
     │   └── function-two
     │   │   └── index.ts
     │   └── tests
-    │       └── function-one-test.ts  # Tests for function-one
-    │       └── function-two-test.ts  # Tests for function-two
+    │       └── function-one-test.ts  # function-one 的测试
+    │       └── function-two-test.ts  # function-two 的测试
     └── config.toml
 ```
 
-## Example script
+## 示例脚本
 
-The following script is a good example to get started with testing your Edge Functions:
+以下脚本是开始测试 Edge Functions 的好例子：
 
 ```typescript function-one-test.ts
-// Import required libraries and modules
+// 导入所需的库和模块
 import { assert, assertEquals } from 'jsr:@std/assert@1'
 import { createClient, SupabaseClient } from 'jsr:@supabase/supabase-js@2'
 
-// Will load the .env file to Deno.env
+// 将 .env 文件加载到 Deno.env
 import 'jsr:@std/dotenv/load'
 
-// Set up the configuration for the Supabase client
+// 设置 Supabase 客户端的配置
 const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? ''
 const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY') ?? ''
 const options = {
@@ -51,15 +51,15 @@ const options = {
   },
 }
 
-// Test the creation and functionality of the Supabase client
+// 测试 Supabase 客户端的创建和功能
 const testClientCreation = async () => {
   var client: SupabaseClient = createClient(supabaseUrl, supabaseKey, options)
 
-  // Verify if the Supabase URL and key are provided
+  // 验证是否提供了 Supabase URL 和密钥
   if (!supabaseUrl) throw new Error('supabaseUrl is required.')
   if (!supabaseKey) throw new Error('supabaseKey is required.')
 
-  // Test a simple query to the database
+  // 对数据库进行简单查询测试
   const { data: table_data, error: table_error } = await client
     .from('my_table')
     .select('*')
@@ -70,84 +70,84 @@ const testClientCreation = async () => {
   assert(table_data, 'Data should be returned from the query.')
 }
 
-// Test the 'hello-world' function
+// 测试 'hello-world' 函数
 const testHelloWorld = async () => {
   var client: SupabaseClient = createClient(supabaseUrl, supabaseKey, options)
 
-  // Invoke the 'hello-world' function with a parameter
+  // 使用参数调用 'hello-world' 函数
   const { data: func_data, error: func_error } = await client.functions.invoke('hello-world', {
     body: { name: 'bar' },
   })
 
-  // Check for errors from the function invocation
+  // 检查函数调用中的错误
   if (func_error) {
     throw new Error('Invalid response: ' + func_error.message)
   }
 
-  // Log the response from the function
+  // 记录函数的响应
   console.log(JSON.stringify(func_data, null, 2))
 
-  // Assert that the function returned the expected result
+  // 断言函数返回了预期的结果
   assertEquals(func_data.message, 'Hello bar!')
 }
 
-// Register and run the tests
+// 注册并运行测试
 Deno.test('Client Creation Test', testClientCreation)
 Deno.test('Hello-world Function Test', testHelloWorld)
 ```
 
-This test case consists of two parts. The first part tests the client library and verifies that the database can be connected to and returns values from a table (`my_table`). The second part tests the edge function and checks if the received value matches the expected value. Here's a brief overview of the code:
+这个测试用例包含两部分。第一部分测试客户端库，并验证可以连接到数据库并从表（`my_table`）返回值。第二部分测试边缘函数，并检查接收到的值是否与预期值匹配。以下是代码的简要概述：
 
-- We import various testing functions from the Deno standard library, including `assert`, `assertExists`, and `assertEquals`.
-- We import the `createClient` and `SupabaseClient` classes from the `@supabase/supabase-js` library to interact with the Supabase client.
-- We define the necessary configuration for the Supabase client, including the Supabase URL, API key, and authentication options.
-- The `testClientCreation` function tests the creation of a Supabase client instance and queries the database for data from a table. It verifies that data is returned from the query.
-- The `testHelloWorld` function tests the "Hello-world" Edge Function by invoking it using the Supabase client's `functions.invoke` method. It checks if the response message matches the expected greeting.
-- We run the tests using the `Deno.test` function, providing a descriptive name for each test case and the corresponding test function.
+- 我们从 Deno 标准库导入各种测试函数，包括 `assert`、`assertExists` 和 `assertEquals`。
+- 我们从 `@supabase/supabase-js` 库导入 `createClient` 和 `SupabaseClient` 类，以与 Supabase 客户端交互。
+- 我们定义 Supabase 客户端所需的配置，包括 Supabase URL、API 密钥和认证选项。
+- `testClientCreation` 函数测试 Supabase 客户端实例的创建，并查询数据库以获取表中的数据。它验证查询返回了数据。
+- `testHelloWorld` 函数通过使用 Supabase 客户端的 `functions.invoke` 方法调用"Hello-world" Edge Function 进行测试。它检查响应消息是否与预期的问候语匹配。
+- 我们使用 `Deno.test` 函数运行测试，为每个测试用例提供描述性名称和相应的测试函数。
 
 <Admonition type="note">
 
-Make sure to replace the placeholders (`supabaseUrl`, `supabaseKey`, `my_table`) with the actual values relevant to your Supabase setup.
+确保将占位符（`supabaseUrl`、`supabaseKey`、`my_table`）替换为与您的 Supabase 设置相关的实际值。
 
 </Admonition>
 
-## Running Edge Functions locally
+## 本地运行 Edge Functions
 
-To locally test and debug Edge Functions, you can utilize the Supabase CLI. Let's explore how to run Edge Functions locally using the Supabase CLI:
+要在本地测试和调试 Edge Functions，您可以使用 Supabase CLI。让我们探讨如何使用 Supabase CLI 在本地运行 Edge Functions：
 
-1. Ensure that the Supabase server is running by executing the following command:
+1. 通过执行以下命令确保 Supabase 服务器正在运行：
 
    ```bash
    supabase start
    ```
 
-2. In your terminal, use the following command to serve the Edge Functions locally:
+2. 在终端中，使用以下命令在本地提供 Edge Functions：
 
    ```bash
    supabase functions serve
    ```
 
-   This command starts a local server that runs your Edge Functions, enabling you to test and debug them in a development environment.
+   此命令启动运行 Edge Functions 的本地服务器，使您能够在开发环境中测试和调试它们。
 
-3. Create the environment variables file:
+3. 创建环境变量文件：
 
    ```bash
-   # creates the file
+   # 创建文件
    touch .env
-   # adds the SUPABASE_URL secret
+   # 添加 SUPABASE_URL 密钥
    echo "SUPABASE_URL=http://localhost:54321" >> .env
-   # adds the SUPABASE_ANON_KEY secret
+   # 添加 SUPABASE_ANON_KEY 密钥
    echo "SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0" >> .env
-   # Alternatively, you can open it in your editor:
+   # 或者，您可以在编辑器中打开它：
    open .env
    ```
 
-4. To run the tests, use the following command in your terminal:
+4. 要运行测试，请在终端中使用以下命令：
 
    ```bash
    deno test --allow-all supabase/functions/tests/function-one-test.ts
    ```
 
-## Resources
+## 资源
 
-- Full guide on Testing Supabase Edge Functions on [Mansueli's tips](https://blog.mansueli.com/testing-supabase-edge-functions-with-deno-test)
+- 关于测试 Supabase Edge Functions 的完整指南在 [Mansueli's tips](https://blog.mansueli.com/testing-supabase-edge-functions-with-deno-test)

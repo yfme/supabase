@@ -1,40 +1,40 @@
 ---
 id: 'ai-semantic-search'
-title: 'Semantic search'
-description: 'Learn how to search by meaning rather than exact keywords.'
-subtitle: 'Learn how to search by meaning rather than exact keywords.'
-sidebar_label: 'Semantic search'
+title: '语义搜索'
+description: '了解如何通过含义而非确切关键词进行搜索。'
+subtitle: '了解如何通过含义而非确切关键词进行搜索。'
+sidebar_label: '语义搜索'
 ---
 
-Semantic search interprets the meaning behind user queries rather than exact [keywords](/docs/guides/ai/keyword-search). It uses machine learning to capture the intent and context behind the query, handling language nuances like synonyms, phrasing variations, and word relationships.
+语义搜索解释用户查询背后的含义，而不是确切的[关键词](/docs/guides/ai/keyword-search)。它使用机器学习来捕捉查询背后的意图和上下文，处理同义词、短语变体和词语关系等语言细微差别。
 
-## When to use semantic search
+## 何时使用语义搜索
 
-Semantic search is useful in applications where the depth of understanding and context is important for delivering relevant results. A good example is in customer support or knowledge base search engines. Users often phrase their problems or questions in various ways, and a traditional keyword-based search might not always retrieve the most helpful documents. With semantic search, the system can understand the meaning behind the queries and match them with relevant solutions or articles, even if the exact wording differs.
+在理解深度和上下文对于提供相关结果很重要的应用中，语义搜索非常有用。一个很好的例子是客户支持或知识库搜索引擎。用户经常以各种方式表述他们的问题或疑问，而传统的基于关键词的搜索可能无法始终检索到最有帮助的文档。通过语义搜索，系统可以理解查询背后的含义并将其与相关解决方案或文章匹配，即使确切的措辞不同。
 
-For instance, a user searching for "increase text size on display" might miss articles titled "How to adjust font size in settings" in a keyword-based search system. However, a semantic search engine would understand the intent behind the query and correctly match it to relevant articles, regardless of the specific terminology used.
+例如，搜索"增加显示文本大小"的用户可能在基于关键词的搜索系统中错过标题为"如何在设置中调整字体大小"的文章。然而，语义搜索引擎会理解查询背后的意图，并正确地将其与相关文章匹配，无论使用的具体术语如何。
 
-It's also possible to combine semantic search with keyword search to get the best of both worlds. See [Hybrid search](/docs/guides/ai/hybrid-search) for more details.
+也可以将语义搜索与关键词搜索结合起来，获得两者的优势。有关更多详细信息，请参阅[混合搜索](/docs/guides/ai/hybrid-search)。
 
-## How semantic search works
+## 语义搜索的工作原理
 
-Semantic search uses an intermediate representation called an “embedding vector” to link database records with search queries. A vector, in the context of semantic search, is a list of numerical values. They represent various features of the text and allow for the semantic comparison between different pieces of text.
+语义搜索使用一种称为"嵌入向量"的中间表示来连接数据库记录和搜索查询。在语义搜索的上下文中，向量是一系列数值。它们代表文本的各种特征，并允许在不同文本片段之间进行语义比较。
 
-The best way to think of embeddings is by plotting them on a graph, where each embedding is a single point whose coordinates are the numerical values within its vector. Importantly, embeddings are plotted such that similar concepts are positioned close together while dissimilar concepts are far apart. For more details, see [What are embeddings?](/docs/guides/ai/concepts#what-are-embeddings)
+理解嵌入的最佳方式是将它们绘制在图表上，其中每个嵌入是一个单点，其坐标是其向量中的数值。重要的是，嵌入的布局使得相似的概念位置靠近，而不相似的概念相距较远。有关更多详细信息，请参阅[什么是嵌入？](/docs/guides/ai/concepts#what-are-embeddings)
 
-Embeddings are generated using a language model, and embeddings are compared to each other using a similarity metric. The language model is trained to understand the semantics of language, including syntax, context, and the relationships between words. It generates embeddings for both the content in the database and the search queries. Then the similarity metric, often a function like cosine similarity or dot product, is used to compare the query embeddings with the document embeddings (in other words, to measure how close they are to each other on the graph). The documents with embeddings most similar to the query's are deemed the most relevant and are returned as search results.
+嵌入是使用语言模型生成的，嵌入之间使用相似度度量进行比较。语言模型经过训练，能够理解语言的语义，包括语法、上下文和词语之间的关系。它为数据库中的内容和搜索查询生成嵌入。然后，相似度度量（通常是余弦相似度或点积等函数）用于比较查询嵌入与文档嵌入（换句话说，测量它们在图表上彼此的接近程度）。嵌入与查询最相似的文档被视为最相关，并作为搜索结果返回。
 
-## Embedding models
+## 嵌入模型
 
-There are many embedding models available today. Supabase Edge Functions has [built in support](/docs/guides/functions/examples/semantic-search) for the `gte-small` model. Others can be accessed through third-party APIs like [OpenAI](https://platform.openai.com/docs/guides/embeddings), where you send your text in the request and receive an embedding vector in the response. Others can run locally on your own compute, such as through Transformers.js for JavaScript implementations. For more information on local implementation, see [Generate embeddings](/docs/guides/ai/quickstarts/generate-text-embeddings).
+如今有许多嵌入模型可用。Supabase Edge Functions 对 `gte-small` 模型有[内置支持](/docs/guides/functions/examples/semantic-search)。其他模型可以通过第三方 API 访问，如 [OpenAI](https://platform.openai.com/docs/guides/embeddings)，您可以在请求中发送文本，并在响应中接收嵌入向量。还有一些可以在您自己的计算资源上本地运行，例如通过 JavaScript 实现的 Transformers.js。有关本地实现的更多信息，请参阅[生成嵌入](/docs/guides/ai/quickstarts/generate-text-embeddings)。
 
-It's crucial to remember that when using embedding models with semantic search, you must use the same model for all embedding comparisons. Comparing embeddings created by different models will yield meaningless results.
+重要的是要记住，在将嵌入模型用于语义搜索时，必须对所有嵌入比较使用相同的模型。比较由不同模型创建的嵌入将产生无意义的结果。
 
-## Semantic search in Postgres
+## Postgres 中的语义搜索
 
-To implement semantic search in Postgres we use `pgvector` - an extension that allows for efficient storage and retrieval of high-dimensional vectors. These vectors are numerical representations of text (or other types of data) generated by embedding models.
+要在 Postgres 中实现语义搜索，我们使用 `pgvector` - 一个允许高效存储和检索高维向量的扩展。这些向量是由嵌入模型生成的文本（或其他类型数据）的数值表示。
 
-1. Enable the `pgvector` extension by running:
+1. 通过运行以下命令启用 `pgvector` 扩展：
 
    ```sql
    create extension vector
@@ -42,7 +42,7 @@ To implement semantic search in Postgres we use `pgvector` - an extension that a
      schema extensions;
    ```
 
-1. Create a table to store the embeddings:
+1. 创建一个表来存储嵌入：
 
    ```sql
    create table documents (
@@ -52,33 +52,33 @@ To implement semantic search in Postgres we use `pgvector` - an extension that a
    );
    ```
 
-   Or if you have an existing table, you can add a vector column like so:
+   或者如果您有现有的表，可以这样添加向量列：
 
    ```sql
    alter table documents
    add column embedding vector(512);
    ```
 
-   In this example, we create a column named `embedding` which uses the newly enabled `vector` data type. The size of the vector (as indicated in parentheses) represents the number of dimensions in the embedding. Here we use 512, but adjust this to match the number of dimensions produced by your embedding model.
+   在此示例中，我们创建了一个名为 `embedding` 的列，它使用新启用的 `vector` 数据类型。向量的大小（如括号中所示）表示嵌入中的维度数。这里我们使用 512，但请根据您的嵌入模型生成的维度数进行调整。
 
-For more details on vector columns, including how to generate embeddings and store them, see [Vector columns](/docs/guides/ai/vector-columns).
+有关向量列的更多详细信息，包括如何生成嵌入并存储它们，请参阅[向量列](/docs/guides/ai/vector-columns)。
 
-### Similarity metric
+### 相似度度量
 
-`pgvector` support 3 operators for computing distance between embeddings:
+`pgvector` 支持 3 个用于计算嵌入之间距离的操作符：
 
-| **Operator** | **Description**        |
+| **操作符** | **描述** |
 | ------------ | ---------------------- |
-| `<->`        | Euclidean distance     |
-| `<#>`        | negative inner product |
-| `<=>`        | cosine distance        |
+| `<->` | 欧几里得距离 |
+| `<#>` | 负内积 |
+| `<=>` | 余弦距离 |
 
-These operators are used directly in your SQL query to retrieve records that are most similar to the user's search query. Choosing the right operator depends on your needs. Inner product (also known as dot product) tends to be the fastest if your vectors are normalized.
+这些操作符直接在 SQL 查询中使用，以检索与用户搜索查询最相似的记录。选择正确的操作符取决于您的需求。如果您的向量已归一化，内积（也称为点积）往往是最快的。
 
-The easiest way to perform semantic search in Postgres is by creating a function:
+在 Postgres 中执行语义搜索的最简单方法是创建一个函数：
 
 ```sql
--- Match documents using cosine distance (<=>)
+-- 使用余弦距离（<=>）匹配文档
 create or replace function match_documents (
   query_embedding vector(512),
   match_threshold float,
@@ -95,18 +95,18 @@ as $$
 $$;
 ```
 
-Here we create a function `match_documents` that accepts three parameters:
+在这里，我们创建一个 `match_documents` 函数，它接受三个参数：
 
-1. `query_embedding`: a one-time embedding generated for the user's search query. Here we set the size to 512, but adjust this to match the number of dimensions produced by your embedding model.
-1. `match_threshold`: the minimum similarity between embeddings. This is a value between 1 and -1, where 1 is most similar and -1 is most dissimilar.
-1. `match_count`: the maximum number of results to return. Note the query may return less than this number if `match_threshold` resulted in a small shortlist. Limited to 200 records to avoid unintentionally overloading your database.
+1. `query_embedding`：为用户的搜索查询生成的一次性嵌入。这里我们将大小设置为 512，但请根据您的嵌入模型生成的维度数进行调整。
+1. `match_threshold`：嵌入之间的最小相似度。这是一个介于 1 和 -1 之间的值，其中 1 表示最相似，-1 表示最不相似。
+1. `match_count`：要返回的最大结果数。请注意，如果 `match_threshold` 导致短列表，查询可能返回少于此数量的结果。限制为 200 条记录，以避免无意中使数据库过载。
 
-In this example, we return a `setof documents` and refer to `documents` throughout the query. Adjust this to use the relevant tables in your application.
+在此示例中，我们返回 `setof documents` 并在整个查询中引用 `documents`。请根据您应用中的相关表进行调整。
 
-You'll notice we are using the cosine distance (`<=>`) operator in our query. Cosine distance is a safe default when you don't know whether or not your embeddings are normalized. If you know for a fact that they are normalized (for example, your embedding is returned from OpenAI), you can use negative inner product (`<#>`) for better performance:
+您会注意到我们在查询中使用余弦距离（`<=>`）操作符。当您不知道嵌入是否已归一化时，余弦距离是一个安全的默认值。如果您确定它们已归一化（例如，您的嵌入来自 OpenAI），可以使用负内积（`<#>`）以获得更好的性能：
 
 ```sql
--- Match documents using negative inner product (<#>)
+-- 使用负内积（<#>）匹配文档
 create or replace function match_documents (
   query_embedding vector(512),
   match_threshold float,
@@ -123,41 +123,41 @@ as $$
 $$;
 ```
 
-Note that since `<#>` is negative, we negate `match_threshold` accordingly in the `where` clause. For more information on the different operators, see the [pgvector docs](https://github.com/pgvector/pgvector?tab=readme-ov-file#vector-operators).
+注意，由于 `<#>` 是负的，我们在 `where` 子句中相应地否定了 `match_threshold`。有关不同操作符的更多信息，请参阅 [pgvector 文档](https://github.com/pgvector/pgvector?tab=readme-ov-file#vector-operators)。
 
-### Calling from your application
+### 从应用程序调用
 
-Finally you can execute this function from your application. If you are using a Supabase client library such as [`supabase-js`](https://github.com/supabase/supabase-js), you can invoke it using the `rpc()` method:
+最后，您可以从应用程序执行此函数。如果您使用的是 Supabase 客户端库，如 [`supabase-js`](https://github.com/supabase/supabase-js)，您可以使用 `rpc()` 方法调用它：
 
 ```tsx
 const { data: documents } = await supabase.rpc('match_documents', {
-  query_embedding: embedding, // pass the query embedding
-  match_threshold: 0.78, // choose an appropriate threshold for your data
-  match_count: 10, // choose the number of matches
+  query_embedding: embedding, // 传递查询嵌入
+  match_threshold: 0.78, // 为您的数据选择适当的阈值
+  match_count: 10, // 选择匹配数量
 })
 ```
 
-You can also call this method directly from SQL:
+您也可以直接从 SQL 调用此方法：
 
 ```sql
 select *
 from match_documents(
-  '[...]'::vector(512), -- pass the query embedding
-  0.78, -- chose an appropriate threshold for your data
-  10 -- choose the number of matches
+  '[...]'::vector(512), -- 传递查询嵌入
+  0.78, -- 为您的数据选择适当的阈值
+  10 -- 选择匹配数量
 );
 ```
 
-In this scenario, you'll likely use a Postgres client library to establish a direct connection from your application to the database. It's best practice to parameterize your arguments before executing the query.
+在这种情况下，您可能会使用 Postgres 客户端库建立从应用程序到数据库的直接连接。最佳做法是在执行查询之前参数化您的参数。
 
-## Next steps
+## 下一步
 
-As your database scales, you will need an index on your vector columns to maintain fast query speeds. See [Vector indexes](/docs/guides/ai/vector-indexes) for an in-depth guide on the different types of indexes and how they work.
+随着数据库的扩展，您需要在向量列上建立索引以保持快速查询速度。请参阅[向量索引](/docs/guides/ai/vector-indexes)获取有关不同类型索引及其工作原理的深入指南。
 
-## See also
+## 另请参阅
 
-- [Embedding concepts](/docs/guides/ai/concepts)
-- [Vector columns](/docs/guides/ai/vector-columns)
-- [Vector indexes](/docs/guides/ai/vector-indexes)
-- [Hybrid search](/docs/guides/ai/hybrid-search)
-- [Keyword search](/docs/guides/ai/keyword-search)
+- [嵌入概念](/docs/guides/ai/concepts)
+- [向量列](/docs/guides/ai/vector-columns)
+- [向量索引](/docs/guides/ai/vector-indexes)
+- [混合搜索](/docs/guides/ai/hybrid-search)
+- [关键词搜索](/docs/guides/ai/keyword-search)

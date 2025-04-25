@@ -1,21 +1,21 @@
 ---
 id: 'storage'
-title: 'Storage'
-description: 'Use Supabase to store and serve files.'
-subtitle: 'Use Supabase to store and serve files.'
-sidebar_label: 'Overview'
+title: '存储'
+description: '使用 Supabase 存储和提供文件。'
+subtitle: '使用 Supabase 存储和提供文件。'
+sidebar_label: '概述'
 hideToc: true
 ---
 
-Supabase Storage makes it simple to upload and serve files of any size, providing a robust framework for file access controls.
+Supabase Storage 使上传和提供任何大小的文件变得简单，为文件访问控制提供了强大的框架。
 
-## Features
+## 功能特性
 
-You can use Supabase Storage to store images, videos, documents, and any other file type. Serve your assets with a global CDN to reduce latency from over 285 cities globally. Supabase Storage includes a built-in image optimizer, so you can resize and compress your media files on the fly.
+您可以使用 Supabase Storage 存储图像、视频、文档和任何其他文件类型。通过全球 CDN 提供您的资产，减少来自全球 285 多个城市的延迟。Supabase Storage 包含内置的图像优化器，因此您可以即时调整和压缩媒体文件的大小。
 
-## Examples
+## 示例
 
-Check out all of the Storage [templates and examples](https://github.com/supabase/supabase/tree/master/examples/storage) in our GitHub repository.
+查看我们 GitHub 仓库中的所有存储[模板和示例](https://github.com/supabase/supabase/tree/master/examples/storage)。
 
 <div className="grid md:grid-cols-12 gap-4 not-prose">
   {examples.map((x) => (
@@ -31,27 +31,27 @@ Check out all of the Storage [templates and examples](https://github.com/supabas
 
 export const examples = [
   {
-    name: 'Resumable Uploads with Uppy',
+    name: '使用 Uppy 的可恢复上传',
     description:
-      'Use Uppy to upload files to Supabase Storage using the TUS protocol (resumable uploads).',
+      '使用 Uppy 通过 TUS 协议（可恢复上传）将文件上传到 Supabase Storage。',
     href: 'https://github.com/supabase/supabase/tree/master/examples/storage/resumable-upload-uppy',
   },
 ]
 
-## Resources
+## 资源
 
-Find the source code and documentation in the Supabase GitHub repository.
+在 Supabase GitHub 仓库中查找源代码和文档。
 
 <div className="grid md:grid-cols-12 gap-4 not-prose">
   {[
     {
       name: 'Supabase Storage API',
-      description: 'View the source code.',
+      description: '查看源代码。',
       href: 'https://github.com/supabase/storage-api',
     },
     {
-      name: 'OpenAPI Spec',
-      description: 'See the Swagger Documentation for Supabase Storage.',
+      name: 'OpenAPI 规范',
+      description: '查看 Supabase Storage 的 Swagger 文档。',
       href: 'https://supabase.github.io/storage/',
     },
   ].map((x) => (

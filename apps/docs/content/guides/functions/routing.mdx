@@ -1,31 +1,31 @@
 ---
 id: 'function-routing'
-title: 'Handling Routing in Functions'
-description: 'How to handle custom routing within Edge Functions.'
-subtitle: 'How to handle custom routing within Edge Functions.'
+title: '在函数中处理路由'
+description: '如何在 Edge Functions 中处理自定义路由。'
+subtitle: '如何在 Edge Functions 中处理自定义路由。'
 ---
 
-Usually, an Edge Function is written to perform a single action (e.g. write a record to the database). However, if your app's logic is split into multiple Edge Functions requests to each action may seem slower.
-This is because each Edge Function needs to be booted before serving a request (known as cold starts). If an action is performed less frequently (e.g. deleting a record), there is a high-chance of that function experiencing a cold-start.
+通常，Edge Function 被编写为执行单个操作（例如将记录写入数据库）。然而，如果您的应用逻辑分散在多个 Edge Functions 中，对每个操作的请求可能会显得较慢。
+这是因为每个 Edge Function 在处理请求之前都需要启动（称为冷启动）。如果某个操作不经常执行（例如删除记录），那么该函数很可能会经历冷启动。
 
-One way to reduce the cold starts and increase performance of your app is to combine multiple actions into a single Edge Function. This way only one instance of the Edge Function needs to be booted and it can handle multiple requests to different actions.
-For example, we can use a single Edge Function to create a typical CRUD API (create, read, update, delete records).
+减少冷启动并提高应用性能的一种方法是将多个操作合并到单个 Edge Function 中。这样只需要启动一个 Edge Function 实例，它就可以处理对不同操作的多个请求。
+例如，我们可以使用单个 Edge Function 创建一个典型的 CRUD API（创建、读取、更新、删除记录）。
 
-To combine multiple endpoints into a single Edge Function, you can use web application frameworks such as [Express](https://expressjs.com/), [Oak](https://oakserver.github.io/oak/), or [Hono](https://hono.dev).
+要将多个端点合并到一个 Edge Function 中，您可以使用 Web 应用框架，如 [Express](https://expressjs.com/)、[Oak](https://oakserver.github.io/oak/) 或 [Hono](https://hono.dev)。
 
-Let's dive into some examples.
+让我们深入一些示例。
 
-## Routing with frameworks
+## 使用框架的路由
 
-Here's a simple hello world example using some popular web frameworks.
+以下是使用一些流行 Web 框架的简单 hello world 示例。
 
-Create a new function called `hello-world` using Supabase CLI:
+使用 Supabase CLI 创建一个名为 `hello-world` 的新函数：
 
 ```bash
 supabase functions new hello-world
 ```
 
-Copy and paste the following code:
+复制并粘贴以下代码：
 
 <Tabs
   scrollable
@@ -41,7 +41,7 @@ import express from 'npm:express@4.18.2'
 
 const app = express()
 app.use(express.json())
-// If you want a payload larger than 100kb, then you can tweak it here:
+// 如果您想要处理大于 100kb 的有效载荷，可以在这里调整：
 // app.use( express.json({ limit : "300kb" }));
 
 const port = 3000
@@ -56,7 +56,7 @@ app.post('/hello-world', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`示例应用监听端口 ${port}`)
 })
 ```
 
@@ -83,8 +83,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen({ port: 3000 });
-
-````
+```
 
 </TabPanel>
 
@@ -104,7 +103,7 @@ app.get('/hello-world', (c) => {
 });
 
 Deno.serve(app.fetch);
-````
+```
 
 </TabPanel>
 
@@ -126,17 +125,17 @@ Deno.serve(async (req) => {
 
 </Tabs>
 
-You will notice in the above example, we created two routes - `GET` and `POST`. The path for both routes are defined as `/hello-world`.
-If you run a server outside of Edge Functions, you'd usually set the root path as `/` .
-However, within Edge Functions, paths should always be prefixed with the function name (in this case `hello-world`).
+您会注意到在上面的示例中，我们创建了两个路由 - `GET` 和 `POST`。两个路由的路径都定义为 `/hello-world`。
+如果您在 Edge Functions 外部运行服务器，通常会将根路径设置为 `/`。
+然而，在 Edge Functions 中，路径应始终以函数名称作为前缀（在本例中为 `hello-world`）。
 
-You can deploy the function to Supabase via:
+您可以通过以下方式将函数部署到 Supabase：
 
 ```bash
 supabase functions deploy hello-world
 ```
 
-Once the function is deployed, you can try to call the two endpoints using cURL (or Postman).
+函数部署后，您可以尝试使用 cURL（或 Postman）调用这两个端点。
 
 ```bash
 # https://supabase.com/docs/guides/functions/deploy#invoking-remote-functions
@@ -144,9 +143,9 @@ curl --request GET 'https://<project_ref>.supabase.co/functions/v1/hello-world' 
   --header 'Authorization: Bearer ANON_KEY' \
 ```
 
-This should print the response as `Hello World!`, meaning it was handled by the `GET` route.
+这应该打印出响应 `Hello World!`，表示它是由 `GET` 路由处理的。
 
-Similarly, we can make a request to the `POST` route.
+同样，我们可以向 `POST` 路由发出请求。
 
 ```bash cURL
 # https://supabase.com/docs/guides/functions/deploy#invoking-remote-functions
@@ -156,14 +155,14 @@ curl --request POST 'https://<project_ref>.supabase.co/functions/v1/hello-world'
   --data '{ "name":"Foo" }'
 ```
 
-We should see a response printing `Hello Foo!`.
+我们应该看到打印 `Hello Foo!` 的响应。
 
-## Using route parameters
+## 使用路由参数
 
-We can use route parameters to capture values at specific URL segments (e.g. `/tasks/:taskId/notes/:noteId`).
+我们可以使用路由参数来捕获特定 URL 段中的值（例如 `/tasks/:taskId/notes/:noteId`）。
 
-Here's an example Edge Function implemented using the Framework for managing tasks using route parameters.
-Keep in mind paths must be prefixed by function name (i.e. `tasks` in this example). Route parameters can only be used after the function name prefix.
+以下是使用框架实现的任务管理 Edge Function 示例，该示例使用路由参数。
+请记住，路径必须以函数名称作为前缀（在本例中为 `tasks`）。路由参数只能在函数名称前缀之后使用。
 
 <Tabs
   scrollable
@@ -180,31 +179,30 @@ const app = express();
 app.use(express.json());
 
 app.get('/tasks', async (req, res) => {
-// return all tasks
+// 返回所有任务
 });
 
 app.post('/tasks', async (req, res) => {
-// create a task
+// 创建任务
 });
 
 app.get('/tasks/:id', async (req, res) => {
 const id = req.params.id
-const task = {} // get task
+const task = {} // 获取任务
 
 res.json(task)
 });
 
 app.patch('/tasks/:id', async (req, res) => {
 const id = req.params.id
-// modify task
+// 修改任务
 });
 
 app.delete('/tasks/:id', async (req, res) => {
 const id = req.params.id
-// delete task
+// 删除任务
 });
-
-````
+```
 
 </TabPanel>
 
@@ -236,7 +234,7 @@ router
       ctx.response.body = task;
     } else {
       ctx.response.status = 404;
-      ctx.response.body = 'Task not found';
+      ctx.response.body = '任务未找到';
     }
   })
   .patch("/tasks/:id", async (ctx) => {
@@ -249,17 +247,17 @@ router
       ctx.response.body = tasks[id];
     } else {
       ctx.response.status = 404;
-      ctx.response.body = 'Task not found';
+      ctx.response.body = '任务未找到';
     }
   })
   .delete("/tasks/:id", (ctx) => {
     const id = ctx.params.id;
     if (tasks[id]) {
       delete tasks[id];
-      ctx.response.body = 'Task deleted successfully';
+      ctx.response.body = '任务已成功删除';
     } else {
       ctx.response.status = 404;
-      ctx.response.body = 'Task not found';
+      ctx.response.body = '任务未找到';
     }
   });
 
@@ -269,7 +267,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen({ port: 3000 });
-````
+```
 
 </TabPanel>
 
@@ -278,18 +276,18 @@ app.listen({ port: 3000 });
 ```ts
 import { Hono } from 'jsr:@hono/hono'
 
-// You can set the basePath with Hono
+// 您可以使用 Hono 设置基本路径
 const functionName = 'tasks'
 const app = new Hono().basePath(`/${functionName}`)
 
 // /tasks/id
 app.get('/:id', async (c) => {
   const id = c.req.param('id')
-  const task = {} // Fetch task by id here
+  const task = {} // 在此处按 id 获取任务
   if (task) {
     return new Response(JSON.stringify(task))
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 })
 
@@ -297,23 +295,23 @@ app.patch('/:id', async (c) => {
   const id = c.req.param('id')
   const body = await c.req.body()
   const updates = body.value
-  const task = {} // Fetch task by id here
+  const task = {} // 在此处按 id 获取任务
   if (task) {
     Object.assign(task, updates)
     return new Response(JSON.stringify(task))
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 })
 
 app.delete('/:id', async (c) => {
   const id = c.req.param('id')
-  const task = {} // Fetch task by id here
+  const task = {} // 在此处按 id 获取任务
   if (task) {
-    // Delete task
-    return new Response('Task deleted successfully')
+    // 删除任务
+    return new Response('任务已成功删除')
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 })
 
@@ -343,7 +341,7 @@ async function getTask(id: string): Promise<Response> {
   if (task) {
     return new Response(JSON.stringify(task))
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 }
 
@@ -360,7 +358,7 @@ async function updateTask(id: string, req: Request): Promise<Response> {
     tasks[index] = { ...tasks[index] }
     return new Response(JSON.stringify(tasks[index]))
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 }
 
@@ -368,18 +366,18 @@ async function deleteTask(id: string): Promise<Response> {
   const index = tasks.findIndex((t) => t.id === id)
   if (index !== -1) {
     tasks.splice(index, 1)
-    return new Response('Task deleted successfully')
+    return new Response('任务已成功删除')
   } else {
-    return new Response('Task not found', { status: 404 })
+    return new Response('任务未找到', { status: 404 })
   }
 }
 
 Deno.serve(async (req) => {
   const url = new URL(req.url)
   const method = req.method
-  // Extract the last part of the path as the command
+  // 提取路径的最后部分作为命令
   const command = url.pathname.split('/').pop()
-  // Assuming the last part of the path is the task ID
+  // 假设路径的最后部分是任务 ID
   const id = command
   try {
     switch (method) {
@@ -395,19 +393,19 @@ Deno.serve(async (req) => {
         if (id) {
           return updateTask(id, req)
         } else {
-          return new Response('Bad Request', { status: 400 })
+          return new Response('错误的请求', { status: 400 })
         }
       case 'DELETE':
         if (id) {
           return deleteTask(id)
         } else {
-          return new Response('Bad Request', { status: 400 })
+          return new Response('错误的请求', { status: 400 })
         }
       default:
-        return new Response('Method Not Allowed', { status: 405 })
+        return new Response('方法不允许', { status: 405 })
     }
   } catch (error) {
-    return new Response(`Internal Server Error: ${error}`, { status: 500 })
+    return new Response(`内部服务器错误: ${error}`, { status: 500 })
   }
 })
 ```
@@ -417,7 +415,7 @@ Deno.serve(async (req) => {
 
 ## URL patterns API
 
-If you prefer not to use a web framework, you can directly use [URL Pattern API](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API) within your Edge Functions to implement routing.
-This is ideal for small apps with only couple of routes and you want to have a custom matching algorithm.
+如果您不想使用 Web 框架，可以在 Edge Functions 中直接使用 [URL Pattern API](https://developer.mozilla.org/en-US/docs/Web/API/URL_Pattern_API) 来实现路由。
+这非常适合只有几个路由的小型应用，并且您想要自定义匹配算法。
 
-Here is an example Edge Function using URL Patterns API: https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/restful-tasks/index.ts
+这里有一个使用 URL Patterns API 的 Edge Function 示例：https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/restful-tasks/index.ts

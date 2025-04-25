@@ -1,28 +1,28 @@
 ---
 title: 'Cron'
-subtitle: 'Schedule Recurring Jobs with Cron Syntax in Postgres'
+subtitle: '使用 Postgres 中的 Cron 语法调度定期任务'
 ---
 
-Supabase Cron is a Postgres Module that simplifies scheduling recurring Jobs with cron syntax and monitoring Job runs inside Postgres.
+Supabase Cron 是一个 Postgres 模块，它简化了使用 cron 语法调度定期任务和在 Postgres 内监控任务运行的过程。
 
-Cron Jobs can be created via SQL or the Cron interface inside of Supabase Dashboard and can run anywhere from every second to once a year depending on your use case.
+Cron 任务可以通过 SQL 或 Supabase 仪表板中的 Cron 界面创建，根据您的用例，可以从每秒运行一次到每年运行一次不等。
 
-Every Job can run SQL snippets or database functions with zero network latency or make an HTTP request, such as invoking a Supabase Edge Function, with ease.
+每个任务都可以零网络延迟运行 SQL 片段或数据库函数，或者轻松发出 HTTP 请求，例如调用 Supabase Edge 函数。
 
 <Admonition type="note">
 
-For best performance, we recommend no more than 8 Jobs run concurrently. Each Job should run no more than 10 minutes.
+为了获得最佳性能，我们建议不要同时运行超过 8 个任务。每个任务的运行时间不应超过 10 分钟。
 
 </Admonition>
 
-## How does Cron work?
+## Cron 是如何工作的？
 
-Under the hood, Supabase Cron uses the [`pg_cron`](https://github.com/citusdata/pg_cron) Postgres database extension which is the scheduling and execution engine for your Jobs.
+在底层，Supabase Cron 使用 [`pg_cron`](https://github.com/citusdata/pg_cron) Postgres 数据库扩展，它是任务的调度和执行引擎。
 
-The extension creates a `cron` schema in your database and all Jobs are stored on the `cron.job` table. Every Job's run and its status is recorded on the `cron.job_run_details` table.
+该扩展在您的数据库中创建一个 `cron` 模式，所有任务都存储在 `cron.job` 表中。每个任务的运行及其状态都记录在 `cron.job_run_details` 表中。
 
-The Supabase Dashboard provides and interface for you to schedule Jobs and monitor Job runs. You can also do the same with SQL.
+Supabase 仪表板提供了一个界面，供您调度任务和监控任务运行。您也可以使用 SQL 完成相同的操作。
 
-## Resources
+## 资源
 
-- [`pg_cron` GitHub Repository](https://github.com/citusdata/pg_cron)
+- [`pg_cron` GitHub 仓库](https://github.com/citusdata/pg_cron)

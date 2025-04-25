@@ -1,40 +1,40 @@
 ---
-title: 'Auth architecture'
-subtitle: 'The architecture behind Supabase Auth.'
+title: '认证架构'
+subtitle: 'Supabase 认证系统的底层架构。'
 ---
 
-There are four major layers to Supabase Auth:
+Supabase 认证系统主要由四个层次组成：
 
-1. [Client layer.](#client-layer) This can be one of the Supabase client SDKs, or manually made HTTP requests using the HTTP client of your choice.
-1. Kong API gateway. This is shared between all Supabase products.
-1. [Auth service](#auth-service) (formerly known as GoTrue).
-1. [Postgres database.](#postgres) This is shared between all Supabase products.
+1. [客户端层](#client-layer)。可以是 Supabase 客户端 SDK 之一，或者使用您选择的 HTTP 客户端手动发出的 HTTP 请求。
+1. Kong API 网关。这在所有 Supabase 产品之间共享。
+1. [认证服务](#auth-service)（以前称为 GoTrue）。
+1. [Postgres 数据库](#postgres)。这在所有 Supabase 产品之间共享。
 
 <Image
-  alt="Diagram showing the architecture of Supabase. The Kong API gateway sits in front of 7 services: GoTrue, PostgREST, Realtime, Storage, pg_meta, Functions, and pg_graphql. All the services talk to a single Postgres instance."
+  alt="图表显示了 Supabase 的架构。Kong API 网关位于 7 个服务前面：GoTrue、PostgREST、Realtime、Storage、pg_meta、Functions 和 pg_graphql。所有服务都与单个 Postgres 实例通信。"
   src={{
     dark: '/docs/img/supabase-architecture.svg',
     light: '/docs/img/supabase-architecture--light.svg',
   }}
 />
 
-## Client layer
+## 客户端层
 
-The client layer runs in your app. This could be running in many places, including:
+客户端层在您的应用程序中运行。它可以在多个地方运行，包括：
 
-- Your frontend browser code
-- Your backend server code
-- Your native application
+- 您的前端浏览器代码
+- 您的后端服务器代码
+- 您的原生应用程序
 
-The client layer provides the functions that you use to sign in and manage users. We recommend using the Supabase client SDKs, which handle:
+客户端层提供用于登录和管理用户的函数。我们建议使用 Supabase 客户端 SDK，它们可以处理：
 
-- Configuration and authentication of HTTP calls to the Supabase Auth backend
-- Persistence, refresh, and removal of Auth Tokens in your app's storage medium
-- Integration with other Supabase products
+- 对 Supabase 认证后端的 HTTP 调用的配置和认证
+- 在应用程序的存储介质中持久化、刷新和移除认证令牌
+- 与其他 Supabase 产品的集成
 
-But at its core, this layer manages the making of HTTP calls, so you could write your own client layer if you wanted to.
+但从本质上讲，这一层管理 HTTP 调用的发送，因此如果您愿意，可以编写自己的客户端层。
 
-See the Client SDKs for more information:
+有关更多信息，请参阅客户端 SDK：
 
 - [JavaScript](/docs/reference/javascript/introduction)
 - [Flutter](/docs/reference/dart/introduction)
@@ -43,28 +43,28 @@ See the Client SDKs for more information:
 - [C#](/docs/reference/csharp/introduction)
 - [Kotlin](/docs/reference/kotlin/introduction)
 
-## Auth service
+## 认证服务
 
-The [Auth service](https://github.com/supabase/auth) is an Auth API server written and maintained by Supabase. It is a fork of the GoTrue project, originally created by Netlify.
+[认证服务](https://github.com/supabase/auth)是由 Supabase 编写和维护的认证 API 服务器。它是 GoTrue 项目的分支，最初由 Netlify 创建。
 
-When you deploy a new Supabase project, we deploy an instance of this server alongside your database, and inject your database with the required Auth schema.
+当您部署新的 Supabase 项目时，我们会在您的数据库旁边部署此服务器的实例，并将所需的认证架构注入到您的数据库中。
 
-The Auth service is responsible for:
+认证服务负责：
 
-- Validating, issuing, and refreshing JWTs
-- Serving as the intermediary between your app and Auth information in the database
-- Communicating with external providers for Social Login and SSO
+- 验证、颁发和刷新 JWT
+- 作为您的应用程序和数据库中认证信息之间的中介
+- 与外部提供商通信以实现社交登录和 SSO
 
 ## Postgres
 
-Supabase Auth uses the `auth` schema in your Postgres database to store user tables and other information. For security, this schema is not exposed on the auto-generated API.
+Supabase 认证使用 Postgres 数据库中的 `auth` 模式来存储用户表和其他信息。出于安全考虑，此模式在自动生成的 API 上不会暴露。
 
-You can connect Auth information to your own objects using [database triggers](/docs/guides/database/postgres/triggers) and [foreign keys](https://www.postgresql.org/docs/current/tutorial-fk.html). Make sure that any views you create for Auth data are adequately protected by [enabling RLS](/docs/guides/database/postgres/row-level-security) or [revoking grants](https://www.postgresql.org/docs/current/sql-revoke.html).
+您可以使用[数据库触发器](/docs/guides/database/postgres/triggers)和[外键](https://www.postgresql.org/docs/current/tutorial-fk.html)将认证信息连接到您自己的对象。确保您为认证数据创建的任何视图都通过[启用 RLS](/docs/guides/database/postgres/row-level-security)或[撤销权限](https://www.postgresql.org/docs/current/sql-revoke.html)得到充分保护。
 
 <Admonition type="danger">
 
-Make sure any views you create for Auth data are protected.
+确保您为认证数据创建的任何视图都受到保护。
 
-Starting in Postgres version 15, views inherit the RLS policies of the underlying tables if created with `security_invoker`. Views in earlier versions, or those created without `security_invoker`, inherit the permissions of the owner, who can bypass RLS policies.
+从 Postgres 15 版本开始，如果使用 `security_invoker` 创建视图，则视图会继承底层表的 RLS 策略。早期版本中的视图，或没有使用 `security_invoker` 创建的视图，会继承所有者的权限，而所有者可以绕过 RLS 策略。
 
 </Admonition>

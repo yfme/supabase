@@ -1,18 +1,18 @@
 ---
 id: 'pg_graphql'
-title: 'pg_graphql: GraphQL for PostgreSQL'
-description: 'A GraphQL Interface for PostgreSQL'
+title: 'pg_graphql: PostgreSQL 的 GraphQL 接口'
+description: '适用于 PostgreSQL 的 GraphQL 接口'
 ---
 
-[pg_graphql](https://supabase.github.io/pg_graphql/) is Postgres extension for interacting with the database using [GraphQL](https://graphql.org) instead of SQL.
+[pg_graphql](https://supabase.github.io/pg_graphql/) 是一个 Postgres 扩展，允许使用 [GraphQL](https://graphql.org) 而非 SQL 与数据库交互。
 
-The extension reflects a GraphQL schema from the existing SQL schema and exposes it through a SQL function, `graphql.resolve(...)`. This enables any programming language that can connect to Postgres to query the database via GraphQL with no additional servers, processes, or libraries.
+该扩展从现有的 SQL 模式中反映出 GraphQL 模式，并通过 SQL 函数 `graphql.resolve(...)` 公开它。这使得任何可以连接到 Postgres 的编程语言都可以通过 GraphQL 查询数据库，而无需额外的服务器、进程或库。
 
-The `pg_graphql` resolve method is designed to interop with [PostgREST](https://postgrest.org/en/stable/index.html), the tool that underpins the Supabase API, such that the `graphql.resolve` function can be called via RPC to safely and performantly expose the GraphQL API over HTTP/S.
+`pg_graphql` 的 resolve 方法设计为与 [PostgREST](https://postgrest.org/en/stable/index.html)（Supabase API 的基础工具）互操作，这样 `graphql.resolve` 函数可以通过 RPC 调用，安全高效地通过 HTTP/S 公开 GraphQL API。
 
-For more information about how the SQL schema is reflected into a GraphQL schema, see the [pg_graphql API docs](https://supabase.github.io/pg_graphql/api/).
+关于 SQL 模式如何反映到 GraphQL 模式的更多信息，请参阅 [pg_graphql API 文档](https://supabase.github.io/pg_graphql/api/)。
 
-## Enable the extension
+## 启用扩展
 
 <Tabs
   scrollable
@@ -21,33 +21,33 @@ For more information about how the SQL schema is reflected into a GraphQL schema
   defaultActiveId="dashboard"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard" label="Dashboard">
+<TabPanel id="dashboard" label="仪表盘">
 
-1. Go to the [Database](https://supabase.com/dashboard/project/_/database/tables) page in the Dashboard.
-2. Click on **Extensions** in the sidebar.
-3. Search for "pg_graphql" and enable the extension.
+1. 在仪表盘中转到 [数据库](https://supabase.com/dashboard/project/_/database/tables) 页面。
+2. 在侧边栏中点击 **扩展**。
+3. 搜索 "pg_graphql" 并启用该扩展。
 
 </TabPanel>
 <TabPanel id="sql" label="SQL">
 
 {/* prettier-ignore */}
 ```sql
--- Enable the "pg_graphql" extension
+-- 启用 "pg_graphql" 扩展
 create extension pg_graphql;
 
--- Disable the "pg_graphql" extension
+-- 禁用 "pg_graphql" 扩展
 drop extension if exists pg_graphql;
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension".
-To disable an extension you can call `drop extension`.
+尽管 SQL 代码是 `create extension`，这相当于 "启用扩展"。
+要禁用扩展，可以调用 `drop extension`。
 
 </TabPanel>
 </Tabs>
 
-## Usage
+## 使用方法
 
-Given a table
+给定一个表
 
 {/* prettier-ignore */}
 ```sql
@@ -61,7 +61,7 @@ insert into "Blog"(name)
 values ('My Blog');
 ```
 
-The reflected GraphQL schema can be queried immediately as
+反映的 GraphQL 模式可以立即查询如下
 
 {/* prettier-ignore */}
 ```sql
@@ -80,7 +80,7 @@ select
   $$);
 ```
 
-returning the JSON
+返回 JSON
 
 {/* prettier-ignore */}
 ```json
@@ -100,12 +100,12 @@ returning the JSON
 }
 ```
 
-Note that `pg_graphql` fully supports schema introspection so you can connect any GraphQL IDE or schema inspection tool to see the full set of fields and arguments available in the API.
+请注意，`pg_graphql` 完全支持模式内省，因此您可以连接任何 GraphQL IDE 或模式检查工具，查看 API 中可用的完整字段和参数集。
 
 ## API
 
-- [`graphql.resolve`](https://supabase.github.io/pg_graphql/sql_interface/): A SQL function for executing GraphQL queries.
+- [`graphql.resolve`](https://supabase.github.io/pg_graphql/sql_interface/)：用于执行 GraphQL 查询的 SQL 函数。
 
-## Resources
+## 资源
 
-- Official [`pg_graphql` documentation](https://github.com/supabase/pg_graphql)
+- 官方 [`pg_graphql` 文档](https://github.com/supabase/pg_graphql)

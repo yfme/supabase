@@ -1,26 +1,26 @@
 ---
 id: 'pgadmin'
-title: 'Connecting with pgAdmin'
-breadcrumb: 'GUI Quickstarts'
+title: '使用 pgAdmin 连接'
+breadcrumb: 'GUI 快速入门'
 hideToc: true
 ---
 
-[`pgAdmin`](https://www.pgadmin.org/) is a GUI tool for managing Postgres databases. You can use it to connect to your database via SSL.
+[`pgAdmin`](https://www.pgadmin.org/) 是一个用于管理 Postgres 数据库的 GUI 工具。您可以通过 SSL 使用它连接到您的数据库。
 
 <StepHikeCompact>
 
   <StepHikeCompact.Step step={1}>
 
-    <StepHikeCompact.Details title="Register">
+    <StepHikeCompact.Details title="注册">
 
-    Register a new Postgres server.
+    注册一个新的 Postgres 服务器。
 
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
 
     <Image
-      alt="Register a new postgres server."
+      alt="注册一个新的 postgres 服务器。"
       src={{
           dark: '/docs/img/guides/database/connecting-to-postgres/pgadmin/register-server-pgAdmin.png?v=2',
           light:
@@ -34,15 +34,15 @@ hideToc: true
 
   <StepHikeCompact.Step step={2}>
 
-    <StepHikeCompact.Details title="Name">
+    <StepHikeCompact.Details title="命名">
 
-    Name your server.
+    为您的服务器命名。
 
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
 
-     ![Name Postgres Server.](/docs/img/guides/database/connecting-to-postgres/pgadmin/name-pg-server.png)
+     ![命名 Postgres 服务器。](/docs/img/guides/database/connecting-to-postgres/pgadmin/name-pg-server.png)
 
     </StepHikeCompact.Code>
 
@@ -50,15 +50,15 @@ hideToc: true
 
   <StepHikeCompact.Step step={3}>
 
-    <StepHikeCompact.Details title="Connect">
+    <StepHikeCompact.Details title="连接">
 
-    Add the connection info. Go to your [`Database Settings`](https://supabase.com/dashboard/project/_/settings/database). Make sure `Use connection pooling` is enabled. Switch the connection mode to `Session` and copy your connection parameters. Fill in your Database password that you made when creating your project (It can be reset in Database Settings above if you don't have it).
+    添加连接信息。前往您的 [`数据库设置`](https://supabase.com/dashboard/project/_/settings/database)。确保启用了 `使用连接池`。将连接模式切换为 `Session` 并复制您的连接参数。填入您创建项目时设置的数据库密码（如果您没有密码，可以在上面的数据库设置中重置）。
 
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
 
-     ![Add Connection Info.](/docs/img/guides/database/connecting-to-postgres/pgadmin/add-pg-server-conn-info.png)
+     ![添加连接信息。](/docs/img/guides/database/connecting-to-postgres/pgadmin/add-pg-server-conn-info.png)
 
     </StepHikeCompact.Code>
 
@@ -68,15 +68,15 @@ hideToc: true
 
     <StepHikeCompact.Details title="SSL">
 
-    Download your SSL certificate from Dashboard's [`Database Settings`](https://supabase.com/dashboard/project/_/settings/database).
+    从仪表板的 [`数据库设置`](https://supabase.com/dashboard/project/_/settings/database) 下载您的 SSL 证书。
 
-    In pgAdmin, navigate to the Parameters tab and select connection parameter as Root Certificate. Next navigate to the Root certificate input, it will open up a file-picker modal. Select the certificate you downloaded earlier and save the server details. pgAdmin should now be able to connect to your Postgres via SSL.
+    在 pgAdmin 中，导航到参数选项卡并选择连接参数为根证书（Root Certificate）。接下来导航到根证书输入框，它将打开一个文件选择器模态框。选择您之前下载的证书并保存服务器详细信息。现在 pgAdmin 应该能够通过 SSL 连接到您的 Postgres。
 
     </StepHikeCompact.Details>
 
     <StepHikeCompact.Code>
 
-     ![Add Connection Info.](/docs/img/guides/database/connecting-to-postgres/pgadmin/database-settings-host.png)
+     ![添加连接信息。](/docs/img/guides/database/connecting-to-postgres/pgadmin/database-settings-host.png)
 
     </StepHikeCompact.Code>
 

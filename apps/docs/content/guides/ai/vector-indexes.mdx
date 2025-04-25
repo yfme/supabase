@@ -1,33 +1,33 @@
 ---
 id: 'ai-vector-indexes'
-title: 'Vector indexes'
-description: 'Understanding vector indexes'
-sidebar_label: 'Vector indexes'
+title: '向量索引'
+description: '了解向量索引'
+sidebar_label: '向量索引'
 ---
 
-Once your vector table starts to grow, you will likely want to add an index to speed up queries. Without indexes, you'll be performing a sequential scan which can be a resource-intensive operation when you have many records.
+随着向量表规模的增长，您可能需要添加索引来加速查询。在没有索引的情况下，系统将执行顺序扫描，这在记录数量庞大时会消耗大量资源。
 
-## Choosing an index
+## 选择索引
 
-Today `pgvector` supports two types of indexes:
+目前 `pgvector` 支持两种类型的索引：
 
 - [HNSW](/docs/guides/ai/vector-indexes/hnsw-indexes)
 - [IVFFlat](/docs/guides/ai/vector-indexes/ivf-indexes)
 
-In general we recommend using [HNSW](/docs/guides/ai/vector-indexes/hnsw-indexes) because of its [performance](https://supabase.com/blog/increase-performance-pgvector-hnsw#hnsw-performance-1536-dimensions) and [robustness against changing data](/docs/guides/ai/vector-indexes/hnsw-indexes#when-should-you-create-hnsw-indexes).
+通常我们推荐使用 [HNSW](/docs/guides/ai/vector-indexes/hnsw-indexes)，因为它具有更好的[性能](https://supabase.com/blog/increase-performance-pgvector-hnsw#hnsw-performance-1536-dimensions)和[对数据变化的鲁棒性](/docs/guides/ai/vector-indexes/hnsw-indexes#when-should-you-create-hnsw-indexes)。
 
-## Distance operators
+## 距离运算符
 
-Indexes can be used to improve performance of nearest neighbor search using various distance measures. `pgvector` includes 3 distance operators:
+索引可用于提高使用各种距离度量的最近邻搜索性能。`pgvector` 包含 3 个距离运算符：
 
-| Operator | Description            | [**Operator class**](https://www.postgresql.org/docs/current/sql-createopclass.html) |
+| 运算符 | 描述 | [**运算符类**](https://www.postgresql.org/docs/current/sql-createopclass.html) |
 | -------- | ---------------------- | ------------------------------------------------------------------------------------ |
-| `<->`    | Euclidean distance     | `vector_l2_ops`                                                                      |
-| `<#>`    | negative inner product | `vector_ip_ops`                                                                      |
-| `<=>`    | cosine distance        | `vector_cosine_ops`                                                                  |
+| `<->` | 欧几里得距离 | `vector_l2_ops` |
+| `<#>` | 负内积 | `vector_ip_ops` |
+| `<=>` | 余弦距离 | `vector_cosine_ops` |
 
-Currently vectors with up to 2,000 dimensions can be indexed.
+目前可以索引最多 2,000 维的向量。
 
-## Resources
+## 资源
 
-Read more about indexing on `pgvector`'s [GitHub page](https://github.com/pgvector/pgvector#indexing).
+在 `pgvector` 的 [GitHub 页面](https://github.com/pgvector/pgvector#indexing) 上阅读更多关于索引的信息。

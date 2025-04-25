@@ -1,34 +1,34 @@
 ---
 id: 'functions-limits'
-title: 'Limits'
-description: "Limits applied Edge Functions in Supabase's hosted platform."
-subtitle: "Limits applied Edge Functions in Supabase's hosted platform."
+title: '限制'
+description: "适用于 Supabase 托管平台上 Edge Functions 的限制。"
+subtitle: "适用于 Supabase 托管平台上 Edge Functions 的限制。"
 ---
 
-## Runtime limits
+## 运行时限制
 
-- Maximum Memory: 256MB
-- Maximum Duration (Wall clock limit):
-  This is the duration an Edge Function worker will stay active. During this period, a worker can serve multiple requests or process background tasks.
-  - Free plan: 150s
-  - Paid plans: 400s
-- Maximum CPU Time: 2s (Amount of actual time spent on the CPU per request - does not include async I/O.)
-- Request idle timeout: 150s (If an Edge Function doesn't send a response before the timeout, 504 Gateway Timeout will be returned)
+- 最大内存：256MB
+- 最大持续时间（挂钟限制）：
+  这是 Edge Function 工作进程保持活动状态的时长。在此期间，一个工作进程可以处理多个请求或后台任务。
+  - 免费计划：150 秒
+  - 付费计划：400 秒
+- 最大 CPU 时间：2 秒（每个请求实际花费在 CPU 上的时间量 - 不包括异步 I/O。）
+- 请求空闲超时：150 秒（如果 Edge Function 在超时前未发送响应，将返回 504 网关超时）
 
-## Platform limits
+## 平台限制
 
-- Maximum Function Size: 20MB (After bundling using CLI)
-- Maximum no. of Functions per project:
-  - Free: 100
-  - Pro: 500
-  - Team: 1000
-  - Enterprise: Unlimited
-- Maximum log message length: 10,000 characters
-- Log event threshold: 100 events per 10 seconds
+- 最大函数大小：20MB（使用 CLI 打包后）
+- 每个项目的最大函数数量：
+  - 免费：100
+  - Pro：500
+  - Team：1000
+  - Enterprise：无限制
+- 最大日志消息长度：10,000 个字符
+- 日志事件阈值：每 10 秒 100 个事件
 
-## Other limits & restrictions
+## 其他限制和约束
 
-- Outgoing connections to ports `25` and `587` are not allowed.
-- Serving of HTML content is only supported with [custom domains](/docs/reference/cli/supabase-domains) (Otherwise `GET` requests that return `text/html` will be rewritten to `text/plain`).
-- Web Worker API (or Node `vm` API) are not available.
-- Node Libraries that require multithreading are not supported. Examples: [`libvips`](https://github.com/libvips/libvips), [sharp](https://github.com/lovell/sharp).
+- 不允许连接到端口 `25` 和 `587`。
+- HTML 内容的提供仅在[自定义域名](/docs/reference/cli/supabase-domains)上支持（否则返回 `text/html` 的 `GET` 请求将被重写为 `text/plain`）。
+- Web Worker API（或 Node `vm` API）不可用。
+- 需要多线程的 Node 库不受支持。示例：[`libvips`](https://github.com/libvips/libvips)、[sharp](https://github.com/lovell/sharp)。

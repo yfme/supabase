@@ -1,22 +1,22 @@
 ---
 id: 'postgres-js'
 title: 'Postgres.js'
-description: 'Postgres.js Quickstart'
-breadcrumb: 'ORM Quickstarts'
+description: 'Postgres.js 快速入门'
+breadcrumb: 'ORM 快速入门'
 hideToc: true
 ---
 
-### Connecting with Postgres.js
+### 使用 Postgres.js 连接
 
-[Postgres.js](https://github.com/porsager/postgres) is a full-featured Postgres client for Node.js and Deno.
+[Postgres.js](https://github.com/porsager/postgres) 是一个适用于 Node.js 和 Deno 的全功能 Postgres 客户端。
 
 <StepHikeCompact>
 
   <StepHikeCompact.Step step={1}>
 
-    <StepHikeCompact.Details title="Install">
+    <StepHikeCompact.Details title="安装">
 
-    Install Postgres.js and related dependencies.
+    安装 Postgres.js 和相关依赖。
 
     </StepHikeCompact.Details>
 
@@ -32,11 +32,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={2}>
 
-    <StepHikeCompact.Details title="Connect">
+    <StepHikeCompact.Details title="连接">
 
-    Create a `db.js` file with the connection details.
+    创建一个包含连接详情的 `db.js` 文件。
 
-    To get your connection details, go to your [`Database Settings`](https://supabase.com/dashboard/project/_/settings/database). Make sure `Use connection pooling` is enabled. Choose `Transaction Mode` if you're on a platform with transient connections, such as a serverless function, and `Session Mode` if you have a long-lived connection. Copy the URI and save it as the environment variable `DATABASE_URL`.
+    要获取连接详情，请前往 [`数据库设置`](https://supabase.com/dashboard/project/_/settings/database)。确保启用了 `使用连接池`。如果您使用的是具有临时连接的平台（如无服务器函数），请选择 `事务模式`；如果您有长期连接，则选择 `会话模式`。复制 URI 并将其保存为环境变量 `DATABASE_URL`。
 
     </StepHikeCompact.Details>
 
@@ -58,9 +58,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={3}>
 
-    <StepHikeCompact.Details title="Execute commands">
+    <StepHikeCompact.Details title="执行命令">
 
-    Use the connection to execute commands.
+    使用连接执行命令。
 
     </StepHikeCompact.Details>
 

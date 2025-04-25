@@ -1,7 +1,7 @@
 ---
 id: 'kysely-postgres'
-title: 'Type-Safe SQL with Kysely'
-description: 'Combining Kysely with Deno Postgres gives you a convenient developer experience for interacting directly with your Postgres database.'
+title: '使用 Kysely 实现类型安全的 SQL'
+description: '将 Kysely 与 Deno Postgres 结合使用，为直接与 Postgres 数据库交互提供便捷的开发体验。'
 ---
 
 <div class="video-container">
@@ -13,25 +13,25 @@ description: 'Combining Kysely with Deno Postgres gives you a convenient develop
   ></iframe>
 </div>
 
-Supabase Edge Functions can [connect directly to your Postgres database](/docs/guides/functions/connect-to-postgres) to execute SQL queries. [Kysely](https://github.com/kysely-org/kysely#kysely) is a type-safe and autocompletion-friendly typescript SQL query builder.
+Supabase Edge Functions 可以[直接连接到您的 Postgres 数据库](/docs/guides/functions/connect-to-postgres)来执行 SQL 查询。[Kysely](https://github.com/kysely-org/kysely#kysely) 是一个类型安全且支持自动补全的 TypeScript SQL 查询构建器。
 
-Combining Kysely with Deno Postgres gives you a convenient developer experience for interacting directly with your Postgres database.
+将 Kysely 与 Deno Postgres 结合使用，可为您直接与 Postgres 数据库交互提供便捷的开发体验。
 
-## Code
+## 代码
 
-Find the example on [GitHub](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/kysely-postgres)
+在 [GitHub](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/kysely-postgres) 上查看示例
 
-Get your database connection credentials from your [Supabase Dashboard](https://supabase.com/dashboard/project/_/settings/database) and store them in an `.env` file:
+从 [Supabase 控制面板](https://supabase.com/dashboard/project/_/settings/database) 获取数据库连接凭据并将其存储在 `.env` 文件中：
 
 ```bash .env
 DB_HOSTNAME=
 DB_PASSWORD=
 DB_SSL_CERT="-----BEGIN CERTIFICATE-----
-GET YOUR CERT FROM YOUR PROJECT DASHBOARD
+从项目控制面板获取您的证书
 -----END CERTIFICATE-----"
 ```
 
-Create a `DenoPostgresDriver.ts` file to manage the connection to Postgres via [deno-postgres](https://deno-postgres.com/):
+创建一个 `DenoPostgresDriver.ts` 文件，通过 [deno-postgres](https://deno-postgres.com/) 管理与 Postgres 的连接：
 
 ```ts DenoPostgresDriver.ts
 import {
@@ -77,9 +77,8 @@ export class PostgresDriver implements Driver {
       })
       this.#connections.set(client, connection)
 
-      // The driver must take care of calling `onCreateConnection` when a new
-      // connection is created. The `pg` module doesn't provide an async hook
-      // for the connection creation. We need to call the method explicitly.
+      // 驱动程序必须在创建新连接时负责调用 `onCreateConnection`。
+      // `pg` 模块没有提供连接创建的异步钩子。我们需要显式调用该方法。
       if (this.#config?.onCreateConnection) {
         await this.#config.onCreateConnection(connection)
       }
@@ -169,15 +168,15 @@ class PostgresConnection implements DatabaseConnection {
   ): AsyncIterableIterator<QueryResult<O>> {
     if (!this.#options.cursor) {
       throw new Error(
-        "'cursor' is not present in your postgres dialect config. It's required to make streaming work in postgres."
+        "'cursor' 在您的 postgres 方言配置中不存在。它是使 postgres 中的流式处理正常工作所必需的。"
       )
     }
 
     if (!Number.isInteger(chunkSize) || chunkSize <= 0) {
-      throw new Error('chunkSize must be a positive integer')
+      throw new Error('chunkSize 必须是正整数')
     }
 
-    // stream not available
+    // 流不可用
     return null
   }
 
@@ -187,7 +186,7 @@ class PostgresConnection implements DatabaseConnection {
 }
 ```
 
-Create an `index.ts` file to execute a query on incoming requests:
+创建一个 `index.ts` 文件，用于对传入请求执行查询：
 
 ```ts index.ts
 import { serve } from 'https://deno.land/std@0.175.0/http/server.ts'
@@ -201,7 +200,7 @@ import {
 } from 'https://esm.sh/kysely@0.23.4'
 import { PostgresDriver } from './DenoPostgresDriver.ts'
 
-console.log(`Function "kysely-postgres" up and running!`)
+console.log(`函数 "kysely-postgres" 已启动并运行！`)
 
 interface AnimalTable {
   id: Generated<bigint>
@@ -209,12 +208,12 @@ interface AnimalTable {
   created_at: Date
 }
 
-// Keys of this interface are table names.
+// 这个接口的键是表名
 interface Database {
   animals: AnimalTable
 }
 
-// Create a database pool with one connection.
+// 创建一个具有一个连接的数据库池
 const pool = new Pool(
   {
     tls: { caCertificates: [Deno.env.get('DB_SSL_CERT')!] },
@@ -227,7 +226,7 @@ const pool = new Pool(
   1
 )
 
-// You'd create one of these when you start your app.
+// 在启动应用时创建一个这样的实例
 const db = new Kysely<Database>({
   dialect: {
     createAdapter() {
@@ -247,20 +246,20 @@ const db = new Kysely<Database>({
 
 serve(async (_req) => {
   try {
-    // Run a query
+    // 执行查询
     const animals = await db.selectFrom('animals').select(['id', 'animal', 'created_at']).execute()
 
-    // Neat, it's properly typed \o/
+    // 很好，它被正确地类型化了 \o/
     console.log(animals[0].created_at.getFullYear())
 
-    // Encode the result as pretty printed JSON
+    // 将结果编码为格式化的 JSON
     const body = JSON.stringify(
       animals,
       (key, value) => (typeof value === 'bigint' ? value.toString() : value),
       2
     )
 
-    // Return the response with the correct content type header
+    // 返回带有正确内容类型头的响应
     return new Response(body, {
       status: 200,
       headers: {

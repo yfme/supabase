@@ -1,15 +1,15 @@
 ---
 id: 'auth'
-title: 'Integrating With Supabase Auth'
-description: 'Supabase Edge Functions and Auth.'
-subtitle: 'Supabase Edge Functions and Auth.'
+title: '与 Supabase Auth 集成'
+description: 'Supabase Edge Functions 和 Auth。'
+subtitle: 'Supabase Edge Functions 和 Auth。'
 ---
 
-Edge Functions work seamlessly with [Supabase Auth](/docs/guides/auth).
+Edge Functions 与 [Supabase Auth](/docs/guides/auth) 无缝协作。
 
-## Auth context
+## Auth 上下文
 
-When a user makes a request to an Edge Function, you can use the Authorization header to set the Auth context in the Supabase client:
+当用户向 Edge Function 发出请求时，您可以使用 Authorization 头来在 Supabase 客户端中设置 Auth 上下文：
 
 ```js
 import { createClient } from 'jsr:@supabase/supabase-js@2'
@@ -21,7 +21,7 @@ Deno.serve(async (req: Request) => {
     Deno.env.get('SUPABASE_ANON_KEY') ?? '',
   );
 
-  // Get the session or user object
+  // 获取会话或用户对象
   const authHeader = req.headers.get('Authorization')!;
   const token = authHeader.replace('Bearer ', '');
   const { data } = await supabaseClient.auth.getUser(token);
@@ -29,11 +29,11 @@ Deno.serve(async (req: Request) => {
 })
 ```
 
-Importantly, this is done _inside_ the `Deno.serve()` callback argument, so that the Authorization header is set for each request.
+重要的是，这是在 `Deno.serve()` 回调参数内部完成的，以便为每个请求设置 Authorization 头。
 
-## Fetching the user
+## 获取用户信息
 
-After initializing a Supabase client with the Auth context, you can use `getUser()` to fetch the user object, and run queries in the context of the user with [Row Level Security (RLS)](/docs/guides/database/postgres/row-level-security) policies enforced.
+在使用 Auth 上下文初始化 Supabase 客户端后，您可以使用 `getUser()` 获取用户对象，并在用户上下文中运行查询，同时强制执行 [行级安全性 (RLS)](/docs/guides/database/postgres/row-level-security) 策略。
 
 ```js
 import { createClient } from 'jsr:@supabase/supabase-js@2'
@@ -45,7 +45,7 @@ Deno.serve(async (req: Request) => {
     Deno.env.get('SUPABASE_ANON_KEY') ?? '',
   )
 
-  // Get the session or user object
+  // 获取会话或用户对象
   const authHeader = req.headers.get('Authorization')!
   const token = authHeader.replace('Bearer ', '')
   const { data } = await supabaseClient.auth.getUser(token)
@@ -59,9 +59,9 @@ Deno.serve(async (req: Request) => {
 })
 ```
 
-## Row Level Security
+## 行级安全性
 
-After initializing a Supabase client with the Auth context, all queries will be executed with the context of the user. For database queries, this means [Row Level Security](/docs/guides/database/postgres/row-level-security) will be enforced.
+在使用 Auth 上下文初始化 Supabase 客户端后，所有查询都将在用户上下文中执行。对于数据库查询，这意味着将强制执行[行级安全性](/docs/guides/database/postgres/row-level-security)。
 
 ```js
 import { createClient } from 'jsr:@supabase/supabase-js@2'
@@ -73,7 +73,7 @@ Deno.serve(async (req: Request) => {
     Deno.env.get('SUPABASE_ANON_KEY') ?? '',
   );
 
-  // Get the session or user object
+  // 获取会话或用户对象
   const authHeader = req.headers.get('Authorization')!;
   const token = authHeader.replace('Bearer ', '');
   const { data: userData } = await supabaseClient.auth.getUser(token);
@@ -87,6 +87,6 @@ Deno.serve(async (req: Request) => {
 })
 ```
 
-## Example code
+## 示例代码
 
-See a full [example on GitHub](https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/select-from-table-with-auth-rls/index.ts).
+查看 [GitHub 上的完整示例](https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/select-from-table-with-auth-rls/index.ts)。

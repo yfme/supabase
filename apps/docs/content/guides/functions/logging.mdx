@@ -1,39 +1,38 @@
 ---
 id: 'functions-logging'
-title: 'Logging'
-description: 'How to access logs for your Edge Functions.'
-subtitle: 'How to access logs for your Edge Functions.'
+title: '日志记录'
+description: '如何访问 Edge Functions 的日志。'
+subtitle: '如何访问 Edge Functions 的日志。'
 ---
 
-Logs are provided for each function invocation, locally and in hosted environments.
+每次函数调用都会提供日志，无论是在本地环境还是托管环境中。
 
-## How to access logs
+## 如何访问日志
 
-### Hosted
+### 托管环境
 
-You can access both tools from the [Functions section](https://supabase.com/dashboard/project/_/functions) of the Dashboard. Select your function from the list, and click `Invocations` or `Logs`:
+您可以从[仪表板的 Functions 部分](https://supabase.com/dashboard/project/_/functions)访问这两个工具。从列表中选择您的函数，然后点击 `Invocations` 或 `Logs`：
 
-- **Invocations**: shows the Request and Response for each execution. You can see the headers, body, status code, and duration of each invocation. You can also filter the invocations by date, time, or status code.
-- **Logs**: shows any platform events, uncaught exceptions, and custom log events. You can see the timestamp, level, and message of each log event. You can also filter the log events by date, time, or level.
+- **调用记录**：显示每次执行的请求和响应。您可以查看每次调用的标头、正文、状态码和持续时间。您还可以按日期、时间或状态码筛选调用记录。
+- **日志**：显示任何平台事件、未捕获的异常和自定义日志事件。您可以查看每个日志事件的时间戳、级别和消息。您还可以按日期、时间或级别筛选日志事件。
 
-![Function invocations.](/docs/img/guides/functions/function-logs.png)
+![函数调用记录。](/docs/img/guides/functions/function-logs.png)
 
-### Local
+### 本地环境
 
-When [developing locally](/docs/guides/functions/local-development) you will see error messages and console log statements printed to your local terminal window.
+在[本地开发](/docs/guides/functions/local-development)时，您会在本地终端窗口中看到错误消息和控制台日志语句。
 
-## Events that get logged
+## 记录的事件类型
 
-- **Uncaught exceptions**: Uncaught exceptions thrown by a function during execution are automatically logged. You can see the error message and stack trace in the Logs tool.
-- **Custom log events**: You can use `console.log`, `console.error`, and `console.warn` in your code to emit custom log events. These events also appear in the Logs tool.
-- **Boot and Shutdown Logs**: The Logs tool extends its coverage to include logs for the boot and shutdown of functions.
+- **未捕获的异常**：执行过程中函数抛出的未捕获异常会被自动记录。您可以在 Logs 工具中查看错误消息和堆栈跟踪。
+- **自定义日志事件**：您可以在代码中使用 `console.log`、`console.error` 和 `console.warn` 来发出自定义日志事件。这些事件也会出现在 Logs 工具中。
+- **启动和关闭日志**：Logs 工具的覆盖范围还包括函数的启动和关闭日志。
 
 <Admonition type="note">
-  A custom log message can contain up to 10,000 characters. A function can log up to 100 events
-  within a 10 second period.
+  一条自定义日志消息最多可包含 10,000 个字符。一个函数在 10 秒内最多可以记录 100 个事件。
 </Admonition>
 
-Here is an example of how to use custom logs events in your function:
+以下是在函数中使用自定义日志事件的示例：
 
 ```typescript
 Deno.serve(async (req) => {
@@ -41,19 +40,19 @@ Deno.serve(async (req) => {
     const { name } = await req.json()
 
     if (!name) {
-      console.warn('Empty name provided')
+      console.warn('提供的名称为空')
     }
 
     const data = {
-      message: `Hello ${name || 'Guest'}!`, // Provide a default value if name is empty
+      message: `你好 ${name || '访客'}!`, // 如果名称为空，提供默认值
     }
 
-    console.log(`Name: ${name}`)
+    console.log(`名称: ${name}`)
 
     return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json' } })
   } catch (error) {
-    console.error(`Error processing request: ${error}`)
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+    console.error(`处理请求时出错: ${error}`)
+    return new Response(JSON.stringify({ error: '内部服务器错误' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     })
@@ -61,18 +60,18 @@ Deno.serve(async (req) => {
 })
 ```
 
-## Logging tips
+## 日志记录技巧
 
-### Logging request headers
+### 记录请求标头
 
-When debugging Edge Functions, a common mistake is to try to log headers to the developer console via code like this:
+在调试 Edge Functions 时，一个常见的错误是尝试使用以下代码将标头记录到开发者控制台：
 
 ```ts index.ts
 Deno.serve(async (req) => {
   const headers = JSON.stringify(req.headers)
-  console.log(`Request headers: ${headers}`)
-  // OR
-  console.log(`Request headers: ${JSON.stringify(req.headers)}`)
+  console.log(`请求标头: ${headers}`)
+  // 或者
+  console.log(`请求标头: ${JSON.stringify(req.headers)}`)
   return new Response('ok', {
     headers: {
       'Content-Type': 'application/json',
@@ -82,21 +81,21 @@ Deno.serve(async (req) => {
 })
 ```
 
-Both attempts will give as output the string `"{}"`, even though retrieving the value using `request.headers.get("Your-Header-Name")` will indeed give you the correct value. This behavior mirrors that of browsers.
+这两种尝试都会输出字符串 `"{}"` ，即使使用 `request.headers.get("您的标头名称")` 确实会给您正确的值。这种行为与浏览器的行为一致。
 
-The reason behind this behavior is that [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) objects don't store headers in JavaScript properties that can be enumerated. As a result, neither the developer console nor the JSON stringifier can properly interpret the names and values of the headers. Essentially, it's not an empty object, but rather an opaque one.
+这种行为的原因是 [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers) 对象不会将标头存储在可枚举的 JavaScript 属性中。因此，开发者控制台和 JSON 字符串化工具都无法正确解释标头的名称和值。本质上，它不是一个空对象，而是一个不透明的对象。
 
-However, `Headers` objects are iterable. You can utilize this feature to craft a couple of succinct one-liners for debugging and printing headers.
+然而，`Headers` 对象是可迭代的。您可以利用这个特性创建几个简洁的单行代码用于调试和打印标头。
 
-### Convert headers into an object with `Object.fromEntries`:
+### 使用 `Object.fromEntries` 将标头转换为对象：
 
-You can use `Object.fromEntries` which is a call to convert the headers into an object:
+您可以使用 `Object.fromEntries` 将标头转换为对象：
 
 ```ts index.ts
 Deno.serve(async (req) => {
   let headersObject = Object.fromEntries(req.headers)
   let requestHeaders = JSON.stringify(headersObject, null, 2)
-  console.log(`Request headers: ${requestHeaders}`)
+  console.log(`请求标头: ${requestHeaders}`)
   return new Response('ok', {
     headers: {
       'Content-Type': 'application/json',
@@ -106,10 +105,10 @@ Deno.serve(async (req) => {
 })
 ```
 
-This results in something like:
+这会产生类似以下的结果：
 
 ```
-Request headers: {
+请求标头: {
     "accept": "*/*",
     "accept-encoding": "gzip",
     "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1cGFuYWNobyIsInJvbGUiOiJhbm9uIiwieW91IjoidmVyeSBzbmVha3ksIGh1aD8iLCJpYXQiOjE2NTQ1NDA5MTYsImV4cCI6MTk3MDExNjkxNn0.cwBbk2tq-fUcKF1S0jVKkOAG2FIQSID7Jjvff5Do99Y",

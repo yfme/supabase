@@ -1,7 +1,7 @@
 ---
-title: 'Use Supabase with Flutter'
-subtitle: 'Learn how to create a Supabase project, add some sample data to your database, and query the data from a Flutter app.'
-breadcrumb: 'Framework Quickstarts'
+title: '在 Flutter 中使用 Supabase'
+subtitle: '学习如何创建 Supabase 项目，在数据库中添加示例数据，并从 Flutter 应用程序查询数据。'
+breadcrumb: '框架快速入门'
 hideToc: true
 ---
 
@@ -15,9 +15,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={2}>
 
-    <StepHikeCompact.Details title="Create a Flutter app">
+    <StepHikeCompact.Details title="创建 Flutter 应用程序">
 
-    Create a Flutter app using the `flutter create` command. You can skip this step if you already have a working app.
+    使用 `flutter create` 命令创建 Flutter 应用程序。如果您已经有一个正在运行的应用程序，可以跳过此步骤。
 
     </StepHikeCompact.Details>
 
@@ -33,11 +33,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={3}>
 
-    <StepHikeCompact.Details title="Install the Supabase client library">
+    <StepHikeCompact.Details title="安装 Supabase 客户端库">
 
-      The fastest way to get started is to use the [`supabase_flutter`](https://pub.dev/packages/supabase_flutter) client library which provides a convenient interface for working with Supabase from a Flutter app.
+      最快的入门方法是使用 [`supabase_flutter`](https://pub.dev/packages/supabase_flutter) 客户端库，它为从 Flutter 应用程序使用 Supabase 提供了便捷的接口。
 
-      Open the `pubspec.yaml` file inside your Flutter app and add `supabase_flutter` as a dependency.
+      打开 Flutter 应用程序中的 `pubspec.yaml` 文件，并添加 `supabase_flutter` 作为依赖项。
 
     </StepHikeCompact.Details>
 
@@ -53,9 +53,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={4}>
 
-    <StepHikeCompact.Details title="Initialize the Supabase client">
+    <StepHikeCompact.Details title="初始化 Supabase 客户端">
 
-      Open `lib/main.dart` and edit the main function to initialize Supabase using your project URL and public API (anon) key:
+      打开 `lib/main.dart` 并编辑 main 函数，使用您的项目 URL 和公共 API（匿名）密钥初始化 Supabase：
 
       <ProjectConfigVariables variable="url" />
       <ProjectConfigVariables variable="anonKey" />
@@ -84,11 +84,11 @@ hideToc: true
 
   <StepHikeCompact.Step step={5}>
 
-    <StepHikeCompact.Details title="Query data from the app">
+    <StepHikeCompact.Details title="从应用程序查询数据">
 
-      Use a `FutureBuilder` to fetch the data when the home page loads and display the query result in a `ListView`.
+      使用 `FutureBuilder` 在主页加载时获取数据，并在 `ListView` 中显示查询结果。
 
-      Replace the default `MyApp` and `MyHomePage` classes with the following code.
+      用以下代码替换默认的 `MyApp` 和 `MyHomePage` 类。
 
     </StepHikeCompact.Details>
 
@@ -150,12 +150,12 @@ hideToc: true
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={6}>
-    <StepHikeCompact.Details title="Start the app">
+    <StepHikeCompact.Details title="启动应用程序">
 
-    Run your app on a platform of your choosing! By default an app should launch in your web browser.
+    在您选择的平台上运行应用程序！默认情况下，应用程序应该在您的网络浏览器中启动。
 
-    Note that `supabase_flutter` is compatible with web, iOS, Android, macOS, and Windows apps.
-    Running the app on macOS requires additional configuration to [set the entitlements](https://docs.flutter.dev/development/platform-integration/macos/building#setting-up-entitlements).
+    请注意，`supabase_flutter` 兼容 Web、iOS、Android、macOS 和 Windows 应用程序。
+    在 macOS 上运行应用程序需要额外的配置来[设置权限](https://docs.flutter.dev/development/platform-integration/macos/building#setting-up-entitlements)。
 
     </StepHikeCompact.Details>
 
@@ -171,20 +171,20 @@ hideToc: true
 
 </StepHikeCompact>
 
-## Setup deep links
+## 设置深度链接
 
-Many sign in methods require deep links to redirect the user back to your app after authentication. Read more about setting deep links up for all platforms (including web) in the [Flutter Mobile Guide](/docs/guides/getting-started/tutorials/with-flutter#setup-deep-links).
+许多登录方法需要深度链接将用户在认证后重定向回您的应用程序。在 [Flutter 移动指南](/docs/guides/getting-started/tutorials/with-flutter#setup-deep-links) 中阅读有关为所有平台（包括 Web）设置深度链接的更多信息。
 
-## Going to production
+## 准备生产环境
 
 ### Android
 
-In production, your Android app needs explicit permission to use the internet connection on the user's device which is required to communicate with Supabase APIs.
-To do this, add the following line to the `android/app/src/main/AndroidManifest.xml` file.
+在生产环境中，您的 Android 应用程序需要明确的权限才能使用用户设备上的互联网连接，这是与 Supabase API 通信所必需的。
+为此，请在 `android/app/src/main/AndroidManifest.xml` 文件中添加以下行。
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  <!-- Required to fetch data from the internet. -->
+  <!-- 获取互联网数据所需的权限 -->
   <uses-permission android:name="android.permission.INTERNET" />
   <!-- ... -->
 </manifest>

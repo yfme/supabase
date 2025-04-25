@@ -1,52 +1,52 @@
 ---
 id: 'ai-hybrid-search'
-title: 'Hybrid search'
-description: 'Combine keyword search with semantic search to get both direct and contextual results.'
-subtitle: 'Combine keyword search with semantic search.'
-sidebar_label: 'Hybrid search'
+title: '混合搜索'
+description: '结合关键词搜索和语义搜索，获取直接相关和上下文相关的结果。'
+subtitle: '结合关键词搜索和语义搜索。'
+sidebar_label: '混合搜索'
 ---
 
-Hybrid search combines [full text search](/docs/guides/ai/keyword-search) (searching by keyword) with [semantic search](/docs/guides/ai/semantic-search) (searching by meaning) to identify results that are both directly and contextually relevant to the user's query.
+混合搜索结合了[全文搜索](/docs/guides/ai/keyword-search)（按关键词搜索）和[语义搜索](/docs/guides/ai/semantic-search)（按含义搜索），以识别与用户查询在直接和上下文上都相关的结果。
 
-## Use cases for hybrid search
+## 混合搜索的使用场景
 
-Sometimes a single search method doesn't quite capture what a user is really looking for. For example, if a user searches for "Italian recipes with tomato sauce" on a cooking app, a keyword search would pull up recipes that specifically mention "Italian," "recipes," and "tomato sauce" in the text. However, it might miss out on dishes that are quintessentially Italian and use tomato sauce but don't explicitly label themselves with these words, or use variations like "pasta sauce" or "marinara." On the other hand, a semantic search might understand the culinary context and find recipes that match the intent, such as a traditional "Spaghetti Marinara," even if they don't match the exact keyword phrase. However, it could also suggest recipes that are contextually related but not what the user is looking for, like a "Mexican salsa" recipe, because it understands the context to be broadly about tomato-based sauces.
+有时单一的搜索方法无法完全捕捉用户真正寻找的内容。例如，如果用户在烹饪应用上搜索"带番茄酱的意大利食谱"，关键词搜索会找出在文本中明确提到"意大利"、"食谱"和"番茄酱"的菜谱。然而，它可能会错过那些本质上是意大利菜并使用番茄酱但没有明确标记这些词语的菜谱，或者使用"意面酱"或"马瑞纳拉酱"等变体的菜谱。另一方面，语义搜索可能会理解烹饪上下文并找到符合意图的菜谱，例如传统的"意大利面配马瑞纳拉酱"，即使它们与确切的关键词短语不匹配。然而，它也可能会建议在上下文中相关但不是用户所寻找的菜谱，比如"墨西哥莎莎酱"菜谱，因为它广泛理解上下文是关于番茄基酱料。
 
-Hybrid search combines the strengths of both these methods. It would ensure that recipes explicitly mentioning the keywords are prioritized, thus capturing direct hits that satisfy the keyword criteria. At the same time, it would include recipes identified through semantic understanding as being related in meaning or context, like different Italian dishes that traditionally use tomato sauce but might not have been tagged explicitly with the user's search terms. It identifies results that are both directly and contextually relevant to the user's query while ideally minimizing misses and irrelevant suggestions.
+混合搜索结合了这两种方法的优势。它确保优先考虑明确提到关键词的菜谱，从而捕获满足关键词标准的直接匹配项。同时，它也会包括通过语义理解被识别为在含义或上下文上相关的菜谱，比如传统上使用番茄酱但可能没有被明确标记用户搜索术语的不同意大利菜。它识别出与用户查询在直接和上下文上都相关的结果，同时理想地最小化漏掉相关结果和不相关建议。
 
-## When to consider hybrid search
+## 何时考虑混合搜索
 
-The decision to use hybrid search depends on what your users are looking for in your app. For a code repository where developers need to find exact lines of code or error messages, keyword search is likely ideal because it matches specific terms. In a mental health forum where users search for advice or experiences related to their feelings, semantic search may be better because it finds results based on the meaning of a query, not just specific words. For a shopping app where customers might search for specific product names yet also be open to related suggestions, hybrid search combines the best of both worlds - finding exact matches while also uncovering similar products based on the shopping context.
+使用混合搜索的决定取决于用户在您的应用中寻找什么。对于开发人员需要找到确切代码行或错误消息的代码库，关键词搜索可能是理想的，因为它匹配特定术语。在用户搜索与其感受相关的建议或经验的心理健康论坛中，语义搜索可能更好，因为它基于查询的含义而不仅仅是特定词语找到结果。对于客户可能搜索特定产品名称但也对相关建议持开放态度的购物应用，混合搜索结合了两者的优点 - 找到精确匹配项的同时，还基于购物上下文发现类似产品。
 
-## How to combine search methods
+## 如何结合搜索方法
 
-Hybrid search merges keyword search and semantic search, but how does this process work?
+混合搜索合并了关键词搜索和语义搜索，但这个过程是如何工作的呢？
 
-First, each search method is executed separately. Keyword search, which involves searching by specific words or phrases present in the content, will yield its own set of results. Similarly, semantic search, which involves understanding the context or meaning behind the search query rather than the specific words used, will generate its own unique results.
+首先，每种搜索方法单独执行。关键词搜索（通过内容中存在的特定词语或短语进行搜索）将产生自己的结果集。同样，语义搜索（理解搜索查询背后的上下文或含义而不是使用的特定词语）将生成自己的独特结果。
 
-Now with these separate result lists available, the next step is to combine them into a single, unified list. This is achieved through a process known as “fusion”. Fusion takes the results from both search methods and merges them together based on a certain ranking or scoring system. This system may prioritize certain results based on factors like their relevance to the search query, their ranking in the individual lists, or other criteria. The result is a final list that integrates the strengths of both keyword and semantic search methods.
+现在有了这些单独的结果列表，下一步是将它们合并成单一的统一列表。这是通过一个称为"融合"的过程实现的。融合根据某种排名或评分系统，将两种搜索方法的结果合并在一起。该系统可能会根据诸如与搜索查询的相关性、在单独列表中的排名或其他标准等因素优先考虑某些结果。最终结果是一个整合了关键词和语义搜索方法优势的最终列表。
 
-## Reciprocal Ranked Fusion (RRF)
+## 倒数排名融合（RRF）
 
-One of the most common fusion methods is Reciprocal Ranked Fusion (RRF). The key idea behind RRF is to give more weight to the top-ranked items in each individual result list when building the final combined list.
+最常见的融合方法之一是倒数排名融合（Reciprocal Ranked Fusion，RRF）。RRF 背后的关键思想是在构建最终组合列表时，给予每个单独结果列表中排名靠前的项目更多权重。
 
-In RRF, we iterate over each record and assign a score (noting that each record could exist in one or both lists). The score is calculated as 1 divided by that record's rank in each list, summed together between both lists. For example, if a record with an ID of `123` was ranked third in the keyword search and ninth in semantic search, it would receive a score of $$\dfrac{1}{3} + \dfrac{1}{9} = 0.444$$. If the record was found in only one list and not the other, it would receive a score of 0 for the other list. The records are then sorted by this score to create the final list. The items with the highest scores are ranked first, and lowest scores ranked last.
+在 RRF 中，我们遍历每条记录并分配一个分数（注意每条记录可能存在于一个或两个列表中）。分数计算为 1 除以该记录在每个列表中的排名，在两个列表之间求和。例如，如果 ID 为 `123` 的记录在关键词搜索中排名第三，在语义搜索中排名第九，它将获得分数 $$\dfrac{1}{3} + \dfrac{1}{9} = 0.444$$。如果记录只在一个列表中找到而不在另一个列表中，它在另一个列表中的分数将为 0。然后按此分数对记录进行排序，创建最终列表。分数最高的项目排名第一，分数最低的排名最后。
 
-This method ensures that items that are ranked high in multiple lists are given a high rank in the final list. It also ensures that items that are ranked high in only a few lists but low in others are not given a high rank in the final list. Placing the rank in the denominator when calculating score helps penalize the low ranking records.
+这种方法确保在多个列表中排名高的项目在最终列表中也获得高排名。它还确保只在少数几个列表中排名高但在其他列表中排名低的项目在最终列表中不会获得高排名。在计算分数时将排名放在分母中有助于惩罚低排名记录。
 
-### Smoothing constant `k`
+### 平滑常数 `k`
 
-To prevent extremely high scores for items that are ranked first (since we're dividing by the rank), a `k` constant is often added to the denominator to smooth the score:
+为了防止排名第一的项目获得极高的分数（因为我们是除以排名），通常会在分母中添加一个 `k` 常数来平滑分数：
 
 $$\dfrac{1}{k+rank}$$
 
-This constant can be any positive number, but is typically small. A constant of 1 would mean that a record ranked first would have a score of $$\dfrac{1}{1+1} = 0.5$$ instead of $$1$$. This adjustment can help balance the influence of items that are ranked very high in individual lists when creating the final combined list.
+这个常数可以是任何正数，但通常较小。常数为 1 意味着排名第一的记录将有分数 $$\dfrac{1}{1+1} = 0.5$$ 而不是 $$1$$。这种调整可以帮助平衡在创建最终组合列表时在单独列表中排名非常高的项目的影响。
 
-## Hybrid search in Postgres
+## Postgres 中的混合搜索
 
-Let's implement hybrid search in Postgres using `tsvector` (keyword search) and `pgvector` (semantic search).
+让我们在 Postgres 中使用 `tsvector`（关键词搜索）和 `pgvector`（语义搜索）实现混合搜索。
 
-First we'll create a `documents` table to store the documents that we will search over. This is just an example - adjust this to match the structure of your application.
+首先我们将创建一个 `documents` 表来存储我们将要搜索的文档。这只是一个示例 - 请根据您应用程序的结构进行调整。
 
 ```sql
 create table documents (
@@ -57,28 +57,28 @@ create table documents (
 );
 ```
 
-The table contains 4 columns:
+该表包含 4 列：
 
-- `id` is an auto-generated unique ID for the record. We'll use this later to match records when performing RRF.
-- `content` contains the actual text we will be searching over.
-- `fts` is an auto-generated `tsvector` column that is generated using the text in `content`. We will use this for [full text search](/docs/guides/database/full-text-search) (search by keyword).
-- `embedding` is a [vector column](/docs/guides/ai/vector-columns) that stores the vector generated from our embedding model. We will use this for [semantic search](/docs/guides/ai/semantic-search) (search by meaning). We chose 512 dimensions for this example, but adjust this to match the size of the embedding vectors generated from your preferred model.
+- `id` 是记录的自动生成的唯一 ID。我们稍后将在执行 RRF 时使用它来匹配记录。
+- `content` 包含我们将要搜索的实际文本。
+- `fts` 是使用 `content` 中的文本自动生成的 `tsvector` 列。我们将使用它进行[全文搜索](/docs/guides/database/full-text-search)（按关键词搜索）。
+- `embedding` 是一个[向量列](/docs/guides/ai/vector-columns)，存储从我们的嵌入模型生成的向量。我们将使用它进行[语义搜索](/docs/guides/ai/semantic-search)（按含义搜索）。我们在此示例中选择了 512 维，但请根据您首选模型生成的嵌入向量的大小进行调整。
 
-Next we'll create indexes on the `fts` and `embedding` columns so that their individual queries will remain fast at scale:
+接下来，我们将在 `fts` 和 `embedding` 列上创建索引，以便它们的单独查询在规模扩大时保持快速：
 
 ```sql
--- Create an index for the full-text search
+-- 为全文搜索创建索引
 create index on documents using gin(fts);
 
--- Create an index for the semantic vector search
+-- 为语义向量搜索创建索引
 create index on documents using hnsw (embedding vector_ip_ops);
 ```
 
-For full text search we use a [generalized inverted (GIN) index](https://www.postgresql.org/docs/current/gin-intro.html) which is designed for handling composite values like those stored in a `tsvector`.
+对于全文搜索，我们使用[广义倒排（GIN）索引](https://www.postgresql.org/docs/current/gin-intro.html)，它专为处理 `tsvector` 中存储的复合值而设计。
 
-For semantic vector search we use an [HNSW index](/docs/guides/ai/vector-indexes/hnsw-indexes), which is a high performing approximate nearest neighbor (ANN) search algorithm. Note that we are using the `vector_ip_ops` (inner product) operator with this index because we plan on using the inner product (`<#>`) operator later in our query. If you plan to use a different operator like cosine distance (`<=>`), be sure to update the index accordingly. For more information, see [distance operators](/docs/guides/ai/vector-indexes#distance-operators).
+对于语义向量搜索，我们使用 [HNSW 索引](/docs/guides/ai/vector-indexes/hnsw-indexes)，这是一种高性能的近似最近邻（ANN）搜索算法。请注意，我们使用 `vector_ip_ops`（内积）操作符与此索引一起使用，因为我们计划在稍后的查询中使用内积（`<#>`）操作符。如果您计划使用不同的操作符，如余弦距离（`<=>`），请确保相应地更新索引。有关更多信息，请参阅[距离操作符](/docs/guides/ai/vector-indexes#distance-operators)。
 
-Finally we'll create our `hybrid_search` function:
+最后我们将创建我们的 `hybrid_search` 函数：
 
 ```sql
 create or replace function hybrid_search(
@@ -95,8 +95,8 @@ as $$
 with full_text as (
   select
     id,
-    -- Note: ts_rank_cd is not indexable but will only rank matches of the where clause
-    -- which shouldn't be too big
+    -- 注意：ts_rank_cd 不可索引，但只会对 where 子句的匹配项进行排名
+    -- 这不应该太大
     row_number() over(order by ts_rank_cd(fts, websearch_to_tsquery(query_text)) desc) as rank_ix
   from
     documents
@@ -131,39 +131,39 @@ limit
 $$;
 ```
 
-Let's break this down:
+让我们分解一下：
 
-- **Parameters:** The function accepts quite a few parameters, but the main (required) ones are `query_text`, `query_embedding`, and `match_count`.
+- **参数：** 该函数接受很多参数，但主要（必需）的参数是 `query_text`、`query_embedding` 和 `match_count`。
 
-  - `query_text` is the user's query text (more on this shortly)
-  - `query_embedding` is the vector representation of the user's query produced by the embedding model. We chose 512 dimensions for this example, but adjust this to match the size of the embedding vectors generated from your preferred model. This must match the size of the `embedding` vector on the `documents` table (and use the same model).
-  - `match_count` is the number of records returned in the `limit` clause.
+  - `query_text` 是用户的查询文本（稍后会详细介绍）
+  - `query_embedding` 是由嵌入模型生成的用户查询的向量表示。我们在此示例中选择了 512 维，但请根据您首选模型生成的嵌入向量的大小进行调整。这必须与 `documents` 表上的 `embedding` 向量大小匹配（并使用相同的模型）。
+  - `match_count` 是 `limit` 子句中返回的记录数。
 
-  The other parameters are optional, but give more control over the fusion process.
+  其他参数是可选的，但可以更好地控制融合过程。
 
-  - `full_text_weight` and `semantic_weight` decide how much weight each search method gets in the final score. These are both 1 by default which means they both equally contribute towards the final rank. A `full_text_weight` of 2 and `semantic_weight` of 1 would give full-text search twice as much weight as semantic search.
-  - `rrf_k` is the `k` [smoothing constant](#smoothing-constant-k) added to the reciprocal rank. The default is 50.
+  - `full_text_weight` 和 `semantic_weight` 决定了每种搜索方法在最终分数中的权重。这两个默认值都是 1，这意味着它们对最终排名的贡献相等。`full_text_weight` 为 2，`semantic_weight` 为 1 将使全文搜索的权重是语义搜索的两倍。
+  - `rrf_k` 是添加到倒数排名中的 `k` [平滑常数](#平滑常数-k)。默认值为 50。
 
-- **Return type:** The function returns a set of records from our `documents` table.
-- **CTE:** We create two [common table expressions (CTE)](https://www.postgresql.org/docs/current/queries-with.html), one for full-text search and one for semantic search. These perform each query individually prior to joining them.
-- **RRF:** The final query combines the results from the two CTEs using [reciprocal rank fusion (RRF)](#reciprocal-ranked-fusion-rrf).
+- **返回类型：** 该函数返回来自我们 `documents` 表的一组记录。
+- **CTE：** 我们创建两个[公共表表达式（CTE）](https://www.postgresql.org/docs/current/queries-with.html)，一个用于全文搜索，一个用于语义搜索。这些在连接之前单独执行每个查询。
+- **RRF：** 最终查询使用[倒数排名融合（RRF）](#倒数排名融合rrf)组合两个 CTE 的结果。
 
-## Running hybrid search
+## 运行混合搜索
 
-To use this function in SQL, we can run:
+要在 SQL 中使用此函数，我们可以运行：
 
 ```sql
 select
   *
 from
   hybrid_search(
-    'Italian recipes with tomato sauce', -- user query
-    '[...]'::vector(512), -- embedding generated from user query
+    'Italian recipes with tomato sauce', -- 用户查询
+    '[...]'::vector(512), -- 从用户查询生成的嵌入
     10
   );
 ```
 
-In practice, you will likely be calling this from the [Supabase client](/docs/reference/javascript/introduction) or through a custom backend layer. Here is a quick example of how you might call this from an [Edge Function](/docs/guides/functions) using JavaScript:
+在实践中，您可能会从 [Supabase 客户端](/docs/reference/javascript/introduction) 或通过自定义后端层调用它。以下是如何使用 JavaScript 从 [Edge 函数](/docs/guides/functions) 调用它的快速示例：
 
 ```tsx
 import { createClient } from 'jsr:@supabase/supabase-js@2'
@@ -174,13 +174,13 @@ const supabaseServiceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!
 
 Deno.serve(async (req) => {
-  // Grab the user's query from the JSON payload
+  // 从 JSON 载荷中获取用户的查询
   const { query } = await req.json()
 
-  // Instantiate OpenAI client
+  // 实例化 OpenAI 客户端
   const openai = new OpenAI({ apiKey: openaiApiKey })
 
-  // Generate a one-time embedding for the user's query
+  // 为用户的查询生成一次性嵌入
   const embeddingResponse = await openai.embeddings.create({
     model: 'text-embedding-3-large',
     input: query,
@@ -189,11 +189,11 @@ Deno.serve(async (req) => {
 
   const [{ embedding }] = embeddingResponse.data
 
-  // Instantiate the Supabase client
-  // (replace service role key with user's JWT if using Supabase auth and RLS)
+  // 实例化 Supabase 客户端
+  // （如果使用 Supabase 认证和 RLS，则用用户的 JWT 替换服务角色密钥）
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey)
 
-  // Call hybrid_search Postgres function via RPC
+  // 通过 RPC 调用 hybrid_search Postgres 函数
   const { data: documents } = await supabase.rpc('hybrid_search', {
     query_text: query,
     query_embedding: embedding,
@@ -206,9 +206,9 @@ Deno.serve(async (req) => {
 })
 ```
 
-This uses OpenAI's `text-embedding-3-large` model to generate embeddings (shortened to 512 dimensions for faster retrieval). Swap in your preferred embedding model (and dimension size) accordingly.
+这使用 OpenAI 的 `text-embedding-3-large` 模型生成嵌入（缩短到 512 维以加快检索速度）。相应地替换您首选的嵌入模型（和维度大小）。
 
-To test this, make a `POST` request to the function's endpoint while passing in a JSON payload containing the user's query. Here is an example `POST` request using cURL:
+要测试此功能，请向函数的端点发出 `POST` 请求，同时传递包含用户查询的 JSON 载荷。这是使用 cURL 的 `POST` 请求示例：
 
 ```tsx
 curl -i --location --request POST \
@@ -218,12 +218,12 @@ curl -i --location --request POST \
   --data '{"query":"Italian recipes with tomato sauce"}'
 ```
 
-For more information on how to create, test, and deploy edge functions, see [Getting started](/docs/guides/functions/quickstart).
+有关如何创建、测试和部署 edge 函数的更多信息，请参阅[入门指南](/docs/guides/functions/quickstart)。
 
-## See also
+## 另请参阅
 
-- [Embedding concepts](/docs/guides/ai/concepts)
-- [Vector columns](/docs/guides/ai/vector-columns)
-- [Vector indexes](/docs/guides/ai/vector-indexes)
-- [Semantic search](/docs/guides/ai/semantic-search)
-- [Full text (keyword) search](/docs/guides/database/full-text-search)
+- [嵌入概念](/docs/guides/ai/concepts)
+- [向量列](/docs/guides/ai/vector-columns)
+- [向量索引](/docs/guides/ai/vector-indexes)
+- [语义搜索](/docs/guides/ai/semantic-search)
+- [全文（关键词）搜索](/docs/guides/database/full-text-search)

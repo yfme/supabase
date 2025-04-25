@@ -1,49 +1,49 @@
 ---
 id: 'auth'
-title: 'Auth'
-description: 'Use Supabase to Authenticate and Authorize your users.'
-subtitle: 'Use Supabase to authenticate and authorize your users.'
+title: '身份验证'
+description: '使用 Supabase 对您的用户进行身份验证和授权。'
+subtitle: '使用 Supabase 对您的用户进行身份验证和授权。'
 tocVideo: '6ow_jW4epf8'
 ---
 
-Supabase Auth makes it easy to implement authentication and authorization in your app. We provide client SDKs and API endpoints to help you create and manage users.
+Supabase Auth 使在您的应用中实现身份验证和授权变得简单。我们提供客户端 SDK 和 API 端点来帮助您创建和管理用户。
 
-Your users can use many popular Auth methods, including password, magic link, one-time password (OTP), social login, and single sign-on (SSO).
+您的用户可以使用多种流行的身份验证方法，包括密码、魔法链接、一次性密码 (OTP)、社交登录和单点登录 (SSO)。
 
-## About authentication and authorization
+## 关于身份验证和授权
 
-Authentication and authorization are the core responsibilities of any Auth system.
+身份验证和授权是任何身份验证系统的核心职责。
 
-- **Authentication** means checking that a user is who they say they are.
-- **Authorization** means checking what resources a user is allowed to access.
+- **身份验证**意味着确认用户是他们所声称的身份。
+- **授权**意味着检查用户被允许访问哪些资源。
 
-Supabase Auth uses [JSON Web Tokens (JWTs)](/docs/guides/auth/jwts) for authentication. Auth integrates with Supabase's database features, making it easy to use [Row Level Security (RLS)](/docs/guides/database/postgres/row-level-security) for authorization.
+Supabase Auth 使用 [JSON Web Tokens (JWTs)](/docs/guides/auth/jwts) 进行身份验证。Auth 与 Supabase 的数据库功能集成，使得使用[行级安全性 (RLS)](/docs/guides/database/postgres/row-level-security) 进行授权变得简单。
 
-## The Supabase ecosystem
+## Supabase 生态系统
 
-You can use Supabase Auth as a standalone product, but it's also built to integrate with the Supabase ecosystem.
+您可以将 Supabase Auth 作为独立产品使用，但它也被构建为与 Supabase 生态系统集成。
 
-Auth uses your project's Postgres database under the hood, storing user data and other Auth information in a special schema. You can connect this data to your own tables using triggers and foreign key references.
+Auth 在后台使用您项目的 Postgres 数据库，将用户数据和其他 Auth 信息存储在一个特殊的模式中。您可以使用触发器和外键引用将这些数据连接到您自己的表中。
 
-Auth also enables access control to your database's automatically generated [REST API](/docs/guides/api). When using Supabase SDKs, your data requests are automatically sent with the user's Auth Token. The Auth Token scopes database access on a row-by-row level when used along with [RLS policies](/docs/guides/database/postgres/row-level-security).
+Auth 还允许访问您数据库自动生成的 [REST API](/docs/guides/api)。当使用 Supabase SDK 时，您的数据请求会自动附带用户的 Auth Token。当与 [RLS 策略](/docs/guides/database/postgres/row-level-security) 一起使用时，Auth Token 可以在行级别上限定数据库访问范围。
 
-## Providers
+## 提供商
 
-Supabase Auth works with many popular Auth methods, including Social and Phone Auth using third-party providers. See the following sections for a list of supported third-party providers.
+Supabase Auth 可以与许多流行的身份验证方法一起使用，包括使用第三方提供商的社交和电话身份验证。请参阅以下部分查看支持的第三方提供商列表。
 
-### Social Auth
+### 社交身份验证
 
 <AuthProviders type="social" />
 
-### Phone Auth
+### 电话身份验证
 
 <AuthProviders type="phone" />
 
-## Pricing
+## 定价
 
-Charges apply to Monthly Active Users (MAU), Monthly Active Third-Party Users (Third-Party MAU), and Monthly Active SSO Users (SSO MAU) and Advanced MFA Add-ons. For a detailed breakdown of how these charges are calculated, refer to the following pages:
+费用适用于月活跃用户 (MAU)、月活跃第三方用户 (Third-Party MAU)、月活跃 SSO 用户 (SSO MAU) 和高级 MFA 附加组件。有关这些费用如何计算的详细分析，请参考以下页面：
 
-- [Pricing MAU](/docs/guides/platform/manage-your-usage/monthly-active-users)
-- [Pricing Third-Party MAU](/docs/guides/platform/manage-your-usage/monthly-active-users-third-party)
-- [Pricing SSO MAU](/docs/guides/platform/manage-your-usage/monthly-active-users-sso)
-- [Advanced MFA - Phone](/docs/guides/platform/manage-your-usage/advanced-mfa-phone)
+- [MAU 定价](/docs/guides/platform/manage-your-usage/monthly-active-users)
+- [第三方 MAU 定价](/docs/guides/platform/manage-your-usage/monthly-active-users-third-party)
+- [SSO MAU 定价](/docs/guides/platform/manage-your-usage/monthly-active-users-sso)
+- [高级 MFA - 电话](/docs/guides/platform/manage-your-usage/advanced-mfa-phone)

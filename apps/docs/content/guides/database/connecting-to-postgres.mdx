@@ -1,20 +1,20 @@
 ---
-title: 'Connect to your database'
-description: 'Connect to Postgres from your frontend, backend, or serverless environment'
-subtitle: 'Connect to Postgres from your frontend, backend, or serverless environment'
+title: '连接到您的数据库'
+description: '从前端、后端或无服务器环境连接到 Postgres'
+subtitle: '从前端、后端或无服务器环境连接到 Postgres'
 ---
 
-## Quick summary
+## 快速总结
 
-How you connect to your database depends on where you're connecting from:
+如何连接到数据库取决于您从哪里连接：
 
-- For frontend applications, use the [Data API](#data-apis-and-client-libraries)
-- For Postgres clients, use a connection string
-  - For single sessions (for example, database GUIs) or Postgres native commands (for example, using client applications like [pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) or specifying connections for [replication](/docs/guides/database/postgres/setup-replication-external)) use the [direct connection string](#direct-connection) if your environment supports IPv6
-  - For persistent clients, and support for both IPv4 and IPv6, use [Supavisor session mode](#supavisor-session-mode)
-  - For temporary clients (for example, serverless or edge functions) use [Supavisor transaction mode](#supavisor-transaction-mode)
+- 对于前端应用程序，使用 [数据 API](#data-apis-and-client-libraries)
+- 对于 Postgres 客户端，使用连接字符串
+  - 对于单会话（例如，数据库 GUI）或 Postgres 原生命令（例如，使用像 [pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) 这样的客户端应用程序或为[复制](/docs/guides/database/postgres/setup-replication-external)指定连接），如果您的环境支持 IPv6，请使用[直接连接字符串](#direct-connection)
+  - 对于持久客户端，以及同时支持 IPv4 和 IPv6，请使用 [Supavisor 会话模式](#supavisor-session-mode)
+  - 对于临时客户端（例如，无服务器或边缘函数），请使用 [Supavisor 事务模式](#supavisor-transaction-mode)
 
-## Quickstarts
+## 快速入门
 
 <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-6   not-prose">
   <NavData data="ormQuickstarts">
@@ -45,14 +45,14 @@ How you connect to your database depends on where you're connecting from:
   </NavData>
 </div>
 
-## Data APIs and client libraries
+## 数据 API 和客户端库
 
-The Data APIs allow you to interact with your database using REST or GraphQL requests. You can use these APIs to fetch and insert data from the frontend, as long as you have [RLS](/docs/guides/database/postgres/row-level-security) enabled.
+数据 API 允许您使用 REST 或 GraphQL 请求与数据库交互。只要启用了 [RLS](/docs/guides/database/postgres/row-level-security)，您就可以使用这些 API 从前端获取和插入数据。
 
 - [REST](/docs/guides/api)
 - [GraphQL](/docs/guides/graphql/api)
 
-For convenience, you can also use the Supabase client libraries, which wrap the Data APIs with a developer-friendly interface and automatically handle authentication:
+为了方便起见，您还可以使用 Supabase 客户端库，它们用开发者友好的接口包装了数据 API，并自动处理身份验证：
 
 - [JavaScript](/docs/reference/javascript)
 - [Flutter](/docs/reference/dart)
@@ -61,109 +61,109 @@ For convenience, you can also use the Supabase client libraries, which wrap the 
 - [C#](/docs/reference/csharp)
 - [Kotlin](/docs/reference/kotlin)
 
-## Direct connection
+## 直接连接
 
-The direct connection string connects directly to your Postgres instance. It is ideal for persistent servers, such as virtual machines (VMs) and long-lasting containers. Examples include AWS EC2 machines, Fly.io VMs, and DigitalOcean Droplets.
+直接连接字符串直接连接到您的 Postgres 实例。它适用于持久服务器，如虚拟机（VM）和长期运行的容器。例如 AWS EC2 机器、Fly.io VM 和 DigitalOcean Droplets。
 
 <Admonition type="caution">
 
-Direct connections use IPv6 by default. If your environment doesn't support IPv6, use [Supavisor session mode](#supavisor-session-mode) or get the [IPv4 add-on](/docs/guides/platform/ipv4-address).
+直接连接默认使用 IPv6。如果您的环境不支持 IPv6，请使用 [Supavisor 会话模式](#supavisor-session-mode) 或获取 [IPv4 附加组件](/docs/guides/platform/ipv4-address)。
 
 </Admonition>
 
-The connection string looks like this:
+连接字符串看起来像这样：
 
 ```
 postgresql://postgres:[YOUR-PASSWORD]@db.apbkobhfnmcqqzqeeqss.supabase.co:5432/postgres
 ```
 
-Get your project's direct connection string from your project dashboard by clicking [Connect](https://supabase.com/dashboard/project/_?showConnect=true).
+通过点击[连接](https://supabase.com/dashboard/project/_?showConnect=true)，从项目仪表板获取您项目的直接连接字符串。
 
-## Shared pooler
+## 共享连接池
 
-Every Supabase project includes a free, shared connection pooler. This is ideal for persistent servers when IPv6 is not supported.
+每个 Supabase 项目都包含一个免费的共享连接池。当不支持 IPv6 时，这对持久服务器是理想的选择。
 
-### Supavisor session mode
+### Supavisor 会话模式
 
-The session mode connection string connects to your Postgres instance via a proxy.
+会话模式连接字符串通过代理连接到您的 Postgres 实例。
 
-The connection string looks like this:
+连接字符串看起来像这样：
 
 ```
 postgres://postgres.apbkobhfnmcqqzqeeqss:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres
 ```
 
-Get your project's Session pooler connection string from your project dashboard by clicking [Connect](https://supabase.com/dashboard/project/_?showConnect=true).
+通过点击[连接](https://supabase.com/dashboard/project/_?showConnect=true)，从项目仪表板获取您项目的会话池连接字符串。
 
-### Supavisor transaction mode
+### Supavisor 事务模式
 
-The transaction mode connection string connects to your Postgres instance via a proxy which serves as a connection pooler. This is ideal for serverless or edge functions, which require many transient connections.
+事务模式连接字符串通过充当连接池的代理连接到您的 Postgres 实例。这对需要多个临时连接的无服务器或边缘函数是理想的选择。
 
 <Admonition type="caution">
 
-Transaction mode does not support [prepared statements](https://postgresql.org/docs/current/sql-prepare.html). To avoid errors, [turn off prepared statements](https://github.com/orgs/supabase/discussions/28239) for your connection library.
+事务模式不支持[预处理语句](https://postgresql.org/docs/current/sql-prepare.html)。为避免错误，请[关闭您的连接库的预处理语句](https://github.com/orgs/supabase/discussions/28239)。
 
 </Admonition>
 
-The connection string looks like this:
+连接字符串看起来像这样：
 
 ```
 postgres://postgres.apbkobhfnmcqqzqeeqss:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
 ```
 
-Get your project's Transaction pooler connection string from your project dashboard by clicking [Connect](https://supabase.com/dashboard/project/_?showConnect=true).
+通过点击[连接](https://supabase.com/dashboard/project/_?showConnect=true)，从项目仪表板获取您项目的事务池连接字符串。
 
-## Dedicated pooler
+## 专用连接池
 
-For paying customers, we provision a Dedicated Pooler ([PgBouncer](https://www.pgbouncer.org/)) that's co-located with your Postgres database. This will require you to connect with IPv6 or, if that's not an option, you can use the [IPv4 add-on](/docs/guides/platform/ipv4-address).
+对于付费客户，我们提供一个与您的 Postgres 数据库共同托管的专用连接池（[PgBouncer](https://www.pgbouncer.org/)）。这将需要您使用 IPv6 连接，或者如果不可能，您可以使用 [IPv4 附加组件](/docs/guides/platform/ipv4-address)。
 
-The Dedicated Pooler ensures best performance and latency, while using up more of your project's compute resources. If your network supports IPv6 or you have the IPv4 add-on, we encourage you to use the Dedicated Pooler over the Shared Pooler.
+专用连接池确保最佳性能和延迟，同时使用更多的项目计算资源。如果您的网络支持 IPv6 或您拥有 IPv4 附加组件，我们鼓励您使用专用连接池而不是共享连接池。
 
-Get your project's Dedicated pooler connection string from your project dashboard by clicking [Connect](https://supabase.com/dashboard/project/_?showConnect=true).
+通过点击[连接](https://supabase.com/dashboard/project/_?showConnect=true)，从项目仪表板获取您项目的专用池连接字符串。
 
 <Admonition type="note">
 
-PgBouncer always runs in Transaction mode and the current version does not support prepared statement (will be added in a few weeks).
+PgBouncer 始终在事务模式下运行，当前版本不支持预处理语句（将在几周内添加）。
 
 </Admonition>
 
-## More about connection pooling
+## 关于连接池的更多信息
 
-Connection pooling improves database performance by reusing existing connections between queries. This reduces the overhead of establishing connections and improves scalability.
+连接池通过在查询之间重用现有连接来提高数据库性能。这减少了建立连接的开销并提高了可扩展性。
 
-You can use an application-side pooler or a server-side pooler (Supabase automatically provides one called Supavisor), depending on whether your backend is persistent or serverless.
+您可以使用应用程序端连接池或服务器端连接池（Supabase 自动提供一个名为 Supavisor 的连接池），取决于您的后端是持久的还是无服务器的。
 
-### Application-side poolers
+### 应用程序端连接池
 
-Application-side poolers are built into connection libraries and API servers, such as Prisma, SQLAlchemy, and PostgREST. They maintain several active connections with Postgres or a server-side pooler, reducing the overhead of establishing connections between queries. When deploying to static architecture, such as long-standing containers or VMs, application-side poolers are satisfactory on their own.
+应用程序端连接池内置于连接库和 API 服务器中，如 Prisma、SQLAlchemy 和 PostgREST。它们与 Postgres 或服务器端连接池维护几个活动连接，减少了查询之间建立连接的开销。当部署到静态架构（如长期运行的容器或 VM）时，应用程序端连接池本身就足够了。
 
-### Serverside poolers
+### 服务器端连接池
 
-Postgres connections are like a WebSocket. Once established, they are preserved until the client (application server) disconnects. A server might only make a single 10 ms query, but needlessly reserve its database connection for seconds or longer.
+Postgres 连接就像 WebSocket。一旦建立，它们会保持直到客户端（应用服务器）断开连接。服务器可能只发出一个 10 毫秒的查询，但会不必要地保留其数据库连接数秒或更长时间。
 
-Serverside-poolers, such as Supabase's [Supavisor](https://github.com/supabase/supavisor) in transaction mode, sit between clients and the database and can be thought of as load balancers for Postgres connections.
+服务器端连接池，如 Supabase 的事务模式 [Supavisor](https://github.com/supabase/supavisor)，位于客户端和数据库之间，可以被视为 Postgres 连接的负载均衡器。
 
 <Image
-  alt="New migration files trigger migrations on the preview instance."
+  alt="新的迁移文件会触发预览实例上的迁移。"
   src={{
     dark: '/docs/img/guides/database/connecting-to-postgres/how-connection-pooling-works.png',
     light:
       '/docs/img/guides/database/connecting-to-postgres/how-connection-pooling-works--light.png',
   }}
-  caption="Connecting to the database directly vs using a Connection Pooler"
+  caption="直接连接到数据库与使用连接池的对比"
   zoomable
 />
 
-They maintain hot connections with the database and intelligently share them with clients only when needed, maximizing the amount of queries a single connection can service. They're best used to manage queries from auto-scaling systems, such as edge and serverless functions.
+它们与数据库保持热连接，并在需要时智能地与客户端共享这些连接，最大化单个连接可以服务的查询数量。它们最好用于管理来自自动扩展系统的查询，如边缘和无服务器函数。
 
-## Connecting with SSL
+## 使用 SSL 连接
 
-You should connect to your database using SSL wherever possible, to prevent snooping and man-in-the-middle attacks.
+您应该尽可能使用 SSL 连接到数据库，以防止窥探和中间人攻击。
 
-You can obtain your connection info and Server root certificate from your application's dashboard:
+您可以从应用程序的仪表板获取连接信息和服务器根证书：
 
-![Connection Info and Certificate.](/docs/img/database/database-settings-ssl.png)
+![连接信息和证书。](/docs/img/database/database-settings-ssl.png)
 
-## Resources
+## 资源
 
-- [Connection management](/docs/guides/database/connection-management)
+- [连接管理](/docs/guides/database/connection-management)

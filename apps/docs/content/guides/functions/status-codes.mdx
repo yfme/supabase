@@ -1,48 +1,48 @@
 ---
 id: 'functions-status-codes'
-title: 'Status codes'
-description: 'Edge Functions can return following status codes.'
-subtitle: 'Edge Functions can return following status codes.'
+title: '状态码'
+description: 'Edge Functions 可以返回以下状态码。'
+subtitle: 'Edge Functions 可以返回以下状态码。'
 ---
 
 {/* supa-mdx-lint-disable Rule001HeadingCase */}
 
-## 2XX Success
+## 2XX 成功
 
-A successful Edge Function Response
+Edge Function 成功响应
 
-## 3XX Redirect
+## 3XX 重定向
 
-The Edge Function has responded with a `Response.redirect` [API docs](https://developer.mozilla.org/en-US/docs/Web/API/Response/redirect_static)
+Edge Function 通过 `Response.redirect` 响应 [API 文档](https://developer.mozilla.org/en-US/docs/Web/API/Response/redirect_static)
 
-## 4XX Client Errors
+## 4XX 客户端错误
 
-### 401 Unauthorized
+### 401 未授权
 
-If the Edge Function has `Verify JWT` option enabled, but the request was made with an invalid JWT.
+如果 Edge Function 启用了 `验证 JWT` 选项，但请求使用了无效的 JWT。
 
-### 404 Not Found
+### 404 未找到
 
-Requested Edge Function was not found.
+请求的 Edge Function 未找到。
 
-### 405 Method Not Allowed
+### 405 方法不允许
 
-Edge Functions only support these HTTP methods: 'POST', 'GET', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'
+Edge Functions 仅支持这些 HTTP 方法：'POST'、'GET'、'PUT'、'PATCH'、'DELETE'、'OPTIONS'
 
-## 5XX Server Errors
+## 5XX 服务器错误
 
-### 500 Internal Server Error
+### 500 内部服务器错误
 
-Edge Function threw an uncaught exception (`WORKER_ERROR`). Check Edge Function logs to find the cause.
+Edge Function 抛出未捕获的异常（`WORKER_ERROR`）。检查 Edge Function 日志以找出原因。
 
-### 503 Service Unavailable
+### 503 服务不可用
 
-Edge Function failed to start (`BOOT_ERROR`). Check Edge Function logs to find the cause.
+Edge Function 启动失败（`BOOT_ERROR`）。检查 Edge Function 日志以找出原因。
 
-### 504 Gateway Timeout
+### 504 网关超时
 
-Edge Function didn't respond before the [request idle timeout](/docs/guides/functions/limits).
+Edge Function 在[请求空闲超时](/docs/guides/functions/limits)之前没有响应。
 
-### 546 Resource Limit (Custom Error Code)
+### 546 资源限制（自定义错误代码）
 
-Edge Function execution was stopped due to a resource limit (`WORKER_LIMIT`). Edge Function logs should provide which [resource limit](/docs/guides/functions/limits) was exceeded.
+由于资源限制，Edge Function 执行被停止（`WORKER_LIMIT`）。Edge Function 日志应提供超出了哪个[资源限制](/docs/guides/functions/limits)。

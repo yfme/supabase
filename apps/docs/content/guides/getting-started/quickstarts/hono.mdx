@@ -1,7 +1,7 @@
 ---
-title: 'Use Supabase with Hono'
-subtitle: 'Learn how to create a Supabase project, add some sample data to your database, secure it with auth, and query the data from a Hono app.'
-breadcrumb: 'Framework Quickstarts'
+title: '在 Hono 中使用 Supabase'
+subtitle: '学习如何创建 Supabase 项目，在数据库中添加示例数据，使用认证进行安全保护，并从 Hono 应用程序查询数据。'
+breadcrumb: '框架快速入门'
 hideToc: true
 ---
 
@@ -9,9 +9,9 @@ hideToc: true
 
   <StepHikeCompact.Step step={1}>
 
-    <StepHikeCompact.Details title="Create a Hono app">
+    <StepHikeCompact.Details title="创建 Hono 应用程序">
 
-    Bootstrap the Hono example app from the Supabase Samples using the CLI.
+    使用 CLI 从 Supabase Samples 引导 Hono 示例应用程序。
 
     </StepHikeCompact.Details>
 
@@ -26,9 +26,9 @@ hideToc: true
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={2}>
-    <StepHikeCompact.Details title="Install the Supabase client library">
+    <StepHikeCompact.Details title="安装 Supabase 客户端库">
 
-    The `package.json` file in the project includes the necessary dependencies, including `@supabase/supabase-js` and `@supabase/ssr` to help with server-side auth.
+    项目中的 `package.json` 文件包含必要的依赖项，包括 `@supabase/supabase-js` 和 `@supabase/ssr`，用于帮助服务器端认证。
 
     </StepHikeCompact.Details>
 
@@ -43,11 +43,11 @@ hideToc: true
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={3}>
-    <StepHikeCompact.Details title="Set up the required environment variables">
+    <StepHikeCompact.Details title="设置所需的环境变量">
 
-    Copy the `.env.example` file to `.env` and update the values with your Supabase project URL and anon key.
+    将 `.env.example` 文件复制到 `.env` 并用您的 Supabase 项目 URL 和匿名密钥更新值。
 
-    Lastly, [enable anonymous sign-ins](https://supabase.com/dashboard/project/_/settings/auth) in the Auth settings.
+    最后，在认证设置中[启用匿名登录](https://supabase.com/dashboard/project/_/settings/auth)。
 
     <ProjectConfigVariables variable="url" />
     <ProjectConfigVariables variable="anonKey" />
@@ -65,11 +65,11 @@ hideToc: true
   </StepHikeCompact.Step>
 
   <StepHikeCompact.Step step={4}>
-    <StepHikeCompact.Details title="Start the app">
+    <StepHikeCompact.Details title="启动应用程序">
 
-    Start the app, go to http://localhost:5173.
+    启动应用程序，前往 http://localhost:5173。
 
-    Learn how [server side auth](/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=hono) works with Hono.
+    了解 [服务器端认证](/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=hono) 如何与 Hono 协同工作。
 
     </StepHikeCompact.Details>
 
@@ -84,8 +84,8 @@ hideToc: true
   </StepHikeCompact.Step>
 </StepHikeCompact>
 
-## Next steps
+## 后续步骤
 
-- Learn how [server side auth](/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=hono) works with Hono.
-- [Insert more data](/docs/guides/database/import-data) into your database
-- Upload and serve static files using [Storage](/docs/guides/storage)
+- 了解 [服务器端认证](/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=hono) 如何与 Hono 协同工作。
+- [插入更多数据](/docs/guides/database/import-data) 到您的数据库
+- 使用 [Storage](/docs/guides/storage) 上传和提供静态文件

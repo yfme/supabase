@@ -1,62 +1,62 @@
 ---
 id: 'ai-concepts'
-title: 'Concepts'
-description: 'Learn about embeddings within AI and vector applications.'
-sidebar_label: 'Concepts'
+title: '概念'
+description: '了解 AI 和向量应用中的嵌入。'
+sidebar_label: '概念'
 ---
 
-Embeddings are core to many AI and vector applications. This guide covers these concepts. If you prefer to get started right away, see our guide on [Generating Embeddings](/docs/guides/ai/quickstarts/generate-text-embeddings).
+嵌入是许多 AI 和向量应用的核心。本指南涵盖了这些概念。如果您想立即开始，请参阅我们关于[生成嵌入](/docs/guides/ai/quickstarts/generate-text-embeddings)的指南。
 
-## What are embeddings?
+## 什么是嵌入？
 
-Embeddings capture the "relatedness" of text, images, video, or other types of information. This relatedness is most commonly used for:
+嵌入捕获文本、图像、视频或其他类型信息的"相关性"。这种相关性最常用于：
 
-- **Search:** how similar is a search term to a body of text?
-- **Recommendations:** how similar are two products?
-- **Classifications:** how do we categorize a body of text?
-- **Clustering:** how do we identify trends?
+- **搜索：**搜索词与文本内容的相似程度如何？
+- **推荐：**两个产品的相似程度如何？
+- **分类：**如何对文本内容进行分类？
+- **聚类：**如何识别趋势？
 
-Let's explore an example of text embeddings. Say we have three phrases:
+让我们探索一个文本嵌入的例子。假设我们有三个短语：
 
-1. "The cat chases the mouse"
-2. "The kitten hunts rodents"
+1. "猫追逐老鼠"
+2. "小猫捕猎啮齿动物"
    {/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
-3. "I like ham sandwiches"
+3. "我喜欢火腿三明治"
 
-Your job is to group phrases with similar meaning. If you are a human, this should be obvious. Phrases 1 and 2 are almost identical, while phrase 3 has a completely different meaning.
+您的任务是将具有相似含义的短语分组。如果您是人类，这应该是显而易见的。短语 1 和 2 几乎相同，而短语 3 的含义完全不同。
 
-Although phrases 1 and 2 are similar, they share no common vocabulary (besides "the"). Yet their meanings are nearly identical. How can we teach a computer that these are the same?
+虽然短语 1 和 2 相似，但它们没有共同的词汇（除了"the"）。然而它们的含义几乎相同。我们如何教计算机这些是相同的？
 
-## Human language
+## 人类语言
 
-Humans use words and symbols to communicate language. But words in isolation are mostly meaningless - we need to draw from shared knowledge & experience in order to make sense of them. The phrase “You should Google it” only makes sense if you know that Google is a search engine and that people have been using it as a verb.
+人类使用词语和符号来交流语言。但单独的词语大多没有意义——我们需要利用共享知识和经验才能理解它们。"你应该谷歌一下"这句话只有在您知道谷歌是一个搜索引擎，而且人们一直将其用作动词时，才有意义。
 
-In the same way, we need to train a neural network model to understand human language. An effective model should be trained on millions of different examples to understand what each word, phrase, sentence, or paragraph could mean in different contexts.
+同样地，我们需要训练神经网络模型来理解人类语言。一个有效的模型应该在数百万个不同的例子上进行训练，以了解每个单词、短语、句子或段落在不同上下文中可能的含义。
 
-So how does this relate to embeddings?
+那么这与嵌入有什么关系呢？
 
-## How do embeddings work?
+## 嵌入如何工作？
 
-Embeddings compress discrete information (words & symbols) into distributed continuous-valued data (vectors). If we took our phrases from before and plot them on a chart, it might look something like this:
+嵌入将离散信息（词语和符号）压缩为分布式连续值数据（向量）。如果我们取之前的短语并在图表上绘制，它可能看起来像这样：
 
-<img src="/docs/img/ai/vector-similarity.png" alt="Vector similarity" width="640" height="640" />
+<img src="/docs/img/ai/vector-similarity.png" alt="向量相似性" width="640" height="640" />
 
-Phrases 1 and 2 would be plotted close to each other, since their meanings are similar. We would expect phrase 3 to live somewhere far away since it isn't related. If we had a fourth phrase, “Sally ate Swiss cheese”, this might exist somewhere between phrase 3 (cheese can go on sandwiches) and phrase 1 (mice like Swiss cheese).
+短语 1 和 2 会被绘制在彼此附近，因为它们的含义相似。我们预计短语 3 会存在于远处的某个地方，因为它不相关。如果我们有第四个短语，"Sally 吃了瑞士奶酪"，这可能存在于短语 3（奶酪可以放在三明治上）和短语 1（老鼠喜欢瑞士奶酪）之间的某个地方。
 
-In this example we only have 2 dimensions: the X and Y axis. In reality, we would need many more dimensions to effectively capture the complexities of human language.
+在这个例子中，我们只有 2 个维度：X 和 Y 轴。在现实中，我们需要更多的维度来有效捕捉人类语言的复杂性。
 
-## Using embeddings
+## 使用嵌入
 
-Compared to our 2-dimensional example above, most embedding models will output many more dimensions. For example the open source [`gte-small`](https://huggingface.co/Supabase/gte-small) model outputs 384 dimensions.
+与上面的二维示例相比，大多数嵌入模型会输出更多维度。例如，开源的 [`gte-small`](https://huggingface.co/Supabase/gte-small) 模型输出 384 个维度。
 
-Why is this useful? Once we have generated embeddings on multiple texts, it is trivial to calculate how similar they are using vector math operations like cosine distance. A common use case for this is search. Your process might look something like this:
+为什么这很有用？一旦我们对多个文本生成了嵌入，使用向量数学运算（如余弦距离）计算它们的相似度就变得很简单。这种常见用例是搜索。您的流程可能如下所示：
 
-1. Pre-process your knowledge base and generate embeddings for each page
-2. Store your embeddings to be referenced later
-3. Build a search page that prompts your user for input
-4. Take user's input, generate a one-time embedding, then perform a similarity search against your pre-processed embeddings.
-5. Return the most similar pages to the user
+1. 预处理您的知识库并为每个页面生成嵌入
+2. 存储您的嵌入以供日后参考
+3. 构建一个搜索页面，提示用户输入
+4. 获取用户的输入，生成一次性嵌入，然后针对您预处理的嵌入执行相似性搜索
+5. 向用户返回最相似的页面
 
-## See also
+## 另请参阅
 
-- [Structured and Unstructured embeddings](/docs/guides/ai/structured-unstructured)
+- [结构化和非结构化嵌入](/docs/guides/ai/structured-unstructured)

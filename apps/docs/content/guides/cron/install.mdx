@@ -1,8 +1,8 @@
 ---
-title: 'Install'
+title: '安装'
 ---
 
-Install the Supabase Cron Postgres Module to begin scheduling recurring Jobs.
+安装 Supabase Cron Postgres 模块来开始调度定期执行的任务。
 
 <Tabs
   scrollable
@@ -11,10 +11,10 @@ Install the Supabase Cron Postgres Module to begin scheduling recurring Jobs.
   defaultActiveId="dashboard"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard" label="Dashboard">
+<TabPanel id="dashboard" label="仪表盘">
 
-1. Go to the [Cron Postgres Module](/dashboard/project/_/integrations/cron/overview) under Integrations in the Dashboard.
-2. Enable the `pg_cron` extension.
+1. 在仪表盘的集成部分下，进入 [Cron Postgres 模块](/dashboard/project/_/integrations/cron/overview)。
+2. 启用 `pg_cron` 扩展。
 
 </TabPanel>
 <TabPanel id="sql" label="SQL">
@@ -29,9 +29,9 @@ grant all privileges on all tables in schema cron to postgres;
 </TabPanel>
 </Tabs>
 
-## Uninstall
+## 卸载
 
-Uninstall Supabase Cron by disabling the `pg_cron` extension:
+通过禁用 `pg_cron` 扩展来卸载 Supabase Cron：
 
 ```sql
 drop extension if exists pg_cron;
@@ -39,6 +39,6 @@ drop extension if exists pg_cron;
 
 <Admonition type="danger">
 
-Disabling the `pg_cron` extension will permanently delete all Jobs.
+禁用 `pg_cron` 扩展将永久删除所有任务。
 
 </Admonition>

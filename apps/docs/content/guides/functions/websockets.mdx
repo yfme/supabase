@@ -1,17 +1,17 @@
 ---
 id: 'function-WebSockets'
-title: 'Handling WebSockets'
-description: 'How to handle WebSocket connections in Edge Functions'
-subtitle: 'How to handle WebSocket connections in Edge Functions'
+title: '处理 WebSockets'
+description: '如何在 Edge Functions 中处理 WebSocket 连接'
+subtitle: '如何在 Edge Functions 中处理 WebSocket 连接'
 ---
 
-Edge Functions supports hosting WebSocket servers that can facilitate bi-directional communications with browser clients.
+Edge Functions 支持托管 WebSocket 服务器，以实现与浏览器客户端的双向通信。
 
-You can also establish outgoing WebSocket client connections to another server from Edge Functions (e.g., [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime/overview)). You can find an example OpenAI Realtime Relay Server implementation on the [supabase-community GitHub account](https://github.com/supabase-community/openai-realtime-console?tab=readme-ov-file#using-supabase-edge-functions-as-a-relay-server).
+您还可以从 Edge Functions 建立到其他服务器的外部 WebSocket 客户端连接（例如，[OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime/overview)）。您可以在 [supabase-community GitHub 账号](https://github.com/supabase-community/openai-realtime-console?tab=readme-ov-file#using-supabase-edge-functions-as-a-relay-server) 上找到 OpenAI Realtime 中继服务器实现的示例。
 
-### Writing a WebSocket server
+### 编写 WebSocket 服务器
 
-Here are some basic examples of setting up WebSocket servers using Deno and Node.js APIs.
+以下是使用 Deno 和 Node.js API 设置 WebSocket 服务器的一些基本示例。
 
 <Tabs
   scrollable
@@ -53,8 +53,8 @@ import { createServer } from "node:http";
 import { WebSocketServer } from "npm:ws";
 
 const server = createServer();
-// Since we manually created the HTTP server,
-// turn on the noServer mode.
+// 由于我们手动创建了 HTTP 服务器，
+// 启用 noServer 模式。
 const wss = new WebSocketServer({ noServer: true });
 
 wss.on("connection", ws => {
@@ -90,11 +90,11 @@ server.listen(8080);
 </TabPanel>
 </Tabs>
 
-### Outbound WebSockets
+### 外部 WebSockets
 
-You can also establish an outbound WebSocket connection to another server from an Edge Function.
+您还可以从 Edge Function 建立到其他服务器的外部 WebSocket 连接。
 
-Combining it with incoming WebSocket servers, it's possible to use Edge Functions as a WebSocket proxy, for example as a [relay server](https://github.com/supabase-community/openai-realtime-console?tab=readme-ov-file#using-supabase-edge-functions-as-a-relay-server) for the [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime/overview).
+将其与入站 WebSocket 服务器结合使用，可以将 Edge Functions 用作 WebSocket 代理，例如作为 [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime/overview) 的[中继服务器](https://github.com/supabase-community/openai-realtime-console?tab=readme-ov-file#using-supabase-edge-functions-as-a-relay-server)。
 
 <$CodeSample
 external={true}
@@ -106,13 +106,13 @@ meta="supabase/functions/relay/index.ts"
 lines={[[1, 3], [5, -1]]}
 />
 
-### Authentication
+### 身份验证
 
-WebSocket browser clients don't have the option to send custom headers. Because of this, Edge Functions won't be able to perform the usual authorization header check to verify the JWT.
+WebSocket 浏览器客户端无法发送自定义头部。因此，Edge Functions 将无法执行常规的授权头部检查来验证 JWT。
 
-You can skip the default authorization header checks by explicitly providing `--no-verify-jwt` when serving and deploying functions.
+您可以通过在服务和部署函数时明确提供 `--no-verify-jwt` 参数来跳过默认的授权头部检查。
 
-To authenticate the user making WebSocket requests, you can pass the JWT in URL query params or via a custom protocol.
+要验证发出 WebSocket 请求的用户身份，您可以在 URL 查询参数中传递 JWT，或通过自定义协议传递。
 
 <Tabs
   scrollable
@@ -121,7 +121,7 @@ To authenticate the user making WebSocket requests, you can pass the JWT in URL 
   defaultActiveId="query"
   queryGroup="auth"
 >
-<TabPanel id="query" label="Using query params">
+<TabPanel id="query" label="使用查询参数">
 ```ts
   import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -136,7 +136,7 @@ const upgrade = req.headers.get("upgrade") || "";
         return new Response("request isn't trying to upgrade to WebSocket.", { status: 400 });
     }
 
-// Please be aware query params may be logged in some logging systems.
+// 请注意，查询参数可能会在某些日志系统中被记录。
 const url = new URL(req.url);
 const jwt = url.searchParams.get("jwt");
 if (!jwt) {
@@ -171,7 +171,7 @@ return new Response("User is not authenticated", { status: 403 });
 ````
 
 </TabPanel>
-<TabPanel id="protocol" label="Using custom protocol">
+<TabPanel id="protocol" label="使用自定义协议">
 ```ts
   import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -186,7 +186,7 @@ const upgrade = req.headers.get("upgrade") || "";
         return new Response("request isn't trying to upgrade to WebSocket.", { status: 400 });
     }
 
-// Sec-WebScoket-Protocol may return multiple protocol values `jwt-TOKEN, value1, value 2`
+// Sec-WebScoket-Protocol 可能返回多个协议值 `jwt-TOKEN, value1, value 2`
 const customProtocols = (req.headers.get("Sec-WebSocket-Protocol") ?? '').split(',').map(p => p.trim())
 const jwt = customProtocols.find(p => p.startsWith('jwt')).replace('jwt-', '')
 if (!jwt) {
@@ -223,20 +223,19 @@ return new Response("User is not authenticated", { status: 403 });
 </TabPanel>
 </Tabs>
 
-### Limits
+### 限制
 
-The maximum duration is capped based on the wall-clock, CPU, and memory limits. The Function will shutdown when it reaches one of these [limits](/docs/guides/functions/limits).
+最大持续时间根据挂钟时间、CPU 和内存限制而定。当达到这些[限制](/docs/guides/functions/limits)之一时，函数将关闭。
 
-### Testing WebSockets locally
+### 本地测试 WebSockets
 
-When testing Edge Functions locally with Supabase CLI, the instances are terminated automatically after a request is completed. This will prevent keeping WebSocket connections open.
+当使用 Supabase CLI 在本地测试 Edge Functions 时，实例会在请求完成后自动终止。这将阻止保持 WebSocket 连接开放。
 
-To prevent that, you can update the `supabase/config.toml` with the following settings:
+为防止这种情况，您可以使用以下设置更新 `supabase/config.toml`：
 
 ```toml
 [edge_runtime]
 policy = "per_worker"
 ```
 
-When running with `per_worker` policy, Function won't auto-reload on edits. You will need to manually restart it by running `supabase functions serve`.
-````
+当使用 `per_worker` 策略运行时，函数在编辑时不会自动重新加载。您需要通过运行 `supabase functions serve` 手动重启它。

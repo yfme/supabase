@@ -1,50 +1,50 @@
 ---
 id: 'functions-compression'
-title: 'Handling Compressed Requests'
-description: 'Handling Gzip compressed requests.'
-subtitle: 'Handling Gzip compressed requests.'
+title: '处理压缩请求'
+description: '处理 Gzip 压缩请求。'
+subtitle: '处理 Gzip 压缩请求。'
 ---
 
-To decompress Gzip bodies, you can use `gunzipSync` from the `node:zlib` API to decompress and then read the body.
+要解压 Gzip 主体，您可以使用 `node:zlib` API 中的 `gunzipSync` 进行解压然后读取主体内容。
 
 ```ts
 import { gunzipSync } from 'node:zlib'
 
 Deno.serve(async (req) => {
   try {
-    // Check if the request body is gzip compressed
+    // 检查请求主体是否是 gzip 压缩的
     const contentEncoding = req.headers.get('content-encoding')
     if (contentEncoding !== 'gzip') {
-      return new Response('Request body is not gzip compressed', {
+      return new Response('请求主体不是 gzip 压缩的', {
         status: 400,
       })
     }
 
-    // Read the compressed body
+    // 读取压缩的主体
     const compressedBody = await req.arrayBuffer()
 
-    // Decompress the body
+    // 解压主体
     const decompressedBody = gunzipSync(new Uint8Array(compressedBody))
 
-    // Convert the decompressed body to a string
+    // 将解压后的主体转换为字符串
     const decompressedString = new TextDecoder().decode(decompressedBody)
     const data = JSON.parse(decompressedString)
 
-    // Process the decompressed body as needed
-    console.log(`Received: ${JSON.stringify(data)}`)
+    // 根据需要处理解压后的主体
+    console.log(`接收到：${JSON.stringify(data)}`)
 
     return new Response('ok', {
       headers: { 'Content-Type': 'text/plain' },
     })
   } catch (error) {
-    console.error('Error:', error)
-    return new Response('Error processing request', { status: 500 })
+    console.error('错误：', error)
+    return new Response('处理请求时出错', { status: 500 })
   }
 })
 ```
 
 <Admonition type="caution">
 
-Edge functions have a runtime memory limit of 150MB. Overly large compressed payloads may result in an out-of-memory error.
+边缘函数的运行时内存限制为 150MB。过大的压缩负载可能会导致内存不足错误。
 
 </Admonition>

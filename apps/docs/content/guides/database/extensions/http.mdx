@@ -1,13 +1,13 @@
 ---
 id: 'http'
-title: 'http: RESTful Client'
-description: 'An HTTP Client for PostgreSQL Functions.'
+title: 'http: RESTful 客户端'
+description: '用于 PostgreSQL 函数的 HTTP 客户端。'
 video: 'https://www.youtube.com/v/rARgrELRCwY'
 ---
 
-The `http` extension allows you to call RESTful endpoints within Postgres.
+`http` 扩展允许您在 Postgres 中调用 RESTful 端点。
 
-## Quick demo
+## 快速演示
 
 <div className="video-container">
   <iframe
@@ -18,22 +18,22 @@ The `http` extension allows you to call RESTful endpoints within Postgres.
   ></iframe>
 </div>
 
-## Overview
+## 概述
 
-Let's cover some basic concepts:
+让我们介绍一些基本概念：
 
-- REST: stands for REpresentational State Transfer. It's a way to request data from external services.
-- RESTful APIs are servers which accept HTTP "calls". The calls are typically:
-  - `GET` − Read only access to a resource.
-  - `POST` − Creates a new resource.
-  - `DELETE` − Removes a resource.
-  - `PUT` − Updates an existing resource or creates a new resource.
+- REST：代表表述性状态传输（REpresentational State Transfer）。它是一种从外部服务请求数据的方式。
+- RESTful API 是接受 HTTP "调用" 的服务器。这些调用通常是：
+  - `GET` − 对资源的只读访问。
+  - `POST` − 创建新资源。
+  - `DELETE` − 删除资源。
+  - `PUT` − 更新现有资源或创建新资源。
 
-You can use the `http` extension to make these network requests from Postgres.
+您可以使用 `http` 扩展从 Postgres 发起这些网络请求。
 
-## Usage
+## 使用方法
 
-### Enable the extension
+### 启用扩展
 
 <Tabs
   scrollable
@@ -42,34 +42,34 @@ You can use the `http` extension to make these network requests from Postgres.
   defaultActiveId="dashboard"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard" label="Dashboard">
+<TabPanel id="dashboard" label="仪表盘">
 
-1. Go to the [Database](https://supabase.com/dashboard/project/_/database/tables) page in the Dashboard.
-2. Click on **Extensions** in the sidebar.
-3. Search for `http` and enable the extension.
+1. 在仪表盘中转到 [数据库](https://supabase.com/dashboard/project/_/database/tables) 页面。
+2. 在侧边栏中点击 **扩展**。
+3. 搜索 `http` 并启用该扩展。
 
 </TabPanel>
 <TabPanel id="sql" label="SQL">
 
 ```sql
--- Example: enable the "http" extension
+-- 示例：启用 "http" 扩展
 create extension http with schema extensions;
 
--- Example: disable the "http" extension
+-- 示例：禁用 "http" 扩展
 drop extension if exists http;
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension".
-To disable an extension, call `drop extension`.
+尽管 SQL 代码是 `create extension`，这相当于 "启用扩展"。
+要禁用扩展，调用 `drop extension`。
 
-It's good practice to create the extension within a separate schema (like `extensions`) to keep the `public` schema clean.
+最好在单独的模式（如 `extensions`）中创建扩展，以保持 `public` 模式的整洁。
 
 </TabPanel>
 </Tabs>
 
-### Available functions
+### 可用函数
 
-While the main usage is `http('http_request')`, there are 5 wrapper functions for specific functionality:
+虽然主要用法是 `http('http_request')`，但有 5 个针对特定功能的包装函数：
 
 - `http_get()`
 - `http_post()`
@@ -77,18 +77,18 @@ While the main usage is `http('http_request')`, there are 5 wrapper functions fo
 - `http_delete()`
 - `http_head()`
 
-### Returned values
+### 返回值
 
-A successful call to a web URL from the `http` extension returns a record with the following fields:
+从 `http` 扩展成功调用网址会返回一个包含以下字段的记录：
 
-- `status`: integer
-- `content_type`: character varying
-- `headers`: http_header[]
-- `content`: character varying. Typically you would want to cast this to `jsonb` using the format `content::jsonb`
+- `status`：整数
+- `content_type`：字符串类型
+- `headers`：http_header[]
+- `content`：字符串类型。通常您会希望使用格式 `content::jsonb` 将其转换为 `jsonb`
 
-## Examples
+## 示例
 
-### Simple `GET` example
+### 简单的 `GET` 示例
 
 ```sql
 select
@@ -97,7 +97,7 @@ from
   http_get('https://jsonplaceholder.typicode.com/todos/1');
 ```
 
-### Simple `POST` example
+### 简单的 `POST` 示例
 
 ```sql
 select
@@ -110,6 +110,6 @@ from
   );
 ```
 
-## Resources
+## 资源
 
-- Official [`http` GitHub Repository](https://github.com/pramsey/pgsql-http)
+- 官方 [`http` GitHub 仓库](https://github.com/pramsey/pgsql-http)

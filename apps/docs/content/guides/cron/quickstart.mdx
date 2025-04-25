@@ -1,16 +1,16 @@
 ---
-title: 'Quickstart'
+title: '快速入门'
 ---
 
 <Admonition type="note">
 
-Job names are case sensitive and cannot be edited once created.
+任务名称区分大小写，创建后无法编辑。
 
-Attempting to create a second Job with the same name (and case) will overwrite the first Job.
+尝试创建同名（包括大小写）的第二个任务将覆盖第一个任务。
 
 </Admonition>
 
-## Schedule a job
+## 调度任务
 
 <Tabs
   scrollable
@@ -19,16 +19,16 @@ Attempting to create a second Job with the same name (and case) will overwrite t
   defaultActiveId="dashboard-schedule-job"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard-schedule-job" label="Dashboard">
+<TabPanel id="dashboard-schedule-job" label="仪表盘">
 
-1. Go to the [Jobs](/dashboard/project/_/integrations/cron/jobs) section to schedule your first Job.
-2. Click on `Create job` button or navigate to the new Cron Job form [here](/dashboard/project/_/integrations/cron/jobs?dialog-shown=true).
-3. Name your Cron Job.
-4. Choose a schedule for your Job by inputting cron syntax (refer to the syntax chart in the form) or natural language.
-5. Input SQL snippet or select a Database function, HTTP request, or Supabase Edge Function.
+1. 前往 [Jobs](/dashboard/project/_/integrations/cron/jobs) 部分来调度您的第一个任务。
+2. 点击 `Create job` 按钮或直接导航到新的 Cron 任务表单 [点此](/dashboard/project/_/integrations/cron/jobs?dialog-shown=true)。
+3. 为您的 Cron 任务命名。
+4. 通过输入 cron 语法（参考表单中的语法图表）或自然语言为您的任务选择调度时间。
+5. 输入 SQL 代码片段或选择数据库函数、HTTP 请求或 Supabase Edge 函数。
 
 <Image
-  alt="Cron Create"
+  alt="创建 Cron 任务"
   src="/docs/img/guides/database/cron/cron-create.png"
   className="max-w-[700px] !mx-auto border rounded-md"
   zoomable
@@ -38,7 +38,7 @@ Attempting to create a second Job with the same name (and case) will overwrite t
 <TabPanel id="sql-schedule-job" label="SQL">
 
 ```sql
--- Cron Job name cannot be edited
+-- Cron 任务名称创建后无法编辑
 select cron.schedule('permanent-cron-job-name', '30 seconds', 'CALL do_something()');
 ```
 
@@ -55,23 +55,23 @@ select cron.schedule('permanent-cron-job-name', '30 seconds', 'CALL do_something
 >
   <div className="border-b mt-3 pb-3">
     <AccordionItem
-      header="Cron syntax"
+      header="Cron 语法"
       id="item-1"
     >
 
       ```
-      ┌───────────── min (0 - 59)
-      │ ┌────────────── hour (0 - 23)
-      │ │ ┌─────────────── day of month (1 - 31)
-      │ │ │ ┌──────────────── month (1 - 12)
-      │ │ │ │ ┌───────────────── day of week (0 - 6) (0 to 6 are Sunday to
-      │ │ │ │ │                  Saturday, or use names; 7 is also Sunday)
+      ┌───────────── 分钟 (0 - 59)
+      │ ┌────────────── 小时 (0 - 23)
+      │ │ ┌─────────────── 月中的天 (1 - 31)
+      │ │ │ ┌──────────────── 月份 (1 - 12)
+      │ │ │ │ ┌───────────────── 星期中的天 (0 - 6) (0 到 6 分别代表周日到
+      │ │ │ │ │                  周六，或使用名称；7 也代表周日)
       │ │ │ │ │
       │ │ │ │ │
       * * * * *
      ```
 
-    You can use [1-59] seconds (e.g. `30 seconds`) as the cron syntax to schedule sub-minute Jobs.
+    您可以使用 [1-59] 秒（例如 `30 seconds`）作为 cron 语法来调度分钟内的任务。
 
     </AccordionItem>
 
@@ -80,11 +80,11 @@ select cron.schedule('permanent-cron-job-name', '30 seconds', 'CALL do_something
 
 <Admonition type="note">
 
-You can input seconds for your Job schedule interval as long as you're on Postgres version 15.1.1.61 or later.
+只要您使用的是 Postgres 15.1.1.61 或更高版本，就可以为任务调度间隔输入秒数。
 
 </Admonition>
 
-## Edit a job
+## 编辑任务
 
 <Tabs
   scrollable
@@ -93,14 +93,14 @@ You can input seconds for your Job schedule interval as long as you're on Postgr
   defaultActiveId="dashboard-edit-job"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard-edit-job" label="Dashboard">
+<TabPanel id="dashboard-edit-job" label="仪表盘">
 
-1. Go to the [Jobs](/dashboard/project/_/integrations/cron/jobs) section and find the Job you'd like to edit.
-2. Click on the three vertical dots menu on the right side of the Job and click `Edit cron job`.
-3. Make your changes and then click `Save cron job`.
+1. 前往 [Jobs](/dashboard/project/_/integrations/cron/jobs) 部分并找到您想要编辑的任务。
+2. 点击任务右侧的三个垂直点菜单，然后点击 `Edit cron job`。
+3. 进行更改后点击 `Save cron job`。
 
 <Image
-  alt="Cron Edit"
+  alt="编辑 Cron 任务"
   src="/docs/img/guides/database/cron/cron-edit.png"
   className="max-w-[700px] !mx-auto border rounded-md"
   zoomable
@@ -116,7 +116,7 @@ select cron.alter_job(
 );
 ```
 
-Full options for the `cron.alter_job()` function are:
+`cron.alter_job()` 函数的完整选项有：
 
 ```sql
 cron.alter_job(
@@ -129,12 +129,12 @@ cron.alter_job(
 )
 ```
 
-It is also possible to modify a job by using the `cron.schedule()` function by inputting the same job name. This will replace the existing job via upsert.
+也可以通过输入相同的任务名称使用 `cron.schedule()` 函数来修改任务。这将通过 upsert 替换现有任务。
 
 </TabPanel>
 </Tabs>
 
-## Activate/Deactivate a job
+## 激活/停用任务
 
 <Tabs
   scrollable
@@ -143,13 +143,13 @@ It is also possible to modify a job by using the `cron.schedule()` function by i
   defaultActiveId="dashboard-unschedule-job"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard-unschedule-job" label="Dashboard">
+<TabPanel id="dashboard-unschedule-job" label="仪表盘">
 
-1. Go to the [Jobs](/dashboard/project/_/integrations/cron/jobs) section and find the Job you'd like to unschedule.
-2. Toggle the `Active`/`Inactive` switch next to Job name.
+1. 前往 [Jobs](/dashboard/project/_/integrations/cron/jobs) 部分并找到您想要取消调度的任务。
+2. 切换任务名称旁边的 `Active`/`Inactive` 开关。
 
 <Image
-  alt="Cron Toggle"
+  alt="切换 Cron 任务状态"
   src="/docs/img/guides/database/cron/cron-toggle.png"
   className="max-w-[700px] !mx-auto border rounded-md"
   zoomable
@@ -159,13 +159,13 @@ It is also possible to modify a job by using the `cron.schedule()` function by i
 <TabPanel id="sql-unschedule-job" label="SQL">
 
 ```sql
--- Activate Job
+-- 激活任务
 select cron.alter_job(
   job_id := (select jobid from cron.job where jobname = 'permanent-cron-job-name'),
   active := true
 );
 
--- Deactivate Job
+-- 停用任务
 select cron.alter_job(
   job_id := (select jobid from cron.job where jobname = 'permanent-cron-job-name'),
   active := false
@@ -175,7 +175,7 @@ select cron.alter_job(
 </TabPanel>
 </Tabs>
 
-## Unschedule a job
+## 取消任务调度
 
 <Tabs
   scrollable
@@ -184,14 +184,14 @@ select cron.alter_job(
   defaultActiveId="dashboard-delete-job"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard-delete-job" label="Dashboard">
+<TabPanel id="dashboard-delete-job" label="仪表盘">
 
-1. Go to the [Jobs](/dashboard/project/_/integrations/cron/jobs) section and find the Job you'd like to delete.
-2. Click on the three vertical dots menu on the right side of the Job and click `Delete cron job`.
-3. Confirm deletion by entering the Job name.
+1. 前往 [Jobs](/dashboard/project/_/integrations/cron/jobs) 部分并找到您想要删除的任务。
+2. 点击任务右侧的三个垂直点菜单，然后点击 `Delete cron job`。
+3. 输入任务名称确认删除。
 
 <Image
-  alt="Cron Unschedule"
+  alt="取消 Cron 任务调度"
   src="/docs/img/guides/database/cron/cron-unschedule.png"
   className="max-w-[700px] !mx-auto border rounded-md"
   zoomable
@@ -206,14 +206,14 @@ select cron.unschedule('permanent-cron-job-name');
 
 <Admonition type="caution">
 
-Unscheduling a Job will permanently delete the Job from `cron.job` table but its run history remain in `cron.job_run_details` table.
+取消任务调度将从 `cron.job` 表中永久删除该任务，但其运行历史记录仍保留在 `cron.job_run_details` 表中。
 
 </Admonition>
 
 </TabPanel>
 </Tabs>
 
-## Inspecting job runs
+## 检查任务运行情况
 
 <Tabs
   scrollable
@@ -222,13 +222,13 @@ Unscheduling a Job will permanently delete the Job from `cron.job` table but its
   defaultActiveId="dashboard-runs-job"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard-runs-job" label="Dashboard">
+<TabPanel id="dashboard-runs-job" label="仪表盘">
 
-1. Go to the [Jobs](/dashboard/project/_/integrations/cron/jobs) section and find the Job you want to see the runs of.
-2. Click on the `History` button next to the Job name.
+1. 前往 [Jobs](/dashboard/project/_/integrations/cron/jobs) 部分并找到您想要查看运行情况的任务。
+2. 点击任务名称旁边的 `History` 按钮。
 
 <Image
-  alt="Cron Job Runs"
+  alt="Cron 任务运行历史"
   src="/docs/img/guides/database/cron/cron-history.png"
   className="max-w-[700px] !mx-auto border rounded-md"
   zoomable
@@ -248,36 +248,36 @@ limit 10;
 
 <Admonition type="caution">
 
-The records in the `cron.job_run_details` table are not cleaned up automatically. They are also not removed when jobs are unscheduled, which will take up disk space in your database.
+`cron.job_run_details` 表中的记录不会自动清理。取消任务调度时，这些记录也不会被删除，这将占用数据库的磁盘空间。
 
 </Admonition>
 
 </TabPanel>
 </Tabs>
 
-## Examples
+## 示例
 
-### Delete data every week
+### 每周删除数据
 
 {/* <!-- vale off --> */}
 
-Delete old data every Saturday at 3:30AM (GMT):
+每周六凌晨 3:30 (GMT) 删除旧数据：
 
 {/* <!-- vale on --> */}
 
 ```sql
 select cron.schedule (
-  'saturday-cleanup', -- name of the cron job
-  '30 3 * * 6', -- Saturday at 3:30AM (GMT)
+  'saturday-cleanup', -- cron 任务名称
+  '30 3 * * 6', -- 周六凌晨 3:30 (GMT)
   $$ delete from events where event_time < now() - interval '1 week' $$
 );
 ```
 
-### Run a vacuum every day
+### 每天运行 vacuum
 
 {/* <!-- vale off --> */}
 
-Vacuum every day at 3:00AM (GMT):
+每天凌晨 3:00 (GMT) 运行 vacuum：
 
 {/* <!-- vale on --> */}
 
@@ -285,25 +285,25 @@ Vacuum every day at 3:00AM (GMT):
 select cron.schedule('nightly-vacuum', '0 3 * * *', 'VACUUM');
 ```
 
-### Call a database function every 5 minutes
+### 每 5 分钟调用数据库函数
 
-Create a [`hello_world()`](/docs/guides/database/functions?language=sql#simple-functions) database function and then call it every 5 minutes:
+创建一个 [`hello_world()`](/docs/guides/database/functions?language=sql#simple-functions) 数据库函数，然后每 5 分钟调用一次：
 
 ```sql
 select cron.schedule('call-db-function', '*/5 * * * *', 'SELECT hello_world()');
 ```
 
-### Call a database stored procedure
+### 调用数据库存储过程
 
-To use a stored procedure, you can call it like this:
+要使用存储过程，可以这样调用：
 
 ```sql
 select cron.schedule('call-db-procedure', '*/5 * * * *', 'CALL my_procedure()');
 ```
 
-### Invoke Supabase Edge Function every 30 seconds
+### 每 30 秒调用 Supabase Edge 函数
 
-Make a POST request to a Supabase Edge Function every 30 seconds:
+每 30 秒向 Supabase Edge 函数发送一个 POST 请求：
 
 ```sql
 select
@@ -324,14 +324,14 @@ select
 
 <Admonition type="note">
 
-This requires the [`pg_net` extension](/docs/guides/database/extensions/pg_net) to be enabled.
+这需要启用 [`pg_net` 扩展](/docs/guides/database/extensions/pg_net)。
 
 </Admonition>
 
-## Caution: Scheduling system maintenance
+## 注意：调度系统维护
 
-Be extremely careful when setting up Jobs for system maintenance tasks as they can have unintended consequences.
+设置系统维护任务时要格外小心，因为它们可能会产生意外后果。
 
-For instance, scheduling a command to terminate idle connections with `pg_terminate_backend(pid)` can disrupt critical background processes like nightly backups. Often, there is an existing Postgres setting, such as `idle_session_timeout`, that can perform these common maintenance tasks without the risk.
+例如，调度命令使用 `pg_terminate_backend(pid)` 终止空闲连接可能会中断关键的后台进程，如夜间备份。通常，已有的 Postgres 设置（如 `idle_session_timeout`）可以执行这些常见的维护任务而不会带来风险。
 
-Reach out to [Supabase Support](https://supabase.com/support) if you're unsure if that applies to your use case.
+如果您不确定这是否适用于您的用例，请联系 [Supabase 支持](https://supabase.com/support)。

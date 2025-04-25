@@ -1,80 +1,80 @@
 ---
 id: 'functions-deploy'
-title: 'Deploy to Production'
-description: 'Deploy your Edge Functions to your remote Supabase Project.'
-subtitle: 'Deploy your Edge Functions to your remote Supabase Project.'
+title: '部署到生产环境'
+description: '将您的边缘函数部署到远程 Supabase 项目。'
+subtitle: '将您的边缘函数部署到远程 Supabase 项目。'
 tocVideo: '5OWH9c4u68M'
 ---
 
-Once you have developed your Edge Functions locally, you can deploy them to your Supabase project.
+一旦您在本地开发了边缘函数，就可以将它们部署到您的 Supabase 项目中。
 
-## Login to the CLI
+## 登录 CLI
 
-Log in to the Supabase CLI if necessary:
+如有必要，登录 Supabase CLI：
 
 ```bash
 supabase login
 ```
 
-<Admonition type="tip" label="CLI not installed?">
+<Admonition type="tip" label="未安装 CLI？">
 
-See the [CLI Docs](/docs/guides/cli) to learn how to install the Supabase CLI on your local machine.
+查看 [CLI 文档](/docs/guides/cli) 了解如何在本地机器上安装 Supabase CLI。
 
 </Admonition>
 
-## Get your project ID
+## 获取项目 ID
 
-Get the project ID associated with your function by running:
+通过运行以下命令获取与您的函数关联的项目 ID：
 
 ```bash
 supabase projects list
 ```
 
-<Admonition type="tip" label="Need a new project?">
+<Admonition type="tip" label="需要新项目？">
 
-If you haven't yet created a Supabase project, you can do so by visiting [database.new](https://database.new).
+如果您尚未创建 Supabase 项目，可以访问 [database.new](https://database.new) 创建一个。
 
 </Admonition>
 
-## Link your local project
+## 链接您的本地项目
 
-[Link](/docs/reference/cli/usage#supabase-link) your local project to your remote Supabase project using the ID you just retrieved:
+使用您刚刚检索到的 ID [链接](/docs/reference/cli/usage#supabase-link) 您的本地项目到远程 Supabase 项目：
 
 ```bash
 supabase link --project-ref your-project-id
 ```
 
-## Deploy your Edge Functions
+## 部署您的边缘函数
 
-<Admonition type="tip" label="Docker required">
+<Admonition type="tip" label="需要 Docker">
 
-Since Supabase CLI version 1.123.4, you must have [Docker Desktop](https://docs.docker.com/desktop/) installed to deploy Edge Functions.
+自 Supabase CLI 版本 1.123.4 起，您必须安装 [Docker Desktop](https://docs.docker.com/desktop/) 才能部署边缘函数。
 
 </Admonition>
 
-You can deploy all of your Edge Functions with a single command:
+您可以用一个命令部署所有边缘函数：
 
 ```bash
 supabase functions deploy
 ```
 
-You can deploy individual Edge Functions by specifying the name of the function in the deploy command:
+您可以通过在部署命令中指定函数名称来部署单个边缘函数：
 
 ```bash
 supabase functions deploy hello-world
 ```
 
-By default, Edge Functions require a valid JWT in the authorization header. If you want to use Edge Functions without Authorization checks (commonly used for Stripe webhooks), you can pass the `--no-verify-jwt` flag when deploying your Edge Functions.
+默认情况下，边缘函数需要授权头中有效的 JWT。如果您想在不进行授权检查的情况下使用边缘函数（通常用于 Stripe webhook），可以在部署边缘函数时传递 `--no-verify-jwt` 标志。
 
 ```bash
 supabase functions deploy hello-world --no-verify-jwt
 ```
 
-Be careful when using this flag, as it will allow anyone to invoke your Edge Function without a valid JWT. The Supabase client libraries automatically handle authorization.
+使用此标志时请小心，因为它将允许任何人在没有有效 JWT 的情况下调用您的边缘函数。Supabase 客户端库会自动处理授权。
 
-## Invoking remote functions
+## 调用远程函数
 
-You can now invoke your Edge Function using the project's `ANON_KEY`, which can be found in the [API settings](https://supabase.com/dashboard/project/_/settings/api) of the Supabase Dashboard.
+您现在可以使用项目的 `ANON_KEY` 调用您的边缘函数，该密钥可以在 Supabase 仪表板的 [API 设置](https://supabase.com/dashboard/project/_/settings/api) 中找到。
 
 <$CodeTabs>
 
@@ -88,7 +88,7 @@ curl --request POST 'https://<project_id>.supabase.co/functions/v1/hello-world' 
 ```js name=JavaScript
 import { createClient } from '@supabase/supabase-js'
 
-// Create a single supabase client for interacting with your database
+// 创建一个与数据库交互的 supabase 客户端
 const supabase = createClient('https://xyzcompany.supabase.co', 'public-anon-key')
 
 const { data, error } = await supabase.functions.invoke('hello-world', {
@@ -98,4 +98,4 @@ const { data, error } = await supabase.functions.invoke('hello-world', {
 
 </$CodeTabs>
 
-You should receive the response `{ "message":"Hello Functions!" }`.
+您应该收到响应 `{ "message":"Hello Functions!" }`。

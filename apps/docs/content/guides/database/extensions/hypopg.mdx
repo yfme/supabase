@@ -1,14 +1,14 @@
 ---
 id: 'hypopg'
-title: 'HypoPG: Hypothetical indexes'
-description: 'Quickly check if an index can be used without creating it.'
+title: 'HypoPG: 假设性索引'
+description: '快速检查索引是否可用而无需创建它。'
 ---
 
-`HypoPG` is Postgres extension for creating hypothetical/virtual indexes. HypoPG allows users to rapidly create hypothetical/virtual indexes that have no resource cost (CPU, disk, memory) that are visible to the Postgres query planner.
+`HypoPG` 是用于创建假设性/虚拟索引的 Postgres 扩展。HypoPG 允许用户快速创建对 Postgres 查询规划器可见的假设性/虚拟索引，这些索引不消耗资源（CPU、磁盘、内存）。
 
-The motivation for HypoPG is to allow users to quickly search for an index to improve a slow query without consuming server resources or waiting for them to build.
+HypoPG 的目的是让用户能够快速查找可以改进慢查询的索引，而无需消耗服务器资源或等待索引构建。
 
-## Enable the extension
+## 启用扩展
 
 <Tabs
   scrollable
@@ -17,35 +17,35 @@ The motivation for HypoPG is to allow users to quickly search for an index to im
   defaultActiveId="dashboard"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard" label="Dashboard">
+<TabPanel id="dashboard" label="仪表盘">
 
-1. Go to the [Database](https://supabase.com/dashboard/project/_/database/tables) page in the Dashboard.
-2. Click on **Extensions** in the sidebar.
-3. Search for `hypopg` and enable the extension.
+1. 在仪表盘中转到 [数据库](https://supabase.com/dashboard/project/_/database/tables) 页面。
+2. 在侧边栏中点击 **扩展**。
+3. 搜索 `hypopg` 并启用该扩展。
 
 </TabPanel>
 <TabPanel id="sql" label="SQL">
 
 {/* prettier-ignore */}
 ```sql
--- Enable the "hypopg" extension
+-- 启用 "hypopg" 扩展
 create extension hypopg with schema extensions;
 
--- Disable the "hypopg" extension
+-- 禁用 "hypopg" 扩展
 drop extension if exists hypopg;
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of enabling the extension.
-To disable an extension you can call `drop extension`.
+尽管 SQL 代码是 `create extension`，这相当于启用扩展。
+要禁用扩展，可以调用 `drop extension`。
 
-It's good practice to create the extension within a separate schema (like `extensions`) to keep the `public` schema clean.
+最好在单独的模式（如 `extensions`）中创建扩展，以保持 `public` 模式的整洁。
 
 </TabPanel>
 </Tabs>
 
-### Speeding up a query
+### 加速查询
 
-Given the following table and a simple query to select from the table by `id`:
+给定以下表格和一个按 `id` 从表中选择的简单查询：
 
 {/* prettier-ignore */}
 ```sql
@@ -62,8 +62,7 @@ from
   generate_series(1, 10000) id;
 ```
 
-We can generate an explain plan for a description of how the Postgres query planner
-intends to execute the query.
+我们可以生成一个解释计划，描述 Postgres 查询规划器打算如何执行查询。
 
 {/* prettier-ignore */}
 ```sql
@@ -76,9 +75,9 @@ explain select * from account where id=1;
 (2 rows)
 ```
 
-Using HypoPG, we can create a hypothetical index on the `account(id)` column to check if it would be useful to the query planner and then re-run the explain plan.
+使用 HypoPG，我们可以在 `account(id)` 列上创建一个假设性索引，检查它对查询规划器是否有用，然后重新运行解释计划。
 
-Note that the virtual indexes created by HypoPG are only visible in the Postgres connection that they were created in. Supabase connects to Postgres through a connection pooler so the `hypopg_create_index` statement and the `explain` statement should be executed in a single query.
+请注意，HypoPG 创建的虚拟索引只在创建它们的 Postgres 连接中可见。Supabase 通过连接池连接到 Postgres，因此 `hypopg_create_index` 语句和 `explain` 语句应该在一个查询中执行。
 
 {/* prettier-ignore */}
 ```sql
@@ -93,23 +92,23 @@ explain select * from account where id=1;
 (2 rows)
 ```
 
-The query plan has changed from a `Seq Scan` to an `Index Scan` using the newly created virtual index, so we may choose to create a real version of the index to improve performance on the target query:
+查询计划已从 `Seq Scan`（顺序扫描）变为使用新创建的虚拟索引的 `Index Scan`（索引扫描），因此我们可以选择创建该索引的实际版本，以提高目标查询的性能：
 
 {/* prettier-ignore */}
 ```sql
 create index on account(id);
 ```
 
-## Functions
+## 函数
 
-- [`hypo_create_index(text)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#create-a-hypothetical-index): A function to create a hypothetical index.
-- [`hypopg_list_indexes`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A View that lists all hypothetical indexes that have been created.
-- [`hypopg()`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A function that lists all hypothetical indexes that have been created with the same format as `pg_index`.
-- [`hypopg_get_index_def(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A function to display the `create index` statement that would create the index.
-- [`hypopg_get_relation_size(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A function to estimate how large a hypothetical index would be.
-- [`hypopg_drop_index(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A function to remove a given hypothetical index by `oid`.
-- [`hypopg_reset()`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes): A function to remove all hypothetical indexes.
+- [`hypo_create_index(text)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#create-a-hypothetical-index)：创建假设性索引的函数。
+- [`hypopg_list_indexes`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：列出所有已创建的假设性索引的视图。
+- [`hypopg()`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：列出所有已创建的假设性索引的函数，格式与 `pg_index` 相同。
+- [`hypopg_get_index_def(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：显示创建索引的 `create index` 语句的函数。
+- [`hypopg_get_relation_size(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：估计假设性索引大小的函数。
+- [`hypopg_drop_index(oid)`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：通过 `oid` 删除给定假设性索引的函数。
+- [`hypopg_reset()`](https://hypopg.readthedocs.io/en/rel1_stable/usage.html#manipulate-hypothetical-indexes)：删除所有假设性索引的函数。
 
-## Resources
+## 资源
 
-- Official [HypoPG documentation](https://hypopg.readthedocs.io/en/rel1_stable/)
+- 官方 [HypoPG 文档](https://hypopg.readthedocs.io/en/rel1_stable/)

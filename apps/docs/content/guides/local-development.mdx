@@ -1,13 +1,13 @@
 ---
-title: Local Development & CLI
-subtitle: Learn how to develop locally and use the Supabase CLI
+title: 本地开发和 CLI
+subtitle: 了解如何在本地开发并使用 Supabase CLI
 ---
 
-Develop locally while running the Supabase stack on your machine.
+在您的机器上运行 Supabase 技术栈进行本地开发。
 
-## Quickstart
+## 快速入门
 
-1.  Install the Supabase CLI:
+1.  安装 Supabase CLI：
 
     <Tabs scrollable size="small" type="underlined" defaultActiveId="npm" queryGroup="package-manager"><TabPanel id="npm" label="npm">
 
@@ -35,7 +35,7 @@ Develop locally while running the Supabase stack on your machine.
 
     </TabPanel></Tabs>
 
-2.  In your repo, initialize the Supabase project:
+2.  在您的仓库中，初始化 Supabase 项目：
 
     <Tabs scrollable size="small" type="underlined" defaultActiveId="npm" queryGroup="package-manager"><TabPanel id="npm" label="npm">
 
@@ -65,7 +65,7 @@ Develop locally while running the Supabase stack on your machine.
 
     </Tabs>
 
-3.  Start the Supabase stack:
+3.  启动 Supabase 技术栈：
 
     <Tabs scrollable size="small" type="underlined" defaultActiveId="npm" queryGroup="package-manager"><TabPanel id="npm" label="npm">
 
@@ -95,32 +95,32 @@ Develop locally while running the Supabase stack on your machine.
 
     </Tabs>
 
-4.  View your local Supabase instance at [http://localhost:54323](http://localhost:54323).
+4.  在 [http://localhost:54323](http://localhost:54323) 查看您的本地 Supabase 实例。
 
-## Local development
+## 本地开发
 
-Local development with Supabase allows you to work on your projects in a self-contained environment on your local machine. Working locally has several advantages:
+使用 Supabase 进行本地开发允许您在本地机器上的自包含环境中处理项目。本地工作有几个优势：
 
-1. Faster development: You can make changes and see results instantly without waiting for remote deployments.
-2. Offline work: You can continue development even without an internet connection.
-3. Cost-effective: Local development is free and doesn't consume your project's quota.
-4. Enhanced privacy: Sensitive data remains on your local machine during development.
-5. Easy testing: You can experiment with different configurations and features without affecting your production environment.
+1. 更快的开发：您可以立即更改并查看结果，无需等待远程部署。
+2. 离线工作：即使没有互联网连接，您也可以继续开发。
+3. 成本效益：本地开发是免费的，不会消耗您项目的配额。
+4. 增强隐私：开发期间敏感数据保留在您的本地机器上。
+5. 轻松测试：您可以在不影响生产环境的情况下尝试不同的配置和功能。
 
-To get started with local development, you'll need to install the [Supabase CLI](#cli) and Docker. The Supabase CLI allows you to start and manage your local Supabase stack, while Docker is used to run the necessary services.
+要开始本地开发，您需要安装 [Supabase CLI](#cli) 和 Docker。Supabase CLI 允许您启动和管理本地 Supabase 技术栈，而 Docker 用于运行必要的服务。
 
-Once set up, you can initialize a new Supabase project, start the local stack, and begin developing your application using local Supabase services. This includes access to a local Postgres database, Auth, Storage, and other Supabase features.
+设置完成后，您可以初始化一个新的 Supabase 项目，启动本地技术栈，并开始使用本地 Supabase 服务开发您的应用程序。这包括访问本地 Postgres 数据库、身份验证、存储和其他 Supabase 功能。
 
 ## CLI
 
-The Supabase CLI is a powerful tool that enables developers to manage their Supabase projects directly from the terminal. It provides a suite of commands for various tasks, including:
+Supabase CLI 是一个强大的工具，使开发人员能够直接从终端管理他们的 Supabase 项目。它提供了一套用于各种任务的命令，包括：
 
-- Setting up and managing local development environments
-- Generating TypeScript types for your database schema
-- Handling database migrations
-- Managing environment variables and secrets
-- Deploying your project to the Supabase platform
+- 设置和管理本地开发环境
+- 为您的数据库架构生成 TypeScript 类型
+- 处理数据库迁移
+- 管理环境变量和秘密
+- 将您的项目部署到 Supabase 平台
 
-With the CLI, you can streamline your development workflow, automate repetitive tasks, and maintain consistency across different environments. It's an essential tool for both local development and CI/CD pipelines.
+通过 CLI，您可以简化开发工作流程，自动化重复任务，并保持不同环境之间的一致性。它是本地开发和 CI/CD 流程的基本工具。
 
-See the [CLI Getting Started guide](/docs/guides/local-development/cli/getting-started) for more information.
+有关更多信息，请参阅 [CLI 入门指南](/docs/guides/local-development/cli/getting-started)。

@@ -1,111 +1,109 @@
 ---
 id: 'functions-debugging'
-title: 'Troubleshooting Common Issues'
-description: 'How to solve common problems and issues related to Edge Functions.'
-subtitle: 'How to solve common problems and issues related to Edge Functions.'
+title: '排除常见问题'
+description: '如何解决与 Edge Functions 相关的常见问题。'
+subtitle: '如何解决与 Edge Functions 相关的常见问题。'
 ---
 
-If you encounter any problems or issues with your Edge Functions, here are some tips and steps to help you resolve them.
+如果您在使用 Edge Functions 时遇到任何问题或障碍，以下是一些帮助您解决它们的提示和步骤。
 
-### Unable to deploy Edge Function
+### 无法部署 Edge Function
 
-- Make sure you're on the latest version of the [Supabase CLI](/docs/guides/cli#updates).
-- If the output from the commands above does not help you to resolve the issue, open a support ticket via the Supabase Dashboard (by clicking the "Help" button at the top right) and include all output from the commands mentioned above.
+- 确保您使用的是最新版本的 [Supabase CLI](/docs/guides/cli#updates)。
+- 如果上述命令的输出无法帮助您解决问题，请通过 Supabase 仪表板（点击右上角的"Help"按钮）提交支持工单，并包含上述所有命令的输出。
 
-### Unable to call Edge Function
+### 无法调用 Edge Function
 
-If you’re unable to call your Edge Function or are experiencing any CORS issues:
+如果您无法调用 Edge Function 或遇到任何 CORS 问题：
 
-- Make sure you followed the [CORS guide](/docs/guides/functions/cors). This guide explains how to enable and configure CORS for your Edge Functions, and how to avoid common pitfalls and errors.
-- Check your function logs. Navigate to the [Functions section](https://supabase.com/dashboard/project/_/functions) in your dashboard, select your function from the list, and click `Logs`. Check for any errors or warnings that may indicate the cause of the problem.
+- 确保您遵循了 [CORS 指南](/docs/guides/functions/cors)。该指南解释了如何为 Edge Functions 启用和配置 CORS，以及如何避免常见的陷阱和错误。
+- 检查函数日志。导航到仪表板中的 [Functions 部分](https://supabase.com/dashboard/project/_/functions)，从列表中选择您的函数，然后点击 `Logs`。检查可能指示问题原因的任何错误或警告。
 
-There are two debugging tools available: Invocations and Logs. Invocations shows the Request and Response for each execution, while Logs shows any platform events, including deployments and errors.
+有两种调试工具可用：调用记录和日志。调用记录显示每次执行的请求和响应，而日志显示任何平台事件，包括部署和错误。
 
-### Edge Function takes too long to respond
+### Edge Function 响应时间过长
 
-If your Edge Function takes too long to respond or times out:
+如果您的 Edge Function 响应时间过长或超时：
 
-- Navigate to the [Functions section](https://supabase.com/dashboard/project/_/functions) in your dashboard, select your function from the list, and click `Logs`.
-- In the logs, look for the `booted` event and check if they have consistent boot times.
-  - If the boot times are similar, it’s likely an issue with your function’s code, such as a large dependency, a slow API call, or a complex computation. You can try to optimize your code, reduce the size of your dependencies, or use caching techniques to improve the performance of your function.
-  - If only some of the `booted` events are slow, find the affected `region` in the metadata and submit a support request via the "Help" button at the top.
+- 导航到仪表板中的 [Functions 部分](https://supabase.com/dashboard/project/_/functions)，从列表中选择您的函数，然后点击 `Logs`。
+- 在日志中，查找 `booted` 事件，并检查它们是否有一致的启动时间。
+  - 如果启动时间相似，很可能是函数代码的问题，例如大型依赖项、缓慢的 API 调用或复杂的计算。您可以尝试优化代码，减小依赖项的大小，或使用缓存技术来提高函数的性能。
+  - 如果只有部分 `booted` 事件较慢，请在元数据中找到受影响的 `region`，并通过顶部的"Help"按钮提交支持请求。
 
 {/* supa-mdx-lint-disable-next-line Rule001HeadingCase */}
 
-### Receiving 546 Error Response
+### 收到 546 错误响应
 
-The 546 error response might occur because:
+546 错误响应可能出现的原因：
 
-- **Memory or CPU Limits**: The function might have exhausted its memory or encountered CPU limits enforced during execution.
-- **Event Loop Completion**: If you observe "Event loop completed" in your error logs, it's likely your function is not implemented correctly. You should check your function code for any syntax errors, infinite loops, or unresolved promises that might cause this error. Or you can try running the function locally (using Supabase CLI **`functions serve`**) to see if you can debug the error. The local console should give a full stack trace on the error with line numbers of the source code. You can also refer to [Edge Functions examples](https://github.com/supabase/supabase/tree/master/examples/edge-functions) for guidance.
+- **内存或 CPU 限制**：函数可能已耗尽内存或在执行期间遇到 CPU 限制。
+- **事件循环完成**：如果您在错误日志中观察到"Event loop completed"，很可能您的函数实现不正确。您应该检查函数代码中的任何语法错误、无限循环或未解决的 Promise，这些可能导致此错误。或者，您可以尝试在本地运行函数（使用 Supabase CLI **`functions serve`**）以便调试错误。本地控制台应该提供带有源代码行号的完整堆栈跟踪。您还可以参考 [Edge Functions 示例](https://github.com/supabase/supabase/tree/master/examples/edge-functions) 获取指导。
 
-### Issues serving Edge Functions locally with the Supabase CLI
+### 使用 Supabase CLI 在本地提供 Edge Functions 时出现问题
 
-- Make sure you're on the latest version of the [Supabase CLI](/docs/guides/cli#updates).
-- Run the serve command with the `-debug` flag.
-- Support engineers can then try to run the provided sample code locally and see if they can reproduce the issue.
-- Search the [Edge Runtime](https://github.com/supabase/edge-runtime) and [CLI](https://github.com/supabase/cli) repos for the error message, to see if it has been reported before.
-- If the output from the commands above does not help you to resolve the issue, open a support ticket via the Supabase Dashboard (by clicking the "Help" button at the top right) and include all output and details about your commands.
+- 确保您使用的是最新版本的 [Supabase CLI](/docs/guides/cli#updates)。
+- 使用 `-debug` 标志运行 serve 命令。
+- 支持工程师可以尝试在本地运行提供的示例代码，查看是否能重现问题。
+- 在 [Edge Runtime](https://github.com/supabase/edge-runtime) 和 [CLI](https://github.com/supabase/cli) 仓库中搜索错误消息，看看是否有人之前报告过。
+- 如果上述命令的输出无法帮助您解决问题，请通过 Supabase 仪表板（点击右上角的"Help"按钮）提交支持工单，并包含所有输出和有关命令的详细信息。
 
-## Advanced techniques
+## 高级技术
 
-### Monitoring Edge Function resource usage
+### 监控 Edge Function 资源使用情况
 
-To determine how much memory and CPU your Edge Function consumes, follow these steps:
+要确定 Edge Function 消耗多少内存和 CPU，请按照以下步骤操作：
 
-- Navigate to the Supabase Dashboard.
-- Go to **Edge Functions**.
-- Select the specific function by clicking on its name.
-- View the resource usage **Metrics** on the charts provided.
+- 导航到 Supabase 仪表板。
+- 进入 **Edge Functions**。
+- 通过点击其名称选择特定函数。
+- 在提供的图表上查看资源使用情况 **指标**。
 
 <Admonition type="note">
-  Edge Functions have limited resources (CPU, memory, and execution time) compared to traditional
-  servers. Make sure your functions are optimized for performance and don't exceed the allocated
-  resources.
+  与传统服务器相比，Edge Functions 的资源（CPU、内存和执行时间）有限。确保您的函数经过性能优化，不超过分配的资源。
 </Admonition>
 
-### Understanding CPU soft and hard limits
+### 了解 CPU 软限制和硬限制
 
-An isolate is like a worker that can handle multiple requests for a function. It works until a time limit of 400 seconds is reached. Now, there are two types of limits for the CPU.
+隔离体类似于可以处理函数多个请求的工作器。它一直工作，直到达到 400 秒的时间限制。现在，CPU 有两种类型的限制。
 
-1. **Soft Limit**: When the isolate hits the soft limit, it retires. This means it won't take on any new requests, but it will finish processing the ones it's already working on. It keeps going until it either hits the hard limit for CPU time or reaches the 400-second time limit, whichever comes first.
-2. **Hard Limit**: If there are new requests after the soft limit is reached, a new isolate is created to handle them. The original isolate continues until it hits the hard limit or the time limit. This ensures that existing requests are completed, and new ones will be managed by a newly created isolate.
+1. **软限制**：当隔离体达到软限制时，它会退休。这意味着它不会接受任何新请求，但会完成已经在处理的请求。它会一直继续，直到达到 CPU 时间的硬限制或 400 秒的时间限制，以先到者为准。
+2. **硬限制**：如果在达到软限制后有新请求，则会创建一个新的隔离体来处理它们。原始隔离体继续运行，直到达到硬限制或时间限制。这确保了现有请求能够完成，并且新请求将由新创建的隔离体管理。
 
-### Checking function boot time
+### 检查函数启动时间
 
-Check the logs for the function. In the logs, look for a "Booted" event and note the reported boot time. If available, click on the event to access more details, including the regions from where the function was served. Investigate if the boot time is excessively high (longer than 1 second) and note any patterns or regions where it occurs. You can refer to this guide for troubleshooting [regional invocations](/docs/guides/functions/regional-invocation).
+检查函数的日志。在日志中，查找"Booted"事件并记下报告的启动时间。如果可用，点击事件以访问更多详细信息，包括提供函数服务的区域。调查启动时间是否过高（超过 1 秒），并注意任何发生这种情况的模式或区域。您可以参考本指南来排查[区域性调用](/docs/guides/functions/regional-invocation)问题。
 
-### Finding bundle size
+### 查找捆绑包大小
 
-To find the bundle size of a function, run the following command locally:
+要查找函数的捆绑包大小，请在本地运行以下命令：
 
 `deno info /path/to/function/index.ts`
 
-Look for the "size" field in the output which represents the approximate bundle size of the function. You can find the accurate bundle size when you deploy your function via Supabase CLI. If the function is part of a larger application, consider examining the bundle size of the specific function independently.
+在输出中查找"size"字段，它代表函数的近似捆绑包大小。当您通过 Supabase CLI 部署函数时，可以找到准确的捆绑包大小。如果函数是较大应用程序的一部分，请考虑独立检查特定函数的捆绑包大小。
 
-The source code of a function is subject to 10MB site limit.
+函数的源代码受 10MB 站点限制。
 
-### Analyze dependencies
+### 分析依赖项
 
-When analyzing dependencies for your Supabase Edge Functions, it's essential to review both Deno and NPM dependencies to ensure optimal performance and resource utilization.
-By selectively importing only the required submodules, you can effectively reduce the size of your function's dependencies and optimize its performance.
-Before finalizing your imports, ensure to review both Deno and NPM dependencies, checking for any unnecessary or redundant dependencies that can be removed. Additionally, check for outdated dependencies and update to the latest versions if possible.
+在分析 Supabase Edge Functions 的依赖项时，务必同时检查 Deno 和 NPM 依赖项，以确保最佳性能和资源利用率。
+通过仅选择性地导入所需的子模块，您可以有效减少函数依赖项的大小并优化其性能。
+在确定导入之前，请确保同时检查 Deno 和 NPM 依赖项，检查是否有任何不必要或冗余的依赖项可以删除。此外，检查过时的依赖项并尽可能更新到最新版本。
 
-#### Deno dependencies
+#### Deno 依赖项
 
-Run `deno info`, providing the path to your input map if you use one.
-Review the dependencies listed in the output. Pay attention to any significantly large dependencies, as they can contribute to increased bundle size and potential boot time issues.
-Examine if there are any unnecessary or redundant dependencies that can be removed. Check for outdated dependencies and update to the latest versions if possible.
+运行 `deno info`，如果您使用输入映射，请提供其路径。
+查看输出中列出的依赖项。注意任何明显大的依赖项，因为它们可能会导致捆绑包大小增加和潜在的启动时间问题。
+检查是否有任何不必要或冗余的依赖项可以删除。检查过时的依赖项并尽可能更新到最新版本。
 
 ```bash
 deno info --import-map=/path/to/import_map.json /path/to/function/index.ts
 ```
 
-#### NPM dependencies
+#### NPM 依赖项
 
-Additionally, if you utilize NPM modules in your Edge Functions, it's crucial to be mindful of their size and impact on the overall bundle size. While importing NPM modules, consider using the notation `import { submodule } from 'npm:package/submodule'` to selectively import specific submodules rather than importing the entire package. This approach can help minimize unnecessary overhead and streamline the execution of your function.
+此外，如果您在 Edge Functions 中使用 NPM 模块，重要的是要注意它们的大小及其对整体捆绑包大小的影响。导入 NPM 模块时，考虑使用符号 `import { submodule } from 'npm:package/submodule'` 有选择地导入特定子模块，而不是导入整个包。这种方法可以帮助最小化不必要的开销并简化函数的执行。
 
-For example, if you only need the `Sheets` submodule from the `googleapis` package, you can import it like this:
+例如，如果您只需要 `googleapis` 包中的 `Sheets` 子模块，可以像这样导入它：
 
 ```typescript
 import { Sheets } from 'npm:@googleapis/sheets'

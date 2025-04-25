@@ -1,17 +1,17 @@
 ---
 id: 'ai-vector-columns'
-title: 'Vector columns'
-description: 'Learn how to use vectors within your own Postgres tables'
-sidebar_label: 'Vector columns'
+title: '向量列'
+description: '了解如何在您自己的 Postgres 表中使用向量'
+sidebar_label: '向量列'
 ---
 
-Supabase offers a number of different ways to store and query vectors within Postgres. The SQL included in this guide is applicable for clients in all programming languages. If you are a Python user see your [Python client options](/docs/guides/ai/python-clients) after reading the `Learn` section.
+Supabase 提供了多种在 Postgres 中存储和查询向量的方法。本指南中包含的 SQL 适用于所有编程语言的客户端。如果您是 Python 用户，请在阅读完 `Learn` 部分后查看您的 [Python 客户端选项](/docs/guides/ai/python-clients)。
 
-Vectors in Supabase are enabled via [pgvector](https://github.com/pgvector/pgvector/), a Postgres extension for storing and querying vectors in Postgres. It can be used to store [embeddings](/docs/guides/ai/concepts#what-are-embeddings).
+Supabase 中的向量功能通过 [pgvector](https://github.com/pgvector/pgvector/) 实现，这是一个用于在 Postgres 中存储和查询向量的 Postgres 扩展。它可以用于存储[嵌入](/docs/guides/ai/concepts#what-are-embeddings)。
 
-## Usage
+## 使用方法
 
-### Enable the extension
+### 启用扩展
 
 <Tabs
   scrollable
@@ -20,35 +20,35 @@ Vectors in Supabase are enabled via [pgvector](https://github.com/pgvector/pgvec
   defaultActiveId="dashboard"
   queryGroup="database-method"
 >
-<TabPanel id="dashboard" label="Dashboard">
+<TabPanel id="dashboard" label="仪表板">
 
-1. Go to the [Database](https://supabase.com/dashboard/project/_/database/tables) page in the Dashboard.
-2. Click on **Extensions** in the sidebar.
-3. Search for "vector" and enable the extension.
+1. 在仪表板中转到 [数据库](https://supabase.com/dashboard/project/_/database/tables) 页面。
+2. 在侧边栏中点击 **扩展**。
+3. 搜索 "vector" 并启用该扩展。
 
 </TabPanel>
 <TabPanel id="sql" label="SQL">
 
 ```sql
- -- Example: enable the "vector" extension.
+ -- 示例：启用 "vector" 扩展。
 create extension vector
 with
   schema extensions;
 
--- Example: disable the "vector" extension
+-- 示例：禁用 "vector" 扩展
 drop
   extension if exists vector;
 ```
 
-Even though the SQL code is `create extension`, this is the equivalent of "enabling the extension".
-To disable an extension, call `drop extension`.
+尽管 SQL 代码是 `create extension`，这相当于"启用扩展"。
+要禁用扩展，调用 `drop extension`。
 
 </TabPanel>
 </Tabs>
 
-### Create a table to store vectors
+### 创建存储向量的表
 
-After enabling the `vector` extension, you will get access to a new data type called `vector`. The size of the vector (indicated in parenthesis) represents the number of dimensions stored in that vector.
+启用 `vector` 扩展后，您将获得一个名为 `vector` 的新数据类型。向量的大小（括号中指示）表示存储在该向量中的维度数。
 
 ```sql
 create table documents (
@@ -59,17 +59,17 @@ create table documents (
 );
 ```
 
-In the above SQL snippet, we create a `documents` table with a column called `embedding` (note this is just a regular Postgres column - you can name it whatever you like). We give the `embedding` column a `vector` data type with 384 dimensions. Change this to the number of dimensions produced by your embedding model. For example, if you are [generating embeddings](/docs/guides/ai/quickstarts/generate-text-embeddings) using the open source [`gte-small`](https://huggingface.co/Supabase/gte-small) model, you would set this number to 384 since that model produces 384 dimensions.
+在上面的 SQL 代码片段中，我们创建了一个 `documents` 表，其中包含一个名为 `embedding` 的列（注意这只是一个普通的 Postgres 列 - 您可以随意命名）。我们给 `embedding` 列一个具有 384 维的 `vector` 数据类型。根据您的嵌入模型产生的维度数更改此数字。例如，如果您使用开源 [`gte-small`](https://huggingface.co/Supabase/gte-small) 模型[生成嵌入](/docs/guides/ai/quickstarts/generate-text-embeddings)，您应将此数字设置为 384，因为该模型产生 384 个维度。
 
 <Admonition type="tip">
 
-In general, embeddings with fewer dimensions perform best. See our [analysis on fewer dimensions in pgvector](https://supabase.com/blog/fewer-dimensions-are-better-pgvector).
+通常，维度较少的嵌入效果最佳。请参阅我们关于 [pgvector 中较少维度的分析](https://supabase.com/blog/fewer-dimensions-are-better-pgvector)。
 
 </Admonition>
 
-### Storing a vector / embedding
+### 存储向量/嵌入
 
-In this example we'll generate a vector using Transformers.js, then store it in the database using the Supabase JavaScript client.
+在这个例子中，我们将使用 Transformers.js 生成一个向量，然后使用 Supabase JavaScript 客户端将其存储在数据库中。
 
 ```js
 import { pipeline } from '@xenova/transformers'
@@ -78,16 +78,16 @@ const generateEmbedding = await pipeline('feature-extraction', 'Supabase/gte-sma
 const title = 'First post!'
 const body = 'Hello world!'
 
-// Generate a vector using Transformers.js
+// 使用 Transformers.js 生成向量
 const output = await generateEmbedding(body, {
   pooling: 'mean',
   normalize: true,
 })
 
-// Extract the embedding output
+// 提取嵌入输出
 const embedding = Array.from(output.data)
 
-// Store the vector in Postgres
+// 在 Postgres 中存储向量
 const { data, error } = await supabase.from('documents').insert({
   title,
   body,
@@ -95,21 +95,21 @@ const { data, error } = await supabase.from('documents').insert({
 })
 ```
 
-This example uses the JavaScript Supabase client, but you can modify it to work with any [supported language library](/docs#client-libraries).
+这个例子使用了 JavaScript Supabase 客户端，但您可以修改它以适用于任何[支持的语言库](/docs#client-libraries)。
 
-### Querying a vector / embedding
+### 查询向量/嵌入
 
-Similarity search is the most common use case for vectors. `pgvector` support 3 new operators for computing distance:
+相似性搜索是向量最常见的用例。`pgvector` 支持 3 个新的操作符来计算距离：
 
-| Operator | Description            |
+| 操作符 | 描述 |
 | -------- | ---------------------- |
-| `<->`    | Euclidean distance     |
-| `<#>`    | negative inner product |
-| `<=>`    | cosine distance        |
+| `<->` | 欧几里得距离 |
+| `<#>` | 负内积 |
+| `<=>` | 余弦距离 |
 
-Choosing the right operator depends on your needs. Dot product tends to be the fastest if your vectors are normalized. For more information on how embeddings work and how they relate to each other, see [What are Embeddings?](/docs/guides/ai/concepts#what-are-embeddings).
+选择正确的操作符取决于您的需求。如果您的向量已归一化，点积往往是最快的。有关嵌入如何工作以及它们如何相互关联的更多信息，请参阅[什么是嵌入？](/docs/guides/ai/concepts#what-are-embeddings)。
 
-Supabase client libraries like `supabase-js` connect to your Postgres instance via [PostgREST](/docs/guides/getting-started/architecture#postgrest-api). PostgREST does not currently support `pgvector` similarity operators, so we'll need to wrap our query in a Postgres function and call it via the `rpc()` method:
+像 `supabase-js` 这样的 Supabase 客户端库通过 [PostgREST](/docs/guides/getting-started/architecture#postgrest-api) 连接到您的 Postgres 实例。PostgREST 目前不支持 `pgvector` 相似性操作符，因此我们需要将查询包装在 Postgres 函数中并通过 `rpc()` 方法调用它：
 
 ```sql
 create or replace function match_documents (
@@ -137,32 +137,32 @@ as $$
 $$;
 ```
 
-This function takes a `query_embedding` argument and compares it to all other embeddings in the `documents` table. Each comparison returns a similarity score. If the similarity is greater than the `match_threshold` argument, it is returned. The number of rows returned is limited by the `match_count` argument.
+此函数接受一个 `query_embedding` 参数，并将其与 `documents` 表中的所有其他嵌入进行比较。每次比较都会返回一个相似性分数。如果相似性大于 `match_threshold` 参数，则返回它。返回的行数由 `match_count` 参数限制。
 
-Feel free to modify this method to fit the needs of your application. The `match_threshold` ensures that only documents that have a minimum similarity to the `query_embedding` are returned. Without this, you may end up returning documents that subjectively don't match. This value will vary for each application - you will need to perform your own testing to determine the threshold that makes sense for your app.
+请随意修改此方法以适应您的应用程序需求。`match_threshold` 确保只返回与 `query_embedding` 具有最小相似性的文档。没有这个，您可能会返回主观上不匹配的文档。这个值对每个应用程序都会有所不同 - 您需要进行自己的测试来确定适合您的应用程序的阈值。
 
-If you index your vector column, ensure that the `order by` sorts by the distance function directly (rather than sorting by the calculated `similarity` column, which may lead to the index being ignored and poor performance).
+如果您为向量列建立索引，请确保 `order by` 直接按距离函数排序（而不是按计算的 `similarity` 列排序，这可能导致索引被忽略并导致性能不佳）。
 
-To execute the function from your client library, call `rpc()` with the name of your Postgres function:
+要从客户端库执行函数，请使用 Postgres 函数的名称调用 `rpc()`：
 
 ```ts
 const { data: documents } = await supabaseClient.rpc('match_documents', {
-  query_embedding: embedding, // Pass the embedding you want to compare
-  match_threshold: 0.78, // Choose an appropriate threshold for your data
-  match_count: 10, // Choose the number of matches
+  query_embedding: embedding, // 传递您想要比较的嵌入
+  match_threshold: 0.78, // 为您的数据选择适当的阈值
+  match_count: 10, // 选择匹配数量
 })
 ```
 
-In this example `embedding` would be another embedding you wish to compare against your table of pre-generated embedding documents. For example if you were building a search engine, every time the user submits their query you would first generate an embedding on the search query itself, then pass it into the above `rpc()` function to match.
+在这个例子中，`embedding` 将是您希望与预先生成的嵌入文档表进行比较的另一个嵌入。例如，如果您正在构建搜索引擎，每次用户提交查询时，您首先需要在搜索查询本身上生成嵌入，然后将其传递到上述 `rpc()` 函数中进行匹配。
 
 <Admonition type="tip">
 
-Be sure to use embeddings produced from the same embedding model when calculating distance. Comparing embeddings from two different models will produce no meaningful result.
+在计算距离时，确保使用来自同一嵌入模型生成的嵌入。比较来自两个不同模型的嵌入将不会产生有意义的结果。
 
 </Admonition>
 
-Vectors and embeddings can be used for much more than search. Learn more about embeddings at [What are Embeddings?](/docs/guides/ai/concepts#what-are-embeddings).
+向量和嵌入可用于搜索以外的更多用途。在[什么是嵌入？](/docs/guides/ai/concepts#what-are-embeddings)了解更多关于嵌入的信息。
 
-### Indexes
+### 索引
 
-Once your vector table starts to grow, you will likely want to add an index to speed up queries. See [Vector indexes](/docs/guides/ai/vector-indexes) to learn how vector indexes work and how to create them.
+一旦您的向量表开始增长，您可能需要添加索引来加速查询。请参阅[向量索引](/docs/guides/ai/vector-indexes)了解向量索引的工作原理以及如何创建它们。

@@ -1,171 +1,171 @@
 ---
 id: 'functions'
-title: 'Edge Functions'
-description: 'Globally distributed TypeScript functions.'
-subtitle: 'Globally distributed TypeScript functions.'
-sidebar_label: 'Overview'
+title: 'Edge 函数'
+description: '全球分布式 TypeScript 函数。'
+subtitle: '全球分布式 TypeScript 函数。'
+sidebar_label: '概述'
 hideToc: true
 ---
 
-Edge Functions are server-side TypeScript functions, distributed globally at the edge—close to your users. They can be used for listening to webhooks or integrating your Supabase project with third-parties [like Stripe](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/stripe-webhooks). Edge Functions are developed using [Deno](https://deno.com), which offers a few benefits to you as a developer:
+Edge 函数是服务器端 TypeScript 函数，分布在全球各地的边缘节点——靠近您的用户。它们可用于侦听 webhook 或将您的 Supabase 项目与第三方集成[如 Stripe](https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/stripe-webhooks)。Edge 函数使用 [Deno](https://deno.com) 开发，为您作为开发人员提供以下几个好处：
 
-- It is open source.
-- It is portable. Supabase Edge Functions run locally, and on any other Deno-compatible platform (including self-hosted infrastructure).
-- It is TypeScript first and supports WASM.
-- Edge Functions are globally distributed for low-latency.
+- 它是开源的。
+- 它是可移植的。Supabase Edge 函数可以在本地运行，也可以在任何其他兼容 Deno 的平台上运行（包括自托管基础设施）。
+- 它优先支持 TypeScript 并支持 WASM。
+- Edge 函数全球分布，具有低延迟特性。
 
 <div className="not-prose">
   <Button size="medium" asChild>
-    <a href="/docs/guides/functions/quickstart">Get started</a>
+    <a href="/docs/guides/functions/quickstart">开始使用</a>
   </Button>
 </div>
 
-## Examples
+## 示例
 
-Check out the [Edge Function Examples](https://github.com/supabase/supabase/tree/master/examples/edge-functions) in our GitHub repository.
+查看我们 GitHub 仓库中的 [Edge 函数示例](https://github.com/supabase/supabase/tree/master/examples/edge-functions)。
 
 <div className="grid md:grid-cols-12 gap-4 not-prose">
   {[
     {
-      name: 'With supabase-js',
-      description: 'Use the Supabase client inside your Edge Function.',
+      name: '使用 supabase-js',
+      description: '在您的 Edge 函数内使用 Supabase 客户端。',
       href: '/guides/functions/auth',
     },
     {
-      name: 'Type-Safe SQL with Kysely',
+      name: '使用 Kysely 的类型安全 SQL',
       description:
-        'Combining Kysely with Deno Postgres gives you a convenient developer experience for interacting directly with your Postgres database.',
+        '将 Kysely 与 Deno Postgres 结合使用，为直接与 Postgres 数据库交互提供便捷的开发体验。',
       href: '/guides/functions/kysely-postgres',
     },
     {
-      name: 'Monitoring with Sentry',
-      description: 'Monitor Edge Functions with the Sentry Deno SDK.',
+      name: '使用 Sentry 进行监控',
+      description: '使用 Sentry Deno SDK 监控 Edge 函数。',
       href: '/guides/functions/examples/sentry-monitoring',
     },
     {
-      name: 'With CORS headers',
-      description: 'Send CORS headers for invoking from the browser.',
+      name: '使用 CORS 头',
+      description: '发送 CORS 头以便从浏览器调用。',
       href: '/guides/functions/cors',
     },
     {
-      name: 'React Native with Stripe',
-      description: 'Full example for using Supabase and Stripe, with Expo.',
+      name: '带有 Stripe 的 React Native',
+      description: '使用 Supabase 和 Stripe 的完整示例，搭配 Expo。',
       href: 'https://github.com/supabase-community/expo-stripe-payments-with-supabase-functions',
     },
     {
-      name: 'Flutter with Stripe',
-      description: 'Full example for using Supabase and Stripe, with Flutter.',
+      name: '带有 Stripe 的 Flutter',
+      description: '使用 Supabase 和 Stripe 的完整示例，搭配 Flutter。',
       href: 'https://github.com/supabase-community/flutter-stripe-payments-with-supabase-functions',
     },
     {
-      name: 'Building a RESTful Service API',
+      name: '构建 RESTful 服务 API',
       description:
-        'Learn how to use HTTP methods and paths to build a RESTful service for managing tasks.',
+        '了解如何使用 HTTP 方法和路径构建用于管理任务的 RESTful 服务。',
       href: 'https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/restful-tasks/index.ts',
     },
     {
-      name: 'Working with Supabase Storage',
-      description: 'An example on reading a file from Supabase Storage.',
+      name: '使用 Supabase Storage',
+      description: '从 Supabase Storage 读取文件的示例。',
       href: 'https://github.com/supabase/supabase/blob/master/examples/edge-functions/supabase/functions/read-storage/index.ts',
     },
     {
-      name: 'Open Graph Image Generation',
-      description: 'Generate Open Graph images with Deno and Supabase Edge Functions.',
+      name: 'Open Graph 图像生成',
+      description: '使用 Deno 和 Supabase Edge 函数生成 Open Graph 图像。',
       href: '/guides/functions/examples/og-image',
     },
     {
-      name: 'OG Image Generation & Storage CDN Caching',
-      description: 'Cache generated images with Supabase Storage CDN.',
+      name: 'OG 图像生成和 Storage CDN 缓存',
+      description: '使用 Supabase Storage CDN 缓存生成的图像。',
       href: 'https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/og-image-with-storage-cdn',
     },
     {
-      name: 'Get User Location',
-      description: `Get user location data from user's IP address.`,
+      name: '获取用户位置',
+      description: `从用户的 IP 地址获取用户位置数据。`,
       href: 'https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/location',
     },
     {
       name: 'Cloudflare Turnstile',
-      description: `Protecting Forms with Cloudflare Turnstile.`,
+      description: `使用 Cloudflare Turnstile 保护表单。`,
       href: '/guides/functions/examples/cloudflare-turnstile',
     },
     {
-      name: 'Connect to Postgres',
-      description: `Connecting to Postgres from Edge Functions.`,
+      name: '连接到 Postgres',
+      description: `从 Edge 函数连接到 Postgres。`,
       href: '/guides/functions/connect-to-postgres',
     },
     {
       name: 'Github Actions',
-      description: `Deploying Edge Functions with GitHub Actions.`,
+      description: `使用 GitHub Actions 部署 Edge 函数。`,
       href: '/guides/functions/examples/github-actions',
     },
     {
-      name: 'Oak Server Middleware',
-      description: `Request Routing with Oak server middleware.`,
+      name: 'Oak 服务器中间件',
+      description: `使用 Oak 服务器中间件进行请求路由。`,
       href: 'https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/oak-server',
     },
     {
       name: 'Hugging Face',
-      description: `Access 100,000+ Machine Learning models.`,
+      description: `访问 100,000+ 机器学习模型。`,
       href: '/guides/ai/examples/huggingface-image-captioning',
     },
     {
       name: 'Amazon Bedrock',
-      description: `Amazon Bedrock Image Generator`,
+      description: `Amazon Bedrock 图像生成器`,
       href: '/guides/functions/examples/amazon-bedrock-image-generator',
     },
     {
       name: 'OpenAI',
-      description: `Using OpenAI in Edge Functions.`,
+      description: `在 Edge 函数中使用 OpenAI。`,
       href: '/guides/ai/examples/openai',
     },
     {
       name: 'Stripe Webhooks',
-      description: `Handling signed Stripe Webhooks with Edge Functions.`,
+      description: `在 Edge 函数中处理已签名的 Stripe Webhooks。`,
       href: '/guides/functions/examples/stripe-webhooks',
     },
     {
-      name: 'Send emails',
-      description: `Send emails in Edge Functions with Resend.`,
+      name: '发送电子邮件',
+      description: `在 Edge 函数中使用 Resend 发送电子邮件。`,
       href: '/guides/functions/examples/send-emails',
     },
     {
-      name: 'Web Stream',
-      description: `Server-Sent Events in Edge Functions.`,
+      name: 'Web 流',
+      description: `Edge 函数中的服务器发送事件。`,
       href: 'https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/streams',
     },
     {
       name: 'Puppeteer',
-      description: `Generate screenshots with Puppeteer.`,
+      description: `使用 Puppeteer 生成截图。`,
       href: '/guides/functions/examples/screenshots',
     },
     {
-      name: 'Discord Bot',
-      description: `Building a Slash Command Discord Bot with Edge Functions.`,
+      name: 'Discord 机器人',
+      description: `使用 Edge 函数构建斜杠命令 Discord 机器人。`,
       href: '/guides/functions/examples/discord-bot',
     },
     {
-      name: 'Telegram Bot',
-      description: `Building a Telegram Bot with Edge Functions.`,
+      name: 'Telegram 机器人',
+      description: `使用 Edge 函数构建 Telegram 机器人。`,
       href: '/guides/functions/examples/telegram-bot',
     },
     {
-      name: 'Upload File',
-      description: `Process multipart/form-data.`,
+      name: '上传文件',
+      description: `处理 multipart/form-data。`,
       href: 'https://github.com/supabase/supabase/tree/master/examples/edge-functions/supabase/functions/file-upload-storage',
     },
     {
       name: 'Upstash Redis',
-      description: `Build an Edge Functions Counter with Upstash Redis.`,
+      description: `使用 Upstash Redis 构建 Edge 函数计数器。`,
       href: '/guides/functions/examples/upstash-redis',
     },
     {
-      name: 'Rate Limiting',
-      description: `Rate Limiting Edge Functions with Upstash Redis.`,
+      name: '速率限制',
+      description: `使用 Upstash Redis 对 Edge 函数进行速率限制。`,
       href: '/guides/functions/examples/rate-limiting',
     },
     {
-      name: 'Slack Bot Mention Edge Function',
-      description: `Slack Bot handling Slack mentions in Edge Function`,
+      name: 'Slack 机器人提及 Edge 函数',
+      description: `在 Edge 函数中处理 Slack 提及的 Slack 机器人`,
       href: '/guides/functions/examples/slack-bot-mention',
     },
   ].map((x) => (

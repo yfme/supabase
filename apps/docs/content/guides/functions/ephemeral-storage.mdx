@@ -1,35 +1,35 @@
 ---
 id: 'function-ephemeral-storage'
-title: 'Ephemeral Storage'
-description: 'Read and write from temporary directory'
-subtitle: 'Read and write from temporary directory'
+title: '临时存储'
+description: '从临时目录读写'
+subtitle: '从临时目录读写'
 ---
 
-Edge Functions provides ephemeral file storage. You can read and write files to the `/tmp` directory.
+边缘函数提供临时文件存储。您可以读取和写入文件到 `/tmp` 目录。
 
-Ephemeral storage will reset on each function invocation. This means the files you write during an invocation can only be read within the same invocation.
+临时存储将在每次函数调用时重置。这意味着您在一次调用期间写入的文件只能在同一次调用中读取。
 
-### Use cases
+### 使用场景
 
-Here are some use cases where ephemeral storage can be useful:
+以下是临时存储可能有用的一些场景：
 
-- Unzip an archive of CSVs and then add them as records to the DB
-- Custom image manipulation workflows (using [`magick-wasm`](https://supabase.com/docs/guides/functions/examples/image-manipulation))
+- 解压 CSV 文件归档，然后将它们作为记录添加到数据库
+- 自定义图像处理工作流程（使用 [`magick-wasm`](https://supabase.com/docs/guides/functions/examples/image-manipulation)）
 
-You can use [Background Tasks](https://supabase.com/docs/guides/functions/background-tasks) to handle slow file processing outside of a request.
+您可以使用[后台任务](https://supabase.com/docs/guides/functions/background-tasks)在请求之外处理耗时的文件处理。
 
-### How to use
+### 如何使用
 
-You can use [Deno File System APIs](https://docs.deno.com/api/deno/file-system) or the [`node:fs` module](https://docs.deno.com/api/node/fs/) to access the `/tmp` path.
+您可以使用 [Deno 文件系统 API](https://docs.deno.com/api/deno/file-system) 或 [`node:fs` 模块](https://docs.deno.com/api/node/fs/) 来访问 `/tmp` 路径。
 
-### Example
+### 示例
 
-Here is an example of how to write a user-uploaded zip file into temporary storage for further processing.
+以下是如何将用户上传的 zip 文件写入临时存储以供进一步处理的示例。
 
 ```js
 Deno.serve(async (req) => {
   if (req.headers.get('content-type') !== 'application/zip') {
-    return new Response('file must be a zip file', {
+    return new Response('文件必须是 zip 文件', {
       status: 400,
     })
   }
@@ -37,18 +37,18 @@ Deno.serve(async (req) => {
   const uploadId = crypto.randomUUID()
   await Deno.writeFile('/tmp/' + uploadId, req.body)
 
-  // do something with the written zip file
+  // 使用写入的 zip 文件做一些操作
 
   return new Response('ok')
 })
 ```
 
-### Unavailable APIs
+### 不可用的 API
 
-Currently, the synchronous APIs (e.g. `Deno.writeFileSync` or `Deno.mkdirSync`) for creating or writing files are not supported.
+目前，用于创建或写入文件的同步 API（例如 `Deno.writeFileSync` 或 `Deno.mkdirSync`）不受支持。
 
-You can use sync variations of read APIs (e.g. `Deno.readFileSync`).
+您可以使用读取 API 的同步变体（例如 `Deno.readFileSync`）。
 
-### Limits
+### 限制
 
-In the hosted platform, a free project can write up to 256MB of data to ephemeral storage. A paid project can write up to 512MB.
+在托管平台上，免费项目最多可以向临时存储写入 256MB 的数据。付费项目最多可以写入 512MB。

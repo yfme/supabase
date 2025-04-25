@@ -1,18 +1,18 @@
 ---
 id: 'ai-python-clients'
-title: 'Choosing a Client'
-description: 'Learn how to manage vectors using Python'
-sidebar_label: 'Choosing a Client'
+title: '选择客户端'
+description: '学习如何使用 Python 管理向量'
+sidebar_label: '选择客户端'
 ---
 
-As described in [Structured & Unstructured Embeddings](/docs/guides/ai/structured-unstructured), AI workloads come in many forms.
+正如在[结构化与非结构化嵌入](/docs/guides/ai/structured-unstructured)中所述，AI 工作负载有多种形式。
 
-For data science or ephemeral workloads, the [Supabase Vecs](https://supabase.github.io/vecs/) client gets you started quickly. All you need is a connection string and vecs handles setting up your database to store and query vectors with associated metadata.
+对于数据科学或临时工作负载，[Supabase Vecs](https://supabase.github.io/vecs/) 客户端可以帮助您快速入门。您只需要一个连接字符串，vecs 会负责设置您的数据库以存储和查询带有相关元数据的向量。
 
 <Admonition type="tip">
 
-You can get your connection string from the [**Database Settings**](https://supabase.com/dashboard/project/_/settings/database) page in your dashboard. Make sure to check **Use connection pooling**, then copy the URI. Also, change the URI scheme from `postgres` to `postgresql`. `vecs` uses SQLAlchemy under the hood, which only supports `postgresql` as a dialect.
+您可以从仪表板中的[**数据库设置**](https://supabase.com/dashboard/project/_/settings/database)页面获取连接字符串。确保选中**使用连接池**，然后复制 URI。此外，将 URI 协议从 `postgres` 更改为 `postgresql`。`vecs` 在底层使用 SQLAlchemy，它只支持 `postgresql` 作为方言。
 
 </Admonition>
 
-For production python applications with version controlled migrations, we recommend adding first class vector support to your toolchain by [registering the vector type with your ORM](https://github.com/pgvector/pgvector-python). pgvector provides bindings for the most commonly used SQL drivers/libraries including Django, SQLAlchemy, SQLModel, psycopg, asyncpg and Peewee.
+对于具有版本控制迁移的生产级 Python 应用程序，我们建议通过[向您的 ORM 注册向量类型](https://github.com/pgvector/pgvector-python)来为您的工具链添加一流的向量支持。pgvector 为最常用的 SQL 驱动程序/库提供了绑定，包括 Django、SQLAlchemy、SQLModel、psycopg、asyncpg 和 Peewee。

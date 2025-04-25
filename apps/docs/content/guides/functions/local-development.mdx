@@ -1,31 +1,31 @@
 ---
 id: 'functions-local-development'
-title: 'Local development'
-description: 'Setup local development environment for Edge Functions.'
-subtitle: 'Setup local development environment for Edge Functions.'
+title: '本地开发'
+description: '为 Edge Functions 设置本地开发环境。'
+subtitle: '为 Edge Functions 设置本地开发环境。'
 ---
 
-We recommend installing the Deno CLI and related tools for local development.
+我们建议安装 Deno CLI 和相关工具用于本地开发。
 
-## Deno support
+## Deno 支持
 
-You can follow the [Deno guide](https://deno.com/manual@v1.32.5/getting_started/setup_your_environment) for setting up your development environment with your favorite editor/IDE.
+您可以按照 [Deno 指南](https://deno.com/manual@v1.32.5/getting_started/setup_your_environment)使用您喜欢的编辑器/IDE 设置开发环境。
 
-## Deno with Visual Studio Code
+## 在 Visual Studio Code 中使用 Deno
 
-When using VSCode, you should install both the Deno CLI and the the Deno language server [via this link](vscode:extension/denoland.vscode-deno) or by browsing the extensions in VSCode and choosing to install the _Deno_ extension.
+使用 VSCode 时，您应该安装 Deno CLI 和 Deno 语言服务器，可以[通过此链接](vscode:extension/denoland.vscode-deno)安装，或在 VSCode 的扩展中浏览并选择安装 _Deno_ 扩展。
 
 <Admonition type="tip">
 
-The Supabase CLI can automatically create helpful Deno settings when running `supabase init`. Select `y` when prompted "Generate VS Code settings for Deno? [y/N]"!
+Supabase CLI 在运行 `supabase init` 时可以自动创建有用的 Deno 设置。当提示"生成 VS Code 的 Deno 设置? [y/N]"时，选择 `y`！
 
 </Admonition>
 
-## Deno support in subfolders
+## 在子文件夹中支持 Deno
 
-You can enable the Deno language server for specific sub-paths in a workspace, while using VSCode's built-in JavaScript/TypeScript language server for all other files.
+您可以为工作区中的特定子路径启用 Deno 语言服务器，同时对所有其他文件使用 VSCode 内置的 JavaScript/TypeScript 语言服务器。
 
-For example if you have a project like this:
+例如，如果您有这样的项目结构：
 
 ```
 project
@@ -34,7 +34,7 @@ project
   └── functions
 ```
 
-To enable the Deno language server only for the `supabase/functions` folder, add `./supabase/functions` to the list of _Deno: Enable Paths_ in the configuration. In your `.vscode/settings.json` file add:
+要仅为 `supabase/functions` 文件夹启用 Deno 语言服务器，请将 `./supabase/functions` 添加到配置中的 _Deno: Enable Paths_ 列表。在您的 `.vscode/settings.json` 文件中添加：
 
 ```json
 {
@@ -43,9 +43,9 @@ To enable the Deno language server only for the `supabase/functions` folder, add
 }
 ```
 
-## Multi-root workspaces in VSCode
+## VSCode 中的多根工作区
 
-We recommend using `deno.enablePaths` mentioned above as it's easier to manage, however if you like [multi-root workspaces](https://code.visualstudio.com/docs/editor/workspaces#_multiroot-workspaces) you can use these as an alternative.
+我们建议使用上面提到的 `deno.enablePaths`，因为它更容易管理，但如果您喜欢[多根工作区](https://code.visualstudio.com/docs/editor/workspaces#_multiroot-workspaces)，也可以将其作为替代方案。
 
 <div className="video-container">
   <iframe
@@ -56,7 +56,7 @@ We recommend using `deno.enablePaths` mentioned above as it's easier to manage, 
   ></iframe>
 </div>
 
-For example, see this `edge-functions.code-workspace` configuration for a CRA (create react app) client with Supabase Edge Functions. You can find the complete example on [GitHub](https://github.com/supabase/supabase/tree/master/examples/edge-functions).
+例如，请参阅这个 `edge-functions.code-workspace` 配置，它用于带有 Supabase Edge Functions 的 CRA（create react app）客户端。您可以在 [GitHub](https://github.com/supabase/supabase/tree/master/examples/edge-functions) 上找到完整示例。
 
 ```json
 {

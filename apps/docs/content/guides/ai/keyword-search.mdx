@@ -1,28 +1,28 @@
 ---
 id: 'ai-keyword-search'
-title: 'Keyword search'
-description: 'Learn how to search by words or phrases.'
-subtitle: 'Learn how to search by words or phrases.'
-sidebar_label: 'Keyword search'
+title: '关键词搜索'
+description: '了解如何通过单词或短语进行搜索。'
+subtitle: '了解如何通过单词或短语进行搜索。'
+sidebar_label: '关键词搜索'
 ---
 
-Keyword search involves locating documents or records that contain specific words or phrases, primarily based on the exact match between the search terms and the text within the data. It differs from [semantic search](/docs/guides/ai/semantic-search), which interprets the meaning behind the query to provide results that are contextually related, even if the exact words aren't present in the text. Semantic search considers synonyms, intent, and natural language nuances to provide a more nuanced approach to information retrieval.
+关键词搜索涉及定位包含特定单词或短语的文档或记录，主要基于搜索术语与数据中文本之间的精确匹配。它与[语义搜索](/docs/guides/ai/semantic-search)不同，语义搜索理解查询背后的含义，提供上下文相关的结果，即使文本中不存在确切的单词。语义搜索考虑同义词、意图和自然语言细微差别，提供更加微妙的信息检索方法。
 
-In Postgres, keyword search is implemented using [full-text search](/docs/guides/database/full-text-search). It supports indexing and text analysis for data retrieval, focusing on records that match the search criteria. Postgres' full-text search extends beyond simple keyword matching to address linguistic nuances, making it effective for applications that require precise text queries.
+在 Postgres 中，关键词搜索是通过[全文搜索](/docs/guides/database/full-text-search)实现的。它支持数据检索的索引和文本分析，重点关注与搜索条件匹配的记录。Postgres 的全文搜索超越了简单的关键词匹配，处理语言的细微差别，使其在需要精确文本查询的应用程序中非常有效。
 
-## When and why to use keyword search
+## 何时以及为何使用关键词搜索
 
-Keyword search is particularly useful in scenarios where precision and specificity matter. It's more effective than semantic search when users are looking for information using exact terminology or specific identifiers. It ensures that results directly contain those terms, reducing the chance of retrieving irrelevant information that might be semantically related but not what the user seeks.
+关键词搜索在精确性和特异性很重要的场景中特别有用。当用户使用确切术语或特定标识符寻找信息时，它比语义搜索更有效。它确保结果直接包含这些术语，减少检索到可能在语义上相关但不是用户所寻找的信息的可能性。
 
-For example in technical or academic research databases, researchers often search for specific studies, compounds, or concepts identified by certain terms or codes. Searching for a specific chemical compound using its exact molecular formula or a unique identifier will yield more focused and relevant results compared to a semantic search, which could return a wide range of documents discussing the compound in different contexts. Keyword search ensures documents that explicitly mention the exact term are found, allowing users to access the precise data they need efficiently.
+例如，在技术或学术研究数据库中，研究人员经常使用特定术语或代码来搜索特定研究、化合物或概念。使用确切分子式或唯一标识符搜索特定化合物，与语义搜索相比，将产生更加集中和相关的结果，而语义搜索可能会返回在不同上下文中讨论该化合物的各种文档。关键词搜索确保能找到明确提及确切术语的文档，让用户高效访问他们需要的精确数据。
 
-It's also possible to combine keyword search with semantic search to get the best of both worlds. See [Hybrid search](/docs/guides/ai/hybrid-search) for more details.
+您也可以将关键词搜索与语义搜索结合起来，获得两者的优势。有关更多详细信息，请参阅[混合搜索](/docs/guides/ai/hybrid-search)。
 
-## Using full-text search
+## 使用全文搜索
 
-For an in-depth guide to Postgres' full-text search, including how to store, index, and query records, see [Full text search](/docs/guides/database/full-text-search).
+关于 Postgres 全文搜索的深入指南，包括如何存储、索引和查询记录，请参阅[全文搜索](/docs/guides/database/full-text-search)。
 
-## See also
+## 另请参阅
 
-- [Semantic search](/docs/guides/ai/semantic-search)
-- [Hybrid search](/docs/guides/ai/hybrid-search)
+- [语义搜索](/docs/guides/ai/semantic-search)
+- [混合搜索](/docs/guides/ai/hybrid-search)

@@ -1,34 +1,34 @@
 ---
-title: Supabase Queues
-subtitle: 'Durable Message Queues with Guaranteed Delivery in Postgres'
+title: Supabase 队列
+subtitle: '在 Postgres 中具有保证交付的持久消息队列'
 ---
 
-Supabase Queues is a Postgres-native durable Message Queue system with guaranteed delivery built on the [pgmq database extension](https://github.com/tembo-io/pgmq). It offers developers a seamless way to persist and process Messages in the background while improving the resiliency and scalability of their applications and services.
+Supabase 队列是一个基于 [pgmq 数据库扩展](https://github.com/tembo-io/pgmq) 构建的具有保证交付功能的 Postgres 原生持久消息队列系统。它为开发人员提供了一种无缝的方式来在后台持久化和处理消息，同时提高应用程序和服务的弹性和可扩展性。
 
-Queues couples the reliability of Postgres with the simplicity Supabase's platform and developer experience, enabling developers to manage Background Tasks with zero configuration.
+队列将 Postgres 的可靠性与 Supabase 平台和开发者体验的简洁性结合起来，使开发人员能够零配置地管理后台任务。
 
-## Features
+## 功能特性
 
-- **Postgres Native**
+- **Postgres 原生**
   <br />
-  Built on top of the `pgmq` database extension, create and manage Queues with any Postgres tooling.
-- **Guaranteed Message Delivery**
+  构建在 `pgmq` 数据库扩展之上，使用任何 Postgres 工具创建和管理队列。
+- **保证消息交付**
   <br />
-  Messages added to Queues are guaranteed to be delivered to your consumers.
-- **Exactly Once Message Delivery**
-  <br />A Message is delivered exactly once to a consumer within a customizable visibility window.
-- **Message Durability and Archival**
+  添加到队列的消息保证会被交付给您的消费者。
+- **消息恰好一次交付**
+  <br />在可自定义的可见性窗口内，一条消息恰好传递一次给消费者。
+- **消息持久性和归档**
   <br />
-  Messages are stored in Postgres and you can choose to archive them for analytical or auditing purposes.
-- **Granular Authorization**
+  消息存储在 Postgres 中，您可以选择将其归档以用于分析或审计目的。
+- **精细授权**
   <br />
-  Control client-side consumer access to Queues with API permissions and Row Level Security (RLS) policies.
-- **Queue Management and Monitoring**
+  使用 API 权限和行级安全性 (RLS) 策略控制客户端消费者对队列的访问。
+- **队列管理和监控**
   <br />
-  Create, manage, and monitor Queues and Messages in the Supabase Dashboard.
+  在 Supabase 仪表板中创建、管理和监控队列和消息。
 
-## Resources
+## 资源
 
-- [Quickstart](/docs/guides/queues/quickstart)
-- [API Reference](/docs/guides/queues/api)
-- [`pgmq` GitHub Repository](https://github.com/tembo-io/pgmq)
+- [快速入门](/docs/guides/queues/quickstart)
+- [API 参考](/docs/guides/queues/api)
+- [`pgmq` GitHub 仓库](https://github.com/tembo-io/pgmq)

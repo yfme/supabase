@@ -1,25 +1,25 @@
 ---
 id: 'index-advisor'
-title: 'index_advisor: query optimization'
-description: 'Automatically optimize SQL queries'
+title: 'index_advisor: 查询优化'
+description: '自动优化 SQL 查询'
 ---
 
-[Index advisor](https://github.com/supabase/index_advisor) is a Postgres extension for recommending indexes to improve query performance.
+[Index advisor](https://github.com/supabase/index_advisor) 是一个用于推荐索引以提高查询性能的 Postgres 扩展。
 
-Features:
+特点：
 
-- Supports generic parameters e.g. `$1`, `$2`
-- Supports materialized views
-- Identifies tables/columns obfuscated by views
-- Skips duplicate indexes
+- 支持通用参数，如 `$1`、`$2`
+- 支持物化视图
+- 识别被视图混淆的表/列
+- 跳过重复索引
 
-`index_advisor` is accessible directly through Supabase Studio by navigating to the [Query Performance Report](/dashboard/project/_/advisors/query-performance) and selecting a query and then the "indexes" tab.
+可以通过 Supabase Studio 直接访问 `index_advisor`，只需导航到 [查询性能报告](/dashboard/project/_/advisors/query-performance)，选择一个查询，然后点击 "indexes" 标签。
 
-![Supabase Studio index_advisor integration.](/docs/img/index_advisor_studio.png)
+![Supabase Studio index_advisor 集成。](/docs/img/index_advisor_studio.png)
 
-Alternatively, you can use index_advisor directly via SQL.
+或者，您可以直接通过 SQL 使用 index_advisor。
 
-For example:
+例如：
 
 ```sql
 select
@@ -33,9 +33,9 @@ from
 (1 row)
 ```
 
-## Installation
+## 安装
 
-To get started, enable index_advisor by running
+要开始使用，请运行以下命令启用 index_advisor
 
 ```sql
 create extension index_advisor;
@@ -43,9 +43,9 @@ create extension index_advisor;
 
 ## API
 
-Index advisor exposes a single function `index_advisor(query text)` that accepts a query and searches for a set of SQL DDL `create index` statements that improve the query's execution time.
+Index advisor 提供了一个单一的函数 `index_advisor(query text)`，它接受一个查询并搜索一组 SQL DDL `create index` 语句，以提高查询的执行时间。
 
-The function's signature is:
+函数的签名是：
 
 ```sql
 index_advisor(query text)
@@ -60,9 +60,9 @@ returns
     )
 ```
 
-## Usage
+## 使用方法
 
-As a minimal example, the `index_advisor` function can be given a single table query with a filter on an unindexed column.
+作为一个最小示例，`index_advisor` 函数可以针对一个单表查询，该查询对未索引的列进行过滤。
 
 ```sql
 create extension if not exists index_advisor cascade;
@@ -83,9 +83,9 @@ from
 (1 row)
 ```
 
-and will return a row recommending an index on the unindexed column.
+这将返回一行，推荐在未索引的列上创建索引。
 
-More complex queries may generate additional suggested indexes:
+更复杂的查询可能会生成更多建议的索引：
 
 ```sql
 create extension if not exists index_advisor cascade;
@@ -145,11 +145,11 @@ from
 (3 rows)
 ```
 
-## Limitations
+## 限制
 
-- index_advisor will only recommend single column, B-tree indexes. More complex indexes will be supported in future releases.
-- when a generic argument's type is not discernible from context, an error is returned in the `errors` field. To resolve those errors, add explicit type casting to the argument. e.g. `$1::int`.
+- index_advisor 只会推荐单列 B 树索引。未来的版本将支持更复杂的索引。
+- 当无法从上下文确定通用参数的类型时，错误将返回在 `errors` 字段中。要解决这些错误，请向参数添加显式类型转换。例如 `$1::int`。
 
-## Resources
+## 资源
 
-- [`index_advisor`](https://github.com/supabase/index_advisor) repo
+- [`index_advisor`](https://github.com/supabase/index_advisor) 仓库

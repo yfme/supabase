@@ -1,44 +1,44 @@
 ---
 id: 'testing'
-title: 'Testing Your Database'
-description: 'Test your database schema, tables, functions, and policies.'
+title: '测试您的数据库'
+description: '测试您的数据库模式、表、函数和策略。'
 ---
 
-To ensure that queries return the expected data, RLS policies are correctly applied and etc., we encourage you to write automated tests. There are essentially two approaches to testing:
+为了确保查询返回预期的数据，RLS 策略正确应用等，我们鼓励您编写自动化测试。本质上有两种测试方法：
 
-- Firstly, you can write tests that interface with a Supabase client instance (same way you use Supabase client in your application code) in the programming language(s) you use in your application and using your favorite testing framework.
+- 首先，您可以编写与 Supabase 客户端实例交互的测试（与在应用程序代码中使用 Supabase 客户端的方式相同），使用您在应用程序中使用的编程语言和您喜欢的测试框架。
 
-- Secondly, you can test through the Supabase CLI, which is a more low-level approach where you write tests in SQL.
+- 其次，您可以通过 Supabase CLI 进行测试，这是一种更底层的方法，您可以用 SQL 编写测试。
 
-# Testing using the Supabase CLI
+# 使用 Supabase CLI 进行测试
 
-You can use the Supabase CLI to test your database. The minimum required version of the CLI is [v1.11.4](https://github.com/supabase/cli/releases). To get started:
+您可以使用 Supabase CLI 测试您的数据库。CLI 的最低要求版本是 [v1.11.4](https://github.com/supabase/cli/releases)。入门步骤：
 
-- [Install the Supabase CLI](/docs/guides/cli) on your local machine
+- 在本地机器上[安装 Supabase CLI](/docs/guides/cli)
 
-## Creating a test
+## 创建测试
 
-Create a tests folder inside the `supabase` folder:
+在 `supabase` 文件夹内创建一个 tests 文件夹：
 
 ```bash
 mkdir -p ./supabase/tests/database
 ```
 
-Create a new file with the `.sql` extension which will contain the test.
+创建一个包含测试内容的新 `.sql` 扩展名文件。
 
 ```bash
 touch ./supabase/tests/database/hello_world.test.sql
 ```
 
-## Writing tests
+## 编写测试
 
-All `sql` files use [pgTAP](/docs/guides/database/extensions/pgtap) as the test runner.
+所有 `sql` 文件都使用 [pgTAP](/docs/guides/database/extensions/pgtap) 作为测试运行器。
 
-Let's write a simple test to check that our `auth.users` table has an ID column. Open `hello_world.test.sql` and add the following code:
+让我们编写一个简单的测试来检查我们的 `auth.users` 表是否有 ID 列。打开 `hello_world.test.sql` 并添加以下代码：
 
 ```sql
 begin;
-select plan(1); -- only one statement to run
+select plan(1); -- 只运行一个语句
 
 SELECT has_column(
     'auth',
@@ -51,15 +51,15 @@ select * from finish();
 rollback;
 ```
 
-## Running tests
+## 运行测试
 
-To run the test, you can use:
+要运行测试，您可以使用：
 
 ```bash
 supabase test db
 ```
 
-This will produce the following output:
+这将产生以下输出：
 
 ```bash
 $ supabase test db
@@ -69,8 +69,8 @@ Files=1, Tests=1,  1 wallclock secs ( 0.01 usr  0.00 sys +  0.04 cusr  0.02 csys
 Result: PASS
 ```
 
-## More resources
+## 更多资源
 
-- [Testing RLS policies](/docs/guides/database/extensions/pgtap#testing-rls-policies)
-- [pgTAP extension](/docs/guides/database/extensions/pgtap)
-- Official [pgTAP documentation](https://pgtap.org/)
+- [测试 RLS 策略](/docs/guides/database/extensions/pgtap#testing-rls-policies)
+- [pgTAP 扩展](/docs/guides/database/extensions/pgtap)
+- 官方 [pgTAP 文档](https://pgtap.org/)

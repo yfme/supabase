@@ -1,50 +1,50 @@
 ---
 id: 'function-background-tasks'
-title: 'Background Tasks'
-description: 'How to run background tasks in an Edge Function outside of the request handler'
-subtitle: 'How to run background tasks in an Edge Function outside of the request handler'
+title: '后台任务'
+description: '如何在请求处理程序之外的 Edge Function 中运行后台任务'
+subtitle: '如何在请求处理程序之外的 Edge Function 中运行后台任务'
 ---
 
-Edge Function instances can process background tasks outside of the request handler. Background tasks are useful for asynchronous operations like uploading a file to Storage, updating a database, or sending events to a logging service. You can respond to the request immediately and leave the task running in the background.
+Edge Function 实例可以在请求处理程序之外处理后台任务。后台任务对于异步操作很有用，例如上传文件到存储、更新数据库或向日志服务发送事件。您可以立即响应请求，并让任务在后台继续运行。
 
-### How it works
+### 工作原理
 
-You can use `EdgeRuntime.waitUntil(promise)` to explicitly mark background tasks. The Function instance continues to run until the promise provided to `waitUntil` completes.
+您可以使用 `EdgeRuntime.waitUntil(promise)` 来明确标记后台任务。Function 实例将继续运行，直到提供给 `waitUntil` 的 promise 完成。
 
-The maximum duration is capped based on the wall-clock, CPU, and memory limits. The Function will shutdown when it reaches one of these [limits](/docs/guides/functions/limits).
+最大持续时间基于时钟时间、CPU 和内存限制而设置上限。当达到这些[限制](/docs/guides/functions/limits)之一时，Function 将关闭。
 
-You can listen to the `beforeunload` event handler to be notified when Function invocation is about to be shut down.
+您可以监听 `beforeunload` 事件处理程序，以便在 Function 调用即将关闭时收到通知。
 
-### Example
+### 示例
 
-Here's an example of using `EdgeRuntime.waitUntil` to run a background task and using `beforeunload` event to be notified when the instance is about to be shut down.
+以下是使用 `EdgeRuntime.waitUntil` 运行后台任务并使用 `beforeunload` 事件在实例即将关闭时接收通知的示例。
 
 ```ts
 async function longRunningTask() {
-  // do work here
+  // 在这里执行工作
 }
 
-// Mark the longRunningTask's returned promise as a background task.
-// note: we are not using await because we don't want it to block.
+// 将 longRunningTask 返回的 promise 标记为后台任务。
+// 注意：我们不使用 await，因为我们不希望它阻塞。
 EdgeRuntime.waitUntil(longRunningTask())
 
-// Use beforeunload event handler to be notified when function is about to shutdown
+// 使用 beforeunload 事件处理程序在函数即将关闭时收到通知
 addEventListener('beforeunload', (ev) => {
   console.log('Function will be shutdown due to', ev.detail?.reason)
 
-  // save state or log the current progress
+  // 保存状态或记录当前进度
 })
 
-// Invoke the function using a HTTP request.
-// This will start the background task
+// 使用 HTTP 请求调用函数。
+// 这将启动后台任务
 Deno.serve(async (req) => {
   return new Response('ok')
 })
 ```
 
-### Starting a background task in the request handler
+### 在请求处理程序中启动后台任务
 
-You can call `EdgeRuntime.waitUntil` in the request handler too. This will not block the request.
+您也可以在请求处理程序中调用 `EdgeRuntime.waitUntil`。这不会阻塞请求。
 
 ```ts
 async function fetchAndLog(url: string) {
@@ -53,23 +53,23 @@ async function fetchAndLog(url: string) {
 }
 
 Deno.serve(async (req) => {
-  // this will not block the request,
-  // instead it will run in the background
+  // 这不会阻塞请求，
+  // 而是在后台运行
   EdgeRuntime.waitUntil(fetchAndLog('https://httpbin.org/json'))
 
   return new Response('ok')
 })
 ```
 
-### Testing background tasks locally
+### 在本地测试后台任务
 
-When testing Edge Functions locally with Supabase CLI, the instances are terminated automatically after a request is completed. This will prevent background tasks from running to completion.
+使用 Supabase CLI 在本地测试 Edge Functions 时，实例会在请求完成后自动终止。这将阻止后台任务运行完成。
 
-To prevent that, you can update the `supabase/config.toml` with the following settings:
+要防止这种情况，您可以使用以下设置更新 `supabase/config.toml`：
 
 ```toml
 [edge_runtime]
 policy = "per_worker"
 ```
 
-When running with `per_worker` policy, Function won't auto-reload on edits. You will need to manually restart it by running `supabase functions serve`.
+使用 `per_worker` 策略运行时，Function 不会在编辑时自动重新加载。您需要通过运行 `supabase functions serve` 手动重启它。

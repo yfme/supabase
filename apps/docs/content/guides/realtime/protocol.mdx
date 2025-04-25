@@ -1,14 +1,14 @@
 ---
 id: 'protocol'
-title: 'Realtime Protocol'
-description: 'Understanding Realtime Protocol'
+title: 'Realtime 协议'
+description: '理解 Realtime 协议'
 ---
 
-The Realtime Protocol is a set of message formats used for communication over a WebSocket connection between a Realtime client and server. These messages are used to initiate a connection, update access tokens, receive system status updates, and receive real-time updates from the Postgres database.
+Realtime 协议是一组消息格式，用于 Realtime 客户端和服务器之间通过 WebSocket 连接进行通信。这些消息用于初始化连接、更新访问令牌、接收系统状态更新以及接收来自 Postgres 数据库的实时更新。
 
-## Connection
+## 连接
 
-In the initial message, the client sends a message specifying the features they want to use (Broadcast, Presence, Postgres Changes).
+在初始消息中，客户端发送一条消息，指定他们想要使用的功能（广播、在线状态、Postgres 变更）。
 
 ```ts
 {
@@ -38,11 +38,11 @@ In the initial message, the client sends a message specifying the features they 
 
 <Admonition type="note">
 
-The `in` filter has the format `COLUMN_NAME=in.(value1,value2,value3)`. However, other filters use the format `COLUMN_NAME=FILTER_NAME.value`.
+`in` 过滤器的格式为 `COLUMN_NAME=in.(value1,value2,value3)`。然而，其他过滤器使用格式 `COLUMN_NAME=FILTER_NAME.value`。
 
 </Admonition>
 
-In response, the server sends the Postgres configuration with a unique ID. With this ID, the client should route incoming changes to the appropriate callback.
+作为响应，服务器发送带有唯一 ID 的 Postgres 配置。使用此 ID，客户端应将传入的变更路由到适当的回调。
 
 ```ts
 {
@@ -66,10 +66,10 @@ In response, the server sends the Postgres configuration with a unique ID. With 
 }
 ```
 
-## System messages
+## 系统消息
 
-System message are used to inform a client about the status of the Postgres subscription. The `payload.status` indicates if the subscription successful or not.
-The body of the `payload.message` can be "Subscribed to Postgres" or "Subscribing to Postgres failed" with subscription params.
+系统消息用于通知客户端有关 Postgres 订阅的状态。`payload.status` 指示订阅是否成功。
+`payload.message` 的内容可以是"已订阅 Postgres"或"订阅 Postgres 失败"以及订阅参数。
 
 ```ts
 {
@@ -85,9 +85,9 @@ The body of the `payload.message` can be "Subscribed to Postgres" or "Subscribin
 }
 ```
 
-## Heartbeat
+## 心跳
 
-The heartbeat message should be sent every 30 seconds to avoid a connection timeout.
+心跳消息应每 30 秒发送一次，以避免连接超时。
 
 ```ts
 {
@@ -98,9 +98,9 @@ The heartbeat message should be sent every 30 seconds to avoid a connection time
 }
 ```
 
-## Access token
+## 访问令牌
 
-To update the access token, you need to send to the server a message specifying a new token in the `payload.access_token` value.
+要更新访问令牌，您需要向服务器发送一条消息，在 `payload.access_token` 值中指定新令牌。
 
 ```ts
 {
@@ -113,9 +113,9 @@ To update the access token, you need to send to the server a message specifying 
 }
 ```
 
-## Postgres CDC message
+## Postgres CDC 消息
 
-Realtime sends a message with the following structure. By default, the payload only includes new record changes, and the `old` entry includes the changed row's primary id. If you want to receive old records, you can set the replicate identity of your table to full. Check out [this section of the guide](/docs/guides/realtime/postgres-changes#receiving-old-records).
+Realtime 发送具有以下结构的消息。默认情况下，有效载荷仅包括新记录更改，而 `old` 条目包括更改行的主键 ID。如果您希望接收旧记录，可以将表的复制标识设置为完全。查看[指南的这一部分](/docs/guides/realtime/postgres-changes#receiving-old-records)。
 
 ```ts
 {
@@ -137,9 +137,9 @@ Realtime sends a message with the following structure. By default, the payload o
 }
 ```
 
-## Broadcast message
+## 广播消息
 
-Structure of the broadcast event
+广播事件的结构
 
 ```ts
 {
@@ -154,13 +154,13 @@ Structure of the broadcast event
 }
 ```
 
-## Presence message
+## 在线状态消息
 
-The Presence events allow clients to monitor the online status of other clients in real-time.
+在线状态事件允许客户端实时监控其他客户端的在线状态。
 
-### State update
+### 状态更新
 
-After joining, the server sends a `presence_state` message to a client with presence information. The payload field contains keys in UUID format, where each key represents a client and its value is a JSON object containing information about that client.
+加入后，服务器向客户端发送一条 `presence_state` 消息，其中包含在线状态信息。payload 字段包含 UUID 格式的键，每个键代表一个客户端，其值是包含该客户端信息的 JSON 对象。
 
 ```ts
 {
@@ -173,9 +173,9 @@ After joining, the server sends a `presence_state` message to a client with pres
 }
 ```
 
-### Diff update
+### 差异更新
 
-After a change to the presence state, such as a client joining or leaving, the server sends a presence_diff message to update the client's view of the presence state. The payload field contains two keys, `joins` and `leaves`, which represent clients that have joined and left, respectively. The values associated with each key are UUIDs of the clients.
+在在线状态发生变化后，例如客户端加入或离开，服务器发送 presence_diff 消息来更新客户端对在线状态的视图。payload 字段包含两个键，`joins` 和 `leaves`，分别代表已加入和已离开的客户端。与每个键关联的值是客户端的 UUID。
 
 ```ts
 {

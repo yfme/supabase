@@ -1,32 +1,32 @@
 ---
 id: 'ai'
-title: 'AI & Vectors'
-description: 'The best vector database is the database you already have.'
-subtitle: 'The best vector database is the database you already have.'
+title: 'AI 与向量'
+description: '最好的向量数据库就是您已经拥有的数据库。'
+subtitle: '最好的向量数据库就是您已经拥有的数据库。'
 hideToc: true
 ---
 
-Supabase provides an open source toolkit for developing AI applications using Postgres and pgvector. Use the Supabase client libraries to store, index, and query your vector embeddings at scale.
+Supabase 提供了一套使用 Postgres 和 pgvector 开发 AI 应用程序的开源工具包。使用 Supabase 客户端库来存储、索引并大规模查询您的向量嵌入。
 
-The toolkit includes:
+该工具包包括：
 
-- A [vector store](/docs/guides/ai/vector-columns) and embeddings support using Postgres and pgvector.
-- A [Python client](/docs/guides/ai/vecs-python-client) for managing unstructured embeddings.
-- An [embedding generation](/docs/guides/ai/quickstarts/generate-text-embeddings) process using open source models directly in Edge Functions.
-- [Database migrations](/docs/guides/ai/examples/headless-vector-search#prepare-your-database) for managing structured embeddings.
-- Integrations with all popular AI providers, such as [OpenAI](/docs/guides/ai/examples/openai), [Hugging Face](/docs/guides/ai/hugging-face), [LangChain](/docs/guides/ai/langchain), and more.
+- 使用 Postgres 和 pgvector 的[向量存储](/docs/guides/ai/vector-columns)和嵌入支持。
+- 用于管理非结构化嵌入的 [Python 客户端](/docs/guides/ai/vecs-python-client)。
+- 使用 Edge Functions 中的开源模型进行[嵌入生成](/docs/guides/ai/quickstarts/generate-text-embeddings)的流程。
+- 用于管理结构化嵌入的[数据库迁移](/docs/guides/ai/examples/headless-vector-search#prepare-your-database)。
+- 与所有流行的 AI 提供商集成，如 [OpenAI](/docs/guides/ai/examples/openai)、[Hugging Face](/docs/guides/ai/hugging-face)、[LangChain](/docs/guides/ai/langchain) 等。
 
-## Search
+## 搜索
 
-You can use Supabase to build different types of search features for your app, including:
+您可以使用 Supabase 为您的应用构建不同类型的搜索功能，包括：
 
-- [Semantic search](/docs/guides/ai/semantic-search): search by meaning rather than exact keywords
-- [Keyword search](/docs/guides/ai/keyword-search): search by words or phrases
-- [Hybrid search](/docs/guides/ai/hybrid-search): combine semantic search with keyword search
+- [语义搜索](/docs/guides/ai/semantic-search)：按含义而非确切关键词搜索
+- [关键词搜索](/docs/guides/ai/keyword-search)：按单词或短语搜索
+- [混合搜索](/docs/guides/ai/hybrid-search)：结合语义搜索和关键词搜索
 
-## Examples
+## 示例
 
-Check out all of the AI [templates and examples](https://github.com/supabase/supabase/tree/master/examples/ai) in our GitHub repository.
+查看我们 GitHub 仓库中的所有 AI [模板和示例](https://github.com/supabase/supabase/tree/master/examples/ai)。
 
 {/* <!-- vale off --> */}
 
@@ -44,41 +44,41 @@ Check out all of the AI [templates and examples](https://github.com/supabase/sup
 
 export const examples = [
   {
-    name: 'Headless Vector Search',
-    description: 'A toolkit to perform vector similarity search on your knowledge base embeddings.',
+    name: '无头向量搜索',
+    description: '一个在知识库嵌入上执行向量相似度搜索的工具包。',
     href: '/guides/ai/examples/headless-vector-search',
   },
   {
-    name: 'Image Search with OpenAI CLIP',
-    description: 'Implement image search with the OpenAI CLIP Model and Supabase Vector.',
+    name: '使用 OpenAI CLIP 的图像搜索',
+    description: '使用 OpenAI CLIP 模型和 Supabase Vector 实现图像搜索。',
     href: '/guides/ai/examples/image-search-openai-clip',
   },
   {
-    name: 'Hugging Face inference',
-    description: 'Generate image captions using Hugging Face.',
+    name: 'Hugging Face 推理',
+    description: '使用 Hugging Face 生成图像说明。',
     href: '/guides/ai/examples/huggingface-image-captioning',
   },
   {
-    name: 'OpenAI completions',
-    description: 'Generate GPT text completions using OpenAI in Edge Functions.',
+    name: 'OpenAI 文本补全',
+    description: '在 Edge Functions 中使用 OpenAI 生成 GPT 文本补全。',
     href: '/guides/ai/examples/openai',
   },
   {
-    name: 'Building ChatGPT Plugins',
-    description: 'Use Supabase as a Retrieval Store for your ChatGPT plugin.',
+    name: '构建 ChatGPT 插件',
+    description: '使用 Supabase 作为 ChatGPT 插件的检索存储。',
     href: '/guides/ai/examples/building-chatgpt-plugins',
   },
   {
-    name: 'Vector search with Next.js and OpenAI',
+    name: '使用 Next.js 和 OpenAI 进行向量搜索',
     description:
-      'Learn how to build a ChatGPT-style doc search powered by Next.js, OpenAI, and Supabase.',
+      '了解如何构建由 Next.js、OpenAI 和 Supabase 驱动的 ChatGPT 风格的文档搜索。',
     href: '/guides/ai/examples/nextjs-vector-search',
   },
 ]
 
 {/* <!-- vale on --> */}
 
-## Integrations
+## 集成
 
 {/* <!-- vale off --> */}
 
@@ -96,58 +96,58 @@ export const integrations = [
   {
     name: 'OpenAI',
     description:
-      'OpenAI is an AI research and deployment company. Supabase provides a simple way to use OpenAI in your applications.',
+      'OpenAI 是一家 AI 研究和部署公司。Supabase 提供了在应用程序中使用 OpenAI 的简单方法。',
     href: '/guides/ai/examples/building-chatgpt-plugins',
   },
   {
     name: 'Amazon Bedrock',
     description:
-      'A fully managed service that offers a choice of high-performing foundation models from leading AI companies.',
+      '一项完全托管的服务，提供来自领先 AI 公司的高性能基础模型。',
     href: '/guides/ai/integrations/amazon-bedrock',
   },
   {
     name: 'Hugging Face',
     description:
-      "Hugging Face is an open-source provider of NLP technologies. Supabase provides a simple way to use Hugging Face's models in your applications.",
+      'Hugging Face 是一家提供 NLP 技术的开源提供商。Supabase 提供了在应用程序中使用 Hugging Face 模型的简单方法。',
     href: '/guides/ai/hugging-face',
   },
   {
     name: 'LangChain',
     description:
-      'LangChain is a language-agnostic, open-source, and self-hosted API for text translation, summarization, and sentiment analysis.',
+      'LangChain 是一个与语言无关、开源、自托管的 API，用于文本翻译、摘要和情感分析。',
     href: '/guides/ai/langchain',
   },
   {
     name: 'LlamaIndex',
-    description: 'LlamaIndex is a data framework for your LLM applications.',
+    description: 'LlamaIndex 是一个用于 LLM 应用程序的数据框架。',
     href: '/guides/ai/integrations/llamaindex',
   },
 ]
 
 {/* <!-- vale on --> */}
 
-## Case studies
+## 案例研究
 
 {/* <!-- vale off --> */}
 
 <div className="grid md:grid-cols-12 gap-4 not-prose">
   {[
     {
-      name: 'Berri AI Boosts Productivity by Migrating from AWS RDS to Supabase with pgvector',
+      name: 'Berri AI 通过从 AWS RDS 迁移到 Supabase 和 pgvector 提高生产力',
       description:
-        'Learn how Berri AI overcame challenges with self-hosting their vector database on AWS RDS and successfully migrated to Supabase.',
+        '了解 Berri AI 如何克服在 AWS RDS 上自托管向量数据库的挑战，并成功迁移到 Supabase。',
       href: 'https://supabase.com/customers/berriai',
     },
     {
-      name: 'Mendable switches from Pinecone to Supabase for PostgreSQL vector embeddings',
+      name: 'Mendable 从 Pinecone 切换到 Supabase 用于 PostgreSQL 向量嵌入',
       description:
-        'How Mendable boosts efficiency and accuracy of chat powered search for documentation using Supabase with pgvector',
+        'Mendable 如何使用 Supabase 和 pgvector 提高文档聊天搜索的效率和准确性',
       href: 'https://supabase.com/customers/mendableai',
     },
     {
-      name: 'Markprompt: GDPR-Compliant AI Chatbots for Docs and Websites',
+      name: 'Markprompt：用于文档和网站的 GDPR 合规 AI 聊天机器人',
       description:
-        "AI-powered chatbot platform, Markprompt, empowers developers to deliver efficient and GDPR-compliant prompt experiences on top of their content, by leveraging Supabase's secure and privacy-focused database and authentication solutions",
+        'AI 驱动的聊天机器人平台 Markprompt 通过利用 Supabase 的安全和注重隐私的数据库和身份验证解决方案，使开发人员能够在其内容之上提供高效且符合 GDPR 的提示体验',
       href: 'https://supabase.com/customers/markprompt',
     },
   ].map((x) => (

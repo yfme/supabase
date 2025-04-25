@@ -1,27 +1,27 @@
 ---
-title: "Self-Hosting with Docker"
-description: "Learn how to configure and deploy Supabase with Docker."
-subtitle: "Learn how to configure and deploy Supabase with Docker."
+title: "使用 Docker 自托管"
+description: "了解如何使用 Docker 配置和部署 Supabase。"
+subtitle: "了解如何使用 Docker 配置和部署 Supabase。"
 tocVideo: "FqiQKRKsfZE"
 ---
 
-Docker is the easiest way to get started with self-hosted Supabase. It should only take you a few minutes to get up and running. This guide assumes you are running the command from the machine you intend to host from.
+Docker 是开始自托管 Supabase 的最简单方式。只需几分钟即可启动并运行。本指南假设您从计划托管的机器上运行命令。
 
-## Contents
+## 目录
 
-1. [Before you begin](#before-you-begin)
-2. [Installing and running Supabase](#installing-and-running-supabase)
-3. [Accessing your services](#accessing-supabase-studio)
-4. [Updating your services](#updating-your-services)
-5. [Securing your services](#securing-your-services)
+1. [开始之前](#before-you-begin)
+2. [安装和运行 Supabase](#installing-and-running-supabase)
+3. [访问服务](#accessing-supabase-studio)
+4. [更新服务](#updating-your-services)
+5. [保护服务安全](#securing-your-services)
 
-## Before you begin
+## 开始之前
 
-You need the following installed in your system: [Git](https://git-scm.com/downloads) and Docker ([Windows](https://docs.docker.com/desktop/install/windows-install/), [macOS](https://docs.docker.com/desktop/install/mac-install/), or [Linux](https://docs.docker.com/desktop/install/linux-install/)).
+您需要在系统中安装以下内容：[Git](https://git-scm.com/downloads) 和 Docker（[Windows](https://docs.docker.com/desktop/install/windows-install/)、[macOS](https://docs.docker.com/desktop/install/mac-install/) 或 [Linux](https://docs.docker.com/desktop/install/linux-install/)）。
 
-## Installing and running Supabase
+## 安装和运行 Supabase
 
-Follow these steps to start Supabase on your machine:
+按照以下步骤在您的机器上启动 Supabase：
 
 <Tabs
 scrollable
@@ -29,67 +29,67 @@ size="small"
 type="underlined"
 defaultActiveId="general"
 
-> <TabPanel id="general" label="General">
+> <TabPanel id="general" label="通用">
 
 ```sh
-# Get the code
+# 获取代码
 git clone --depth 1 https://github.com/supabase/supabase
 
-# Make your new supabase project directory
+# 创建新的 supabase 项目目录
 mkdir supabase-project
 
-# Tree should look like this
+# 目录结构应如下所示
 # .
 # ├── supabase
 # └── supabase-project
 
-# Copy the compose files over to your project
+# 将 compose 文件复制到项目中
 cp -rf supabase/docker/* supabase-project
 
-# Copy the fake env vars
+# 复制示例环境变量
 cp supabase/docker/.env.example supabase-project/.env
 
-# Switch to your project directory
+# 切换到项目目录
 cd supabase-project
 
-# Pull the latest images
+# 拉取最新镜像
 docker compose pull
 
-# Start the services (in detached mode)
+# 启动服务（在后台模式下）
 docker compose up -d
 ```
 
 </TabPanel>
-<TabPanel id="advanced" label="Advanced">
+<TabPanel id="advanced" label="高级">
 
 ```sh
-# Get the code using git sparse checkout
+# 使用 git sparse checkout 获取代码
 git clone --filter=blob:none --no-checkout https://github.com/supabase/supabase
 cd supabase
 git sparse-checkout set --cone docker && git checkout master
 cd ..
 
-# Make your new supabase project directory
+# 创建新的 supabase 项目目录
 mkdir supabase-project
 
-# Tree should look like this
+# 目录结构应如下所示
 # .
 # ├── supabase
 # └── supabase-project
 
-# Copy the compose files over to your project
+# 将 compose 文件复制到项目中
 cp -rf supabase/docker/* supabase-project
 
-# Copy the fake env vars
+# 复制示例环境变量
 cp supabase/docker/.env.example supabase-project/.env
 
-# Switch to your project directory
+# 切换到项目目录
 cd supabase-project
 
-# Pull the latest images
+# 拉取最新镜像
 docker compose pull
 
-# Start the services (in detached mode)
+# 启动服务（在后台模式下）
 docker compose up -d
 ```
 
@@ -98,140 +98,140 @@ docker compose up -d
 
 <Admonition type="tip">
 
-If you are using rootless docker, edit `.env` and set `DOCKER_SOCKET_LOCATION` to your docker socket location. For example: `/run/user/1000/docker.sock`. Otherwise, you will see an error like `container supabase-vector exited (0)`.
+如果您使用的是无根 docker，请编辑 `.env` 并将 `DOCKER_SOCKET_LOCATION` 设置为您的 docker 套接字位置。例如：`/run/user/1000/docker.sock`。否则，您将看到类似 `container supabase-vector exited (0)` 的错误。
 
 </Admonition>
 
-After all the services have started you can see them running in the background:
+所有服务启动后，您可以查看它们在后台运行的情况：
 
 ```sh
 docker compose ps
 ```
 
-All of the services should have a status `running (healthy)`. If you see a status like `created` but not `running`, try starting that service manually with `docker compose start <service-name>`.
+所有服务的状态应该都是 `running (healthy)`。如果您看到状态为 `created` 但不是 `running`，请尝试使用 `docker compose start <service-name>` 手动启动该服务。
 
 <Admonition type="danger">
 
-Your app is now running with default credentials.
-[Secure your services](#securing-your-services) as soon as possible using the instructions below.
+您的应用现在正在使用默认凭据运行。
+请尽快按照下面的说明[保护您的服务安全](#securing-your-services)。
 
 </Admonition>
 
-### Accessing Supabase Studio
+### 访问 Supabase Studio
 
-You can access Supabase Studio through the API gateway on port `8000`. For example: `http://<your-ip>:8000`, or [localhost:8000](http://localhost:8000) if you are running Docker locally.
+您可以通过端口 `8000` 上的 API 网关访问 Supabase Studio。例如：`http://<your-ip>:8000`，或者如果您在本地运行 Docker，则为 [localhost:8000](http://localhost:8000)。
 
-You will be prompted for a username and password. By default, the credentials are:
+系统会提示您输入用户名和密码。默认情况下，凭据为：
 
-- Username: `supabase`
-- Password: `this_password_is_insecure_and_should_be_updated`
+- 用户名：`supabase`
+- 密码：`this_password_is_insecure_and_should_be_updated`
 
-You should change these credentials as soon as possible using the [instructions](#dashboard-authentication) below.
+您应该尽快使用下面的[说明](#dashboard-authentication)更改这些凭据。
 
-### Accessing the APIs
+### 访问 API
 
-Each of the APIs are available through the same API gateway:
+每个 API 都可以通过相同的 API 网关访问：
 
-- REST: `http://<your-ip>:8000/rest/v1/`
-- Auth: `http://<your-domain>:8000/auth/v1/`
-- Storage: `http://<your-domain>:8000/storage/v1/`
-- Realtime: `http://<your-domain>:8000/realtime/v1/`
+- REST：`http://<your-ip>:8000/rest/v1/`
+- Auth：`http://<your-domain>:8000/auth/v1/`
+- Storage：`http://<your-domain>:8000/storage/v1/`
+- Realtime：`http://<your-domain>:8000/realtime/v1/`
 
-### Accessing your Edge Functions
+### 访问您的 Edge 函数
 
-Edge Functions are stored in `volumes/functions`. The default setup has a `hello` Function that you can invoke on `http://<your-domain>:8000/functions/v1/hello`.
+Edge 函数存储在 `volumes/functions` 中。默认设置有一个 `hello` 函数，您可以在 `http://<your-domain>:8000/functions/v1/hello` 上调用它。
 
-You can add new Functions as `volumes/functions/<FUNCTION_NAME>/index.ts`. Restart the `functions` service to pick up the changes: `docker compose restart functions --no-deps`
+您可以将新函数添加为 `volumes/functions/<FUNCTION_NAME>/index.ts`。重启 `functions` 服务以应用更改：`docker compose restart functions --no-deps`
 
-### Accessing Postgres
+### 访问 Postgres
 
-By default, the Supabase stack runs the [Supavisor](https://supabase.github.io/supavisor/development/docs/) connection pooler. Supavisor provides efficient management of database connections.
+默认情况下，Supabase 堆栈运行 [Supavisor](https://supabase.github.io/supavisor/development/docs/) 连接池管理器。Supavisor 提供高效的数据库连接管理。
 
-You can connect to the Postgres database using the following methods:
+您可以使用以下方法连接到 Postgres 数据库：
 
-1. For session-based connections (equivalent to direct Postgres connections):
+1. 对于基于会话的连接（相当于直接 Postgres 连接）：
 
 ```bash
 psql 'postgres://postgres.your-tenant-id:your-super-secret-and-long-postgres-password@localhost:5432/postgres'
 ```
 
-2. For pooled transactional connections:
+2. 对于池化事务连接：
 
 ```bash
 psql 'postgres://postgres.your-tenant-id:your-super-secret-and-long-postgres-password@localhost:6543/postgres'
 ```
 
-The default tenant ID is `your-tenant-id`, and the default password is `your-super-secret-and-long-postgres-password`. You should change these as soon as possible using the [instructions below](#update-secrets).
+默认租户 ID 是 `your-tenant-id`，默认密码是 `your-super-secret-and-long-postgres-password`。您应该尽快使用[下面的说明](#update-secrets)更改这些设置。
 
-By default, the database is not accessible from outside the local machine but the pooler is. You can [change this](#exposing-your-postgres-database) by updating the `docker-compose.yml` file.
+默认情况下，数据库不能从本地机器外部访问，但池管理器可以。您可以通过更新 `docker-compose.yml` 文件[更改此设置](#exposing-your-postgres-database)。
 
-You may also want to connect to your Postgres database via an ORM or another direct method other than `psql`.
+您可能还想通过 ORM 或除 `psql` 之外的另一种直接方法连接到 Postgres 数据库。
 
-For this you can use the standard Postgres connection string.
-You can find the the environment values mentioned below in the `.env` file which will be covered in the next section.
+为此，您可以使用标准的 Postgres 连接字符串。
+您可以在 `.env` 文件中找到下面提到的环境值，这将在下一节中介绍。
 
 ```
 postgres://postgres:[POSTGRES_PASSWORD]@[your-server-ip]:5432/[POSTGRES_DB]
 ```
 
-## Updating your services
+## 更新您的服务
 
-For security reasons, we "pin" the versions of each service in the docker-compose file (these versions are updated ~monthly). If you want to update any services immediately, you can do so by updating the version number in the docker compose file and then running `docker compose pull`. You can find all the latest docker images in the [Supabase Docker Hub](https://hub.docker.com/u/supabase).
+出于安全原因，我们在 docker-compose 文件中"固定"了每个服务的版本（这些版本大约每月更新一次）。如果您想立即更新任何服务，可以通过更新 docker compose 文件中的版本号，然后运行 `docker compose pull` 来实现。您可以在 [Supabase Docker Hub](https://hub.docker.com/u/supabase) 中找到所有最新的 docker 镜像。
 
-You should update your services frequently to get the latest features and bug fixes and security patches. Note that you will need to restart the services to pick up the changes, which will result in some downtime for your services.
+您应该经常更新服务以获取最新功能、错误修复和安全补丁。请注意，您需要重启服务才能应用更改，这将导致服务短暂停机。
 
-**Example**
-You'll want to update the Studio(Dashboard) frequently to get the latest features and bug fixes. To update the Dashboard:
+**示例**
+您会想要经常更新 Studio（仪表盘）以获取最新功能和错误修复。要更新仪表盘：
 
-1. Visit the [supabase/studio](https://hub.docker.com/r/supabase/studio/tags) image in the [Supabase Docker Hub](https://hub.docker.com/u/supabase)
-2. Find the latest version (tag) number. It will look something like `20241029-46e1e40`
-3. Update the `image` field in the `docker-compose.yml` file to the new version. It should look like this: `image: supabase/studio:20241028-a265374`
-4. Run `docker compose pull` and then `docker compose up -d` to restart the service with the new version.
+1. 访问 [Supabase Docker Hub](https://hub.docker.com/u/supabase) 中的 [supabase/studio](https://hub.docker.com/r/supabase/studio/tags) 镜像
+2. 找到最新版本（标签）号。它看起来类似于 `20241029-46e1e40`
+3. 更新 `docker-compose.yml` 文件中的 `image` 字段为新版本。它应该看起来像这样：`image: supabase/studio:20241028-a265374`
+4. 运行 `docker compose pull` 然后 `docker compose up -d` 以使用新版本重启服务。
 
-## Securing your services
+## 保护您的服务安全
 
-While we provided you with some example secrets for getting started, you should NEVER deploy your Supabase setup using the defaults we have provided. Follow all of the steps in this section to ensure you have a secure setup, and then [restart all services](#restarting-all-services) to pick up the changes.
+虽然我们为您提供了一些示例密钥以便入门，但您绝不应该使用我们提供的默认值部署 Supabase 设置。请按照本节中的所有步骤确保您拥有安全的设置，然后[重启所有服务](#restarting-all-services)以应用更改。
 
-### Generate API keys
+### 生成 API 密钥
 
-We need to generate secure keys for accessing your services. We'll use the `JWT Secret` to generate `anon` and `service` API keys using the form below.
+我们需要生成安全的密钥来访问您的服务。我们将使用 `JWT Secret` 使用下面的表单生成 `anon` 和 `service` API 密钥。
 
-1. **Obtain a Secret**: Use the 40-character secret provided, or create your own. If creating, ensure it's a strong, random string of 40 characters.
-2. **Store Securely**: Save the secret in a secure location on your local machine. Don't share this secret publicly or commit it to version control.
-3. **Generate a JWT**: Use the form below to generate a new `JWT` using your secret.
+1. **获取密钥**：使用提供的 40 个字符的密钥，或创建您自己的密钥。如果自行创建，请确保它是一个强大、随机的 40 个字符的字符串。
+2. **安全存储**：将密钥保存在本地机器的安全位置。不要公开共享此密钥或将其提交到版本控制系统。
+3. **生成 JWT**：使用下面的表单使用您的密钥生成新的 `JWT`。
 
 <JwtGenerator />
 
-### Update API keys
+### 更新 API 密钥
 
-Run this form twice to generate new `anon` and `service` API keys. Replace the values in the `./docker/.env` file:
+运行此表单两次以生成新的 `anon` 和 `service` API 密钥。替换 `./docker/.env` 文件中的值：
 
-- `ANON_KEY` - replace with an `anon` key
-- `SERVICE_ROLE_KEY` - replace with a `service` key
+- `ANON_KEY` - 替换为 `anon` 密钥
+- `SERVICE_ROLE_KEY` - 替换为 `service` 密钥
 
-You will need to [restart](#restarting-all-services) the services for the changes to take effect.
+您需要[重启](#restarting-all-services)服务才能使更改生效。
 
-### Update secrets
+### 更新密钥
 
-Update the `./docker/.env` file with your own secrets. In particular, these are required:
+使用您自己的密钥更新 `./docker/.env` 文件。特别是，以下这些是必需的：
 
-- `POSTGRES_PASSWORD`: the password for the `postgres` role.
-- `JWT_SECRET`: used by PostgREST and GoTrue, among others.
-- `SITE_URL`: the base URL of your site.
-- `SMTP_*`: mail server credentials. You can use any SMTP server.
-- `POOLER_TENANT_ID`: the tenant-id that will be used by Supavisor pooler for your connection string
+- `POSTGRES_PASSWORD`：`postgres` 角色的密码。
+- `JWT_SECRET`：由 PostgREST 和 GoTrue 等使用。
+- `SITE_URL`：您网站的基本 URL。
+- `SMTP_*`：邮件服务器凭据。您可以使用任何 SMTP 服务器。
+- `POOLER_TENANT_ID`：Supavisor 池管理器将用于您的连接字符串的租户 ID
 
-You will need to [restart](#restarting-all-services) the services for the changes to take effect.
+您需要[重启](#restarting-all-services)服务才能使更改生效。
 
-### Dashboard authentication
+### 仪表盘认证
 
-The Dashboard is protected with basic authentication. The default user and password MUST be updated before using Supabase in production.
-Update the following values in the `./docker/.env` file:
+仪表盘受基本认证保护。在生产环境中使用 Supabase 之前，必须更新默认用户和密码。
+更新 `./docker/.env` 文件中的以下值：
 
-- `DASHBOARD_USERNAME`: The default username for the Dashboard
-- `DASHBOARD_PASSWORD`: The default password for the Dashboard
+- `DASHBOARD_USERNAME`：仪表盘的默认用户名
+- `DASHBOARD_PASSWORD`：仪表盘的默认密码
 
-You can also add more credentials for multiple users in `./docker/volumes/api/kong.yml`. For example:
+您还可以在 `./docker/volumes/api/kong.yml` 中为多个用户添加更多凭据。例如：
 
 ```yaml docker/volumes/api/kong.yml
 basicauth_credentials:
@@ -243,94 +243,94 @@ basicauth_credentials:
     password: password_two
 ```
 
-To enable all dashboard features outside of `localhost`, update the following value in the `./docker/.env` file:
+要在 `localhost` 之外启用所有仪表盘功能，请更新 `./docker/.env` 文件中的以下值：
 
-- `SUPABASE_PUBLIC_URL`: The URL or IP used to access the dashboard
+- `SUPABASE_PUBLIC_URL`：用于访问仪表盘的 URL 或 IP
 
-You will need to [restart](#restarting-all-services) the services for the changes to take effect.
+您需要[重启](#restarting-all-services)服务才能使更改生效。
 
-## Restarting all services
+## 重启所有服务
 
-You can restart services to pick up any configuration changes by running:
+您可以通过运行以下命令重启服务以应用任何配置更改：
 
 ```sh
-# Stop and remove the containers
+# 停止并移除容器
 docker compose down
 
-# Recreate and start the containers
+# 重新创建并启动容器
 docker compose up -d
 ```
 
 {/* supa-mdx-lint-disable-next-line Rule004ExcludeWords */}
 
-Be aware that this will result in downtime. Simply restarting the services does not apply configuration changes.
+请注意，这将导致服务停机。仅仅重启服务不会应用配置更改。
 
-## Stopping all services
+## 停止所有服务
 
-You can stop Supabase by running `docker compose stop` in same directory as your `docker-compose.yml` file.
+您可以在与 `docker-compose.yml` 文件相同的目录中运行 `docker compose stop` 来停止 Supabase。
 
-## Uninstalling
+## 卸载
 
-You can stop Supabase by running the following in same directory as your `docker-compose.yml` file:
+您可以在与 `docker-compose.yml` 文件相同的目录中运行以下命令来停止 Supabase：
 
 ```sh
-# Stop docker and remove volumes:
+# 停止 docker 并移除卷：
 docker compose down -v
 
-# Remove Postgres data:
+# 移除 Postgres 数据：
 rm -rf volumes/db/data/
 ```
 
-This will destroy all data in the database and storage volumes, so be careful!
+这将销毁数据库和存储卷中的所有数据，所以请小心！
 
-## Managing your secrets
+## 管理您的密钥
 
-Many components inside Supabase use secure secrets and passwords. These are listed in the self-hosting [env file](https://github.com/supabase/supabase/blob/master/docker/.env.example), but we strongly recommend using a secrets manager when deploying to production. Plain text files like dotenv lead to accidental costly leaks.
+Supabase 内的许多组件使用安全密钥和密码。这些列在自托管的 [env 文件](https://github.com/supabase/supabase/blob/master/docker/.env.example)中，但我们强烈建议在部署到生产环境时使用密钥管理器。像 dotenv 这样的纯文本文件可能导致意外的昂贵泄漏。
 
-Some suggested systems include:
+一些建议的系统包括：
 
 - [Doppler](https://www.doppler.com/)
 - [Infisical](https://infisical.com/)
-- [Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview) by Azure (Microsoft)
-- [Secrets Manager](https://aws.amazon.com/secrets-manager/) by AWS
-- [Secrets Manager](https://cloud.google.com/secret-manager) by GCP
-- [Vault](https://www.hashicorp.com/products/vault) by HashiCorp
+- Azure 的 [Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview)（Microsoft）
+- AWS 的 [Secrets Manager](https://aws.amazon.com/secrets-manager/)
+- GCP 的 [Secrets Manager](https://cloud.google.com/secret-manager)
+- HashiCorp 的 [Vault](https://www.hashicorp.com/products/vault)
 
-## Advanced
+## 高级
 
-Everything beyond this point in the guide helps you understand how the system works and how you can modify it to suit your needs.
+本指南中此点之后的所有内容都有助于您了解系统的工作原理以及如何修改它以满足您的需求。
 
-### Architecture
+### 架构
 
-Supabase is a combination of open source tools, each specifically chosen for Enterprise-readiness.
+Supabase 是开源工具的组合，每个工具都是专门为企业级准备而选择的。
 
-If the tools and communities already exist, with an MIT, Apache 2, or equivalent open license, we will use and support that tool.
-If the tool doesn't exist, we build and open source it ourselves.
+如果工具和社区已经存在，具有 MIT、Apache 2 或等效的开放许可证，我们将使用并支持该工具。
+如果工具不存在，我们会自己构建并开源它。
 
 <Image
-  alt="Diagram showing the architecture of Supabase. The Kong API gateway sits in front of 7 services: GoTrue, PostgREST, Realtime, Storage, pg_meta, Functions, and pg_graphql. All the services talk to a single Postgres instance."
+  alt="显示 Supabase 架构的图表。Kong API 网关位于 7 个服务的前面：GoTrue、PostgREST、Realtime、Storage、pg_meta、Functions 和 pg_graphql。所有服务都与单个 Postgres 实例通信。"
   src={{
     dark: "/docs/img/supabase-architecture.svg",
     light: "/docs/img/supabase-architecture--light.svg",
   }}
 />
 
-- [Kong](https://github.com/Kong/kong) is a cloud-native API gateway.
-- [GoTrue](https://github.com/supabase/gotrue) is an JWT based API for managing users and issuing JWT tokens.
-- [PostgREST](http://postgrest.org/) is a web server that turns your Postgres database directly into a RESTful API
-- [Realtime](https://github.com/supabase/realtime) is an Elixir server that allows you to listen to Postgres inserts, updates, and deletes using WebSockets. Realtime polls Postgres' built-in replication functionality for database changes, converts changes to JSON, then broadcasts the JSON over WebSockets to authorized clients.
-- [Storage](https://github.com/supabase/storage-api) provides a RESTful interface for managing Files stored in S3, using Postgres to manage permissions.
-- [`postgres-meta`](https://github.com/supabase/postgres-meta) is a RESTful API for managing your Postgres, allowing you to fetch tables, add roles, and run queries, etc.
-- [Postgres](https://www.postgresql.org/) is an object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.
-- [Supavisor](https://github.com/supabase/supavisor) is a scalable connection pooler for Postgres, allowing for efficient management of database connections.
+- [Kong](https://github.com/Kong/kong) 是一个云原生 API 网关。
+- [GoTrue](https://github.com/supabase/gotrue) 是一个基于 JWT 的 API，用于管理用户和发行 JWT 令牌。
+- [PostgREST](http://postgrest.org/) 是一个 Web 服务器，可以将您的 Postgres 数据库直接转换为 RESTful API。
+- [Realtime](https://github.com/supabase/realtime) 是一个 Elixir 服务器，允许您使用 WebSockets 监听 Postgres 的插入、更新和删除操作。Realtime 轮询 Postgres 内置的复制功能以获取数据库更改，将更改转换为 JSON，然后通过 WebSockets 广播 JSON 到授权客户端。
+- [Storage](https://github.com/supabase/storage-api) 提供了一个 RESTful 接口，用于管理存储在 S3 中的文件，使用 Postgres 管理权限。
+- [`postgres-meta`](https://github.com/supabase/postgres-meta) 是一个 RESTful API，用于管理您的 Postgres，允许您获取表、添加角色和运行查询等。
+- [Postgres](https://www.postgresql.org/) 是一个对象关系数据库系统，拥有超过 30 年的积极开发历史，因其可靠性、功能健壮性和性能而享有良好声誉。
+- [Supavisor](https://github.com/supabase/supavisor) 是 Postgres 的可扩展连接池管理器，允许高效管理数据库连接。
 
-For the system to work cohesively, some services require additional configuration within the Postgres database. For example, the APIs and Auth system require several [default roles](/docs/guides/database/postgres/roles) and the `pgjwt` Postgres extension.
+为了使系统协同工作，一些服务需要在 Postgres 数据库中进行额外配置。例如，API 和身份验证系统需要几个[默认角色](/docs/guides/database/postgres/roles)和 `pgjwt` Postgres 扩展。
 
-You can find all the default extensions inside the [schema migration scripts repo](https://github.com/supabase/postgres/tree/develop/migrations). These scripts are mounted at `/docker-entrypoint-initdb.d` to run automatically when starting the database container.
+您可以在[架构迁移脚本仓库](https://github.com/supabase/postgres/tree/develop/migrations)中找到所有默认扩展。这些脚本挂载在 `/docker-entrypoint-initdb.d` 上，在启动数据库容器时自动运行。
 
-### Configuring services
+### 配置服务
 
-Each system has a number of configuration options which can be found in the relevant product documentation.
+每个系统都有许多配置选项，可以在相关产品文档中找到。
 
 - [Postgres](https://hub.docker.com/_/postgres/)
 - [PostgREST](https://postgrest.org/en/stable/configuration.html)
@@ -340,7 +340,7 @@ Each system has a number of configuration options which can be found in the rele
 - [Kong](https://docs.konghq.com/gateway/latest/install/docker/)
 - [Supavisor](https://supabase.github.io/supavisor/development/docs/)
 
-These configuration items are generally added to the `env` section of each service, inside the `docker-compose.yml` section. If these configuration items are sensitive, they should be stored in a [secret manager](/docs/guides/self-hosting#managing-your-secrets) or using an `.env` file and then referenced using the `${}` syntax.
+这些配置项通常添加到 `docker-compose.yml` 部分中每个服务的 `env` 部分。如果这些配置项敏感，应该存储在[密钥管理器](/docs/guides/self-hosting#managing-your-secrets)中或使用 `.env` 文件，然后使用 `${}` 语法引用。
 
 <$CodeTabs>
 
@@ -353,19 +353,19 @@ services:
 ```
 
 ```bash name=.env
-## Never check your secrets into version control
+## 切勿将您的密钥检入版本控制系统
 `${JWT_SECRET}`
 ```
 
 </$CodeTabs>
 
-### Common configuration
+### 常见配置
 
-Each system can be [configured](../self-hosting#configuration) independently. Some of the most common configuration options are listed below.
+每个系统都可以独立[配置](../self-hosting#configuration)。下面列出了一些最常见的配置选项。
 
-#### Configuring an email server
+#### 配置电子邮件服务器
 
-You will need to use a production-ready SMTP server for sending emails. You can configure the SMTP server by updating the following environment variables:
+您需要使用生产就绪的 SMTP 服务器来发送电子邮件。您可以通过更新以下环境变量来配置 SMTP 服务器：
 
 ```sh .env
 SMTP_ADMIN_EMAIL=
@@ -376,11 +376,11 @@ SMTP_PASS=
 SMTP_SENDER_NAME=
 ```
 
-We recommend using [AWS SES](https://aws.amazon.com/ses/). It's extremely cheap and reliable. Restart all services to pick up the new configuration.
+我们推荐使用 [AWS SES](https://aws.amazon.com/ses/)。它非常便宜且可靠。重启所有服务以应用新配置。
 
-#### Configuring S3 Storage
+#### 配置 S3 存储
 
-By default all files are stored locally on the server. You can configure the Storage service to use S3 by updating the following environment variables:
+默认情况下，所有文件都存储在服务器上的本地。您可以通过更新以下环境变量将 Storage 服务配置为使用 S3：
 
 ```yaml docker-compose.yml
 storage:
@@ -389,11 +389,11 @@ storage:
     REGION=region-of-your-s3-bucket
 ```
 
-You can find all the available options in the [storage repository](https://github.com/supabase/storage-api/blob/master/.env.sample). Restart the `storage` service to pick up the changes: `docker compose restart storage --no-deps`
+您可以在 [storage 仓库](https://github.com/supabase/storage-api/blob/master/.env.sample)中找到所有可用选项。重启 `storage` 服务以应用更改：`docker compose restart storage --no-deps`
 
-#### Configuring Supabase AI Assistant
+#### 配置 Supabase AI 助手
 
-Configuring the Supabase AI Assistant is optional. By adding your own `OPENAI_API_KEY`, you can enable AI services, which help with writing SQL queries, statements, and policies.
+配置 Supabase AI 助手是可选的。通过添加您自己的 `OPENAI_API_KEY`，您可以启用 AI 服务，这些服务有助于编写 SQL 查询、语句和策略。
 
 <$CodeTabs>
 
@@ -406,28 +406,28 @@ services:
 ```
 
 ```bash name=.env
-## Never check your secrets into version control
+## 切勿将您的密钥检入版本控制系统
 `${OPENAI_API_KEY}`
 ```
 
 </$CodeTabs>
 
-#### Setting database's `log_min_messages`
+#### 设置数据库的 `log_min_messages`
 
-By default, `docker compose` sets the database's `log_min_messages` configuration to `fatal` to prevent redundant logs generated by Realtime. You can configure `log_min_messages` using any of the Postgres [Severity Levels](https://www.postgresql.org/docs/current/runtime-config-logging.html#RUNTIME-CONFIG-SEVERITY-LEVELS).
+默认情况下，`docker compose` 将数据库的 `log_min_messages` 配置设置为 `fatal`，以防止 Realtime 生成冗余日志。您可以使用任何 Postgres [严重性级别](https://www.postgresql.org/docs/current/runtime-config-logging.html#RUNTIME-CONFIG-SEVERITY-LEVELS)配置 `log_min_messages`。
 
-#### Accessing Postgres through Supavisor
+#### 通过 Supavisor 访问 Postgres
 
-By default, the Postgres database is accessible through the Supavisor connection pooler. This allows for more efficient management of database connections. You can connect to the pooled database using the `POOLER_PROXY_PORT_TRANSACTION` port and `POSTGRES_PORT` for session based connections.
+默认情况下，Postgres 数据库可以通过 Supavisor 连接池管理器访问。这允许更高效地管理数据库连接。您可以使用 `POOLER_PROXY_PORT_TRANSACTION` 端口连接到池化数据库，使用 `POSTGRES_PORT` 进行基于会话的连接。
 
-For more information on configuring and using Supavisor, see the [Supavisor documentation](https://supabase.github.io/supavisor/).
+有关配置和使用 Supavisor 的更多信息，请参阅 [Supavisor 文档](https://supabase.github.io/supavisor/development/docs/)。
 
-#### Exposing your Postgres database
+#### 暴露您的 Postgres 数据库
 
-If you need direct access to the Postgres database without going through Supavisor, you can expose it by updating the `docker-compose.yml` file:
+如果您需要不通过 Supavisor 直接访问 Postgres 数据库，可以通过更新 `docker-compose.yml` 文件来实现：
 
 ```yaml docker-compose.yml
-# Comment or remove the supavisor section of the docker-compose file
+# 注释或删除 docker-compose 文件的 supavisor 部分
 #  supavisor:
 #    ports:
 # ...
@@ -436,42 +436,42 @@ db:
     - ${POSTGRES_PORT}:${POSTGRES_PORT}
 ```
 
-This is less-secure, so make sure you are running a firewall in front of your server.
+这不太安全，所以请确保在服务器前面运行防火墙。
 
-#### File storage backend on macOS
+#### macOS 上的文件存储后端
 
-By default, Storage backend is set to `file`, which is to use local files as the storage backend. For macOS compatibility, you need to choose `VirtioFS` as the Docker container file sharing implementation (in Docker Desktop -> Preferences -> General).
+默认情况下，Storage 后端设置为 `file`，即使用本地文件作为存储后端。为了兼容 macOS，您需要选择 `VirtioFS` 作为 Docker 容器文件共享实现（在 Docker Desktop -> Preferences -> General 中）。
 
-#### Setting up logging with the Analytics server
+#### 使用 Analytics 服务器设置日志记录
 
-Additional configuration is required for self-hosting the Analytics server. For the full setup instructions, see [Self Hosting Analytics](https://supabase.com/docs/reference/self-hosting-analytics/introduction#getting-started).
+自托管 Analytics 服务器需要额外的配置。有关完整的设置说明，请参阅[自托管 Analytics](https://supabase.com/docs/reference/self-hosting-analytics/introduction#getting-started)。
 
-### Upgrading Analytics
+### 升级 Analytics
 
-Due to the changes in the Analytics server, you will need to run the following commands to upgrade your Analytics server:
+由于 Analytics 服务器的变更，您需要运行以下命令来升级您的 Analytics 服务器：
 
 <Admonition type="caution">
 
-All data in analytics will be deleted when you run the commands below.
+当您运行下面的命令时，analytics 中的所有数据都将被删除。
 
 </Admonition>
 
 ```sh
-### Destroy analytics to transition to postgres self hosted solution without other data loss
+### 销毁 analytics 以过渡到 postgres 自托管解决方案，而不会丢失其他数据
 
-# Enter the container and use your .env POSTGRES_PASSWORD value to login
+# 进入容器并使用您的 .env POSTGRES_PASSWORD 值登录
 docker exec -it $(docker ps | grep supabase-db | awk '{print $1}') psql -U supabase_admin --password
-# Drop all the data in the _analytics schema
+# 删除 _analytics 架构中的所有数据
 DROP PUBLICATION logflare_pub; DROP SCHEMA _analytics CASCADE; CREATE SCHEMA _analytics;\q
-# Drop the analytics container
+# 删除 analytics 容器
 docker rm supabase-analytics
 ```
 
 ---
 
-## Demo
+## 演示
 
-A minimal setup working on Ubuntu, hosted on DigitalOcean.
+在 Ubuntu 上运行的最小设置，托管在 DigitalOcean 上。
 
 <div className="video-container">
   <iframe
@@ -482,8 +482,8 @@ A minimal setup working on Ubuntu, hosted on DigitalOcean.
   ></iframe>
 </div>
 
-### Demo using DigitalOcean
+### 使用 DigitalOcean 的演示
 
-1. A DigitalOcean Droplet with 1 GB memory and 25 GB solid-state drive (SSD) is sufficient to start
-2. To access the Dashboard, use the ipv4 IP address of your Droplet.
-3. If you're unable to access Dashboard, run `docker compose ps` to see if the Studio service is running and healthy.
+1. 一个具有 1 GB 内存和 25 GB 固态硬盘 (SSD) 的 DigitalOcean Droplet 足以开始
+2. 要访问仪表盘，请使用 Droplet 的 IPv4 IP 地址。
+3. 如果您无法访问仪表盘，请运行 `docker compose ps` 以查看 Studio 服务是否正在运行且健康。
